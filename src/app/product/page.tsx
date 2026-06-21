@@ -15,6 +15,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { NEUROPULSE_PRODUCT } from "@/lib/product";
 import { cn } from "@/lib/utils";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
+import { ProductFaq } from "@/components/commerce/ProductFaq";
 
 export const metadata: Metadata = {
   title: "Buy NeuroPulseAI Single-Channel EMG Kit | Debuggers Squad",
@@ -257,6 +258,8 @@ export default function ProductPage() {
           </div>
         </div>
       </section>
+
+      <ProductFaq />
 
       <section className="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="flex gap-4 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-amber-950">
