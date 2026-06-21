@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Menu, ShoppingBag, X } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
@@ -9,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { useCart } from "@/components/cart/CartProvider";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FounderConnect } from "@/components/layout/FounderConnect";
+import { AnimatedBrand } from "@/components/layout/AnimatedBrand";
 
 const links = [
   { href: "/product", label: "NeuroPulseAI" },
@@ -45,25 +45,7 @@ export function Navbar() {
       </div>
       <nav className="sticky top-0 z-50 border-b border-[#e5def8] bg-[#fbfaff]/90 backdrop-blur-xl">
         <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-            <span className="relative grid size-10 place-items-center overflow-hidden rounded-xl bg-black">
-              <Image
-                src="/images/neuropulseai/gallery/debuggers-squad-logo.jpeg"
-                alt=""
-                fill
-                sizes="40px"
-                className="object-cover"
-              />
-            </span>
-            <span className="leading-none">
-              <span className="block text-[15px] font-black tracking-[0.08em] text-[#2f1c6a]">
-                DEBUGGERS SQUAD
-              </span>
-              <span className="mt-1 block text-[10px] font-bold tracking-[0.22em] text-[#8b5cf6]">
-                BUILD · INNOVATE · IMPACT
-              </span>
-            </span>
-          </Link>
+          <AnimatedBrand onClick={() => setOpen(false)} />
 
           <div className="hidden items-center gap-5 xl:flex">
             {links.map((link) => (
