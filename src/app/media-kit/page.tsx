@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { PitchDeckViewer } from "@/components/media/PitchDeckViewer";
 
 export const metadata: Metadata = {
   title: "Investor & Media Kit | Debuggers Squad",
@@ -188,6 +189,8 @@ export default function MediaKitPage() {
           </div>
         </div>
       </section>
+
+      <PitchDeckViewer />
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="grid gap-6 lg:grid-cols-2">
