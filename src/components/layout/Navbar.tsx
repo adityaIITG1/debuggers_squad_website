@@ -15,7 +15,7 @@ const links = [
   { href: "/paratalk", label: "ParaTalk" },
   { href: "/demo", label: "How it works" },
   { href: "/about", label: "Our story" },
-  { href: "/media-kit", label: "Media kit" },
+  { href: "/media-kit", label: "Investors" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -26,8 +26,22 @@ export function Navbar() {
 
   return (
     <>
-      <div className="bg-[#2f1c6a] px-4 py-2 text-center text-xs font-semibold text-white sm:text-sm">
-        Two impact products: NeuroPulseAI EMG at ₹2,999 and ParaTalk eye-blink control at ₹7,999
+      <div className="relative z-[60] bg-[#2f1c6a] px-4 py-2 text-white">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
+          <p className="hidden text-xs font-semibold lg:block xl:text-sm">
+            Two impact products: NeuroPulseAI EMG at ₹2,999 and ParaTalk eye-blink
+            control at ₹7,999
+          </p>
+          <div className="ml-auto flex w-full items-center justify-end gap-2 sm:w-auto">
+            <FounderConnect />
+            <Link
+              href="/media-kit"
+              className="inline-flex h-10 items-center justify-center rounded-xl border border-white/25 bg-white/10 px-4 text-xs font-black text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20 sm:text-sm"
+            >
+              Investors
+            </Link>
+          </div>
+        </div>
       </div>
       <nav className="sticky top-0 z-50 border-b border-[#e5def8] bg-[#fbfaff]/90 backdrop-blur-xl">
         <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -64,7 +78,6 @@ export function Navbar() {
           </div>
 
           <div className="hidden items-center gap-3 lg:flex">
-            <FounderConnect />
             <Link
               href="/cart"
               className={cn(
