@@ -156,7 +156,7 @@ export default function CheckoutPage() {
           email: formData.email,
           contact: normalizedPhone,
         },
-        theme: { color: "#1d4ed8" },
+        theme: { color: "#673de6" },
       };
 
       const checkout = new window.Razorpay(options);
@@ -176,12 +176,12 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="bg-[#f7f8fc] text-slate-950">
+    <div className="bg-[#fbfaff] text-[#2f1c6a]">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
 
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
         <div className="mb-9">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-700">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#673de6]">
             Final step
           </p>
           <h1 className="mt-2 text-4xl font-black tracking-tight">Secure checkout</h1>
@@ -253,7 +253,7 @@ export default function CheckoutPage() {
               type="submit"
               size="lg"
               disabled={loading}
-              className="h-14 w-full rounded-xl bg-blue-700 text-base font-bold text-white shadow-lg shadow-blue-700/20 hover:bg-blue-800"
+              className="h-14 w-full rounded-xl bg-[#673de6] text-base font-bold text-white shadow-lg shadow-violet-700/20 hover:bg-[#5630c9]"
             >
               <LockKeyhole className="size-4" />
               {loading
@@ -285,14 +285,14 @@ export default function CheckoutPage() {
                   <span className="text-slate-600">Delivery</span>
                   <span className="font-semibold text-emerald-700">Free</span>
                 </div>
-                <div className="flex items-start gap-3 rounded-xl bg-blue-50 p-4 text-sm text-blue-950">
-                  <PackageCheck className="mt-0.5 size-5 shrink-0 text-blue-700" />
+                <div className="flex items-start gap-3 rounded-xl bg-[#f0ebff] p-4 text-sm text-[#2f1c6a]">
+                  <PackageCheck className="mt-0.5 size-5 shrink-0 text-[#673de6]" />
                   <span>Includes device, sensor, electrodes, software, and setup guide.</span>
                 </div>
               </CardContent>
               <CardFooter className="flex justify-between border-t border-slate-200 bg-slate-50 py-5">
                 <span className="text-lg font-bold">Total</span>
-                <span className="text-2xl font-black text-blue-700">
+                <span className="text-2xl font-black text-[#673de6]">
                   ₹{NEUROPULSE_PRODUCT.price.toLocaleString("en-IN")}
                 </span>
               </CardFooter>

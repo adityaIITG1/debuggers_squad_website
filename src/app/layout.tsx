@@ -15,14 +15,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" style={{ colorScheme: "dark" }}>
+    <html lang="en">
       <body className="min-h-screen flex flex-col bg-background text-foreground antialiased">
         <Navbar />
         <main className="flex-1 flex flex-col">
           {children}
         </main>
         <Footer />
-        <Toaster theme="dark" position="bottom-right" />
+        <Toaster theme="light" position="bottom-right" />
       </body>
     </html>
   );

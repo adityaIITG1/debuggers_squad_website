@@ -52,7 +52,7 @@ const useCases = [
 
 export default function ProductPage() {
   return (
-    <div className="min-h-screen bg-[#f7f8fc] text-slate-950">
+    <div className="min-h-screen bg-[#fbfaff] text-[#2f1c6a]">
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:py-16">
           <div className="space-y-4">
@@ -99,7 +99,7 @@ export default function ProductPage() {
 
           <div className="flex flex-col justify-center">
             <div className="mb-5 flex flex-wrap gap-2">
-              <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+              <span className="rounded-full bg-[#f0ebff] px-3 py-1 text-xs font-semibold text-[#673de6]">
                 Single-channel EMG
               </span>
               <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
@@ -107,11 +107,11 @@ export default function ProductPage() {
               </span>
             </div>
 
-            <p className="mb-2 text-sm font-bold uppercase tracking-[0.22em] text-blue-700">
+            <p className="mb-2 text-sm font-bold uppercase tracking-[0.22em] text-[#673de6]">
               Debuggers Squad
             </p>
             <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
-              NeuroPulse<span className="text-blue-700">AI</span>
+              NeuroPulse<span className="text-[#673de6]">AI</span>
             </h1>
             <p className="mt-3 text-xl font-medium text-slate-600">
               Portable EMG muscle-activity feedback kit
@@ -141,7 +141,7 @@ export default function ProductPage() {
                 "Software and setup guide included",
               ].map((feature) => (
                 <div key={feature} className="flex items-center gap-2 text-sm font-medium">
-                  <span className="grid size-5 place-items-center rounded-full bg-blue-100 text-blue-700">
+                  <span className="grid size-5 place-items-center rounded-full bg-[#e8e0ff] text-[#673de6]">
                     <Check className="size-3.5" />
                   </span>
                   {feature}
@@ -154,7 +154,7 @@ export default function ProductPage() {
                 href="/checkout"
                 className={cn(
                   buttonVariants({ size: "lg" }),
-                  "h-14 w-full rounded-xl bg-blue-700 text-base font-bold text-white shadow-lg shadow-blue-700/20 hover:bg-blue-800"
+                  "h-14 w-full rounded-xl bg-[#673de6] text-base font-bold text-white shadow-lg shadow-violet-700/20 hover:bg-[#5630c9]"
                 )}
               >
                 Buy now for ₹{NEUROPULSE_PRODUCT.price.toLocaleString("en-IN")}
@@ -174,11 +174,11 @@ export default function ProductPage() {
 
             <div className="mt-6 grid grid-cols-2 gap-3 border-t border-slate-200 pt-6 text-sm text-slate-600">
               <span className="flex items-center gap-2">
-                <ShieldCheck className="size-4 text-blue-700" />
+                <ShieldCheck className="size-4 text-[#673de6]" />
                 Secure Razorpay payment
               </span>
               <span className="flex items-center gap-2">
-                <Truck className="size-4 text-blue-700" />
+                <Truck className="size-4 text-[#673de6]" />
                 India-wide shipping
               </span>
             </div>
@@ -207,7 +207,7 @@ export default function ProductPage() {
                 key={title}
                 className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
               >
-                <span className="grid size-11 place-items-center rounded-2xl bg-blue-50 text-blue-700">
+                <span className="grid size-11 place-items-center rounded-2xl bg-[#f0ebff] text-[#673de6]">
                   <Icon className="size-5" />
                 </span>
                 <h3 className="mt-5 text-lg font-bold">{title}</h3>
@@ -221,7 +221,7 @@ export default function ProductPage() {
       <section className="border-y border-slate-200 bg-white">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-700">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#673de6]">
               Simple setup
             </p>
             <h2 className="mt-3 text-3xl font-black">From box to live signal</h2>
@@ -232,7 +232,7 @@ export default function ProductPage() {
                 ["Observe", "Place electrodes correctly and view the live EMG graph."],
               ].map(([title, text], index) => (
                 <li key={title} className="flex gap-4">
-                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-blue-700 font-bold text-white">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[#673de6] font-bold text-white">
                     {index + 1}
                   </span>
                   <div>
@@ -267,17 +267,17 @@ export default function ProductPage() {
         </div>
       </section>
 
-      <section className="bg-blue-700 px-4 py-14 text-center text-white">
+      <section className="bg-[#673de6] px-4 py-14 text-center text-white">
         <Laptop className="mx-auto size-9 text-cyan-300" />
         <h2 className="mt-4 text-3xl font-black">Start exploring muscle signals</h2>
-        <p className="mx-auto mt-3 max-w-xl text-blue-100">
+        <p className="mx-auto mt-3 max-w-xl text-[#ddd4ff]">
           One complete NeuroPulseAI kit, software included, delivered to your door.
         </p>
         <Link
           href="/checkout"
           className={cn(
             buttonVariants({ size: "lg" }),
-            "mt-7 bg-white font-bold text-blue-800 hover:bg-blue-50"
+            "mt-7 bg-white font-bold text-[#673de6] hover:bg-[#f5f2ff]"
           )}
         >
           Proceed to secure checkout

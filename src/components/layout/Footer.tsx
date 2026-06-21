@@ -1,75 +1,101 @@
+import Image from "next/image";
 import Link from "next/link";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Camera, Mail, MessageCircle } from "lucide-react";
+
+const footerGroups = [
+  {
+    title: "Product",
+    links: [
+      ["/product", "NeuroPulseAI"],
+      ["/demo", "Demo & validation"],
+      ["/checkout", "Secure checkout"],
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      ["/about", "About us"],
+      ["/contact", "Contact"],
+      ["/admin", "Admin portal"],
+    ],
+  },
+  {
+    title: "Policies",
+    links: [
+      ["/policies/shipping", "Shipping"],
+      ["/policies/refunds", "Returns & refunds"],
+      ["/policies/privacy", "Privacy"],
+      ["/policies/terms", "Terms"],
+    ],
+  },
+];
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-border bg-background py-12 md:py-16">
-      <div className="container px-4 md:px-8 max-w-7xl mx-auto flex flex-col gap-8">
-        
-        {/* Important Disclaimer Section */}
-        <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 sm:p-6 text-sm text-destructive-foreground">
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
-            <div className="flex flex-col gap-2">
-              <h4 className="font-semibold text-destructive">IMPORTANT LEGAL & MEDICAL DISCLAIMER</h4>
-              <p>
-                NeuroPulseAI is presented solely as an educational, research, and innovation project-kit prototype. 
-                <strong> It is NOT a certified medical device, diagnostic device, treatment device, or cure device.</strong>
-              </p>
-              <p>
-                This product is intended for student projects, innovation demonstrations, and physiotherapy learning concepts. 
-                Any information provided by the device or our software should not replace professional medical advice. 
-                Consult a certified healthcare professional for any medical concerns.
-              </p>
+    <footer className="border-t border-[#ddd4f5] bg-[#f0ebff] text-[#2f1c6a]">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr]">
+          <div className="max-w-md">
+            <Link href="/" className="flex items-center gap-3">
+              <span className="relative grid size-11 overflow-hidden rounded-xl bg-black">
+                <Image
+                  src="/images/neuropulseai/gallery/debuggers-squad-logo.jpeg"
+                  alt=""
+                  fill
+                  sizes="44px"
+                  className="object-cover"
+                />
+              </span>
+              <span className="text-lg font-black tracking-wide">DEBUGGERS SQUAD</span>
+            </Link>
+            <p className="mt-5 leading-7 text-[#574a7d]">
+              Affordable, human-centered neurotechnology for education, research,
+              physiotherapy learning, and real-world innovation.
+            </p>
+            <div className="mt-6 flex gap-3">
+              <a href="https://wa.me/919170397988" aria-label="WhatsApp" className="grid size-10 place-items-center rounded-full bg-white text-[#673de6] shadow-sm transition-transform hover:-translate-y-0.5">
+                <MessageCircle className="size-4" />
+              </a>
+              <a href="mailto:debuggerssquad@gmail.com" aria-label="Email" className="grid size-10 place-items-center rounded-full bg-white text-[#673de6] shadow-sm transition-transform hover:-translate-y-0.5">
+                <Mail className="size-4" />
+              </a>
+              <a href="https://instagram.com/debuggers_squad" target="_blank" rel="noreferrer" aria-label="Instagram" className="grid size-10 place-items-center rounded-full bg-white text-[#673de6] shadow-sm transition-transform hover:-translate-y-0.5">
+                <Camera className="size-4" />
+              </a>
             </div>
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="flex flex-col gap-4">
-            <span className="font-bold text-xl tracking-tight text-neon-cyan">
-              {"< /> "}
-              <span className="text-foreground">DEBUGGERS SQUAD</span>
-            </span>
-            <p className="text-sm text-muted-foreground">
-              Build • Innovate • Impact
-            </p>
-            <p className="text-sm text-muted-foreground mt-4">
-              Building affordable neurotechnology, bio-signal, and assistive innovation for India.
-            </p>
-          </div>
-          
-          <div className="flex flex-col gap-3">
-            <h4 className="font-semibold">Product</h4>
-            <Link href="/product" className="text-sm text-muted-foreground hover:text-primary transition-colors">NeuroPulseAI</Link>
-            <Link href="/demo" className="text-sm text-muted-foreground hover:text-primary transition-colors">Demo & Validation</Link>
-            <Link href="/impact" className="text-sm text-muted-foreground hover:text-primary transition-colors">India Impact</Link>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <h4 className="font-semibold">Company</h4>
-            <Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Us</Link>
-            <Link href="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact</Link>
-            <Link href="/admin" className="text-sm text-muted-foreground hover:text-primary transition-colors">Admin Portal</Link>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <h4 className="font-semibold">Legal</h4>
-            <Link href="/policies/shipping" className="text-sm text-muted-foreground hover:text-primary transition-colors">Shipping Policy</Link>
-            <Link href="/policies/refunds" className="text-sm text-muted-foreground hover:text-primary transition-colors">Return / Refund Policy</Link>
-            <Link href="/policies/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link href="/policies/terms" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms & Conditions</Link>
-            <Link href="/policies/disclaimer" className="text-sm text-muted-foreground hover:text-primary transition-colors">Legal Disclaimer</Link>
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+            {footerGroups.map((group) => (
+              <div key={group.title}>
+                <h3 className="text-sm font-black uppercase tracking-[0.16em]">{group.title}</h3>
+                <ul className="mt-5 space-y-3">
+                  {group.links.map(([href, label]) => (
+                    <li key={href}>
+                      <Link href={href} className="text-sm font-medium text-[#66598a] hover:text-[#673de6]">
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-border mt-8 text-sm text-muted-foreground gap-4">
+        <div className="mt-12 flex gap-3 rounded-2xl border border-amber-300/60 bg-amber-50 p-4 text-sm leading-6 text-amber-950">
+          <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-700" />
+          <p>
+            NeuroPulseAI is an educational and research prototype, not a certified
+            medical or diagnostic device. It must not replace professional medical advice.
+          </p>
+        </div>
+
+        <div className="mt-10 flex flex-col gap-3 border-t border-[#d8cef3] pt-7 text-xs font-medium text-[#766a98] sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Debuggers Squad. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <a href="https://wa.me/918604684988" target="_blank" rel="noreferrer" className="hover:text-foreground">WhatsApp</a>
-            <a href="mailto:debuggerssquad@gmail.com" className="hover:text-foreground">Email</a>
-            <a href="https://instagram.com/debuggers_squad" target="_blank" rel="noreferrer" className="hover:text-foreground">Instagram</a>
-          </div>
+          <Link href="/policies/disclaimer" className="hover:text-[#673de6]">
+            Medical & product disclaimer
+          </Link>
         </div>
       </div>
     </footer>
