@@ -7,6 +7,7 @@ import { Menu, ShoppingBag, X } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/components/cart/CartProvider";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 const links = [
   { href: "/product", label: "NeuroPulseAI" },
@@ -19,6 +20,7 @@ const links = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const { itemCount } = useCart();
+  const reduceMotion = useReducedMotion();
 
   return (
     <>
@@ -68,7 +70,21 @@ export function Navbar() {
               )}
             >
               <ShoppingBag className="size-4" />
-              Cart{itemCount > 0 ? ` (${itemCount})` : ""}
+              Cart
+              <AnimatePresence mode="popLayout">
+                {itemCount > 0 && (
+                  <motion.span
+                    key={itemCount}
+                    initial={reduceMotion ? false : { scale: 0.6, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.6, opacity: 0 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 28 }}
+                    className="grid min-w-5 place-items-center rounded-full bg-[#673de6] px-1.5 py-0.5 text-[10px] leading-none text-white"
+                  >
+                    {itemCount}
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </Link>
             <Link
               href="/#products"
@@ -92,8 +108,15 @@ export function Navbar() {
           </button>
         </div>
 
+        <AnimatePresence>
         {open && (
-          <div className="border-t border-[#e5def8] bg-white px-4 py-5 lg:hidden">
+          <motion.div
+            initial={reduceMotion ? false : { height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-t border-[#e5def8] bg-white px-4 py-5 lg:hidden"
+          >
             <div className="mx-auto flex max-w-7xl flex-col gap-2">
               {links.map((link) => (
                 <Link
@@ -123,8 +146,9 @@ export function Navbar() {
                 Shop products
               </Link>
             </div>
-          </div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </nav>
     </>
   );

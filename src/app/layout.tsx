@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "@/components/cart/CartProvider";
+import { ScrollMotion } from "@/components/motion/ScrollMotion";
 
 export const metadata: Metadata = {
   title: "Debuggers Squad | NeuroPulseAI & ParaTalk",
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="min-h-screen flex flex-col bg-background text-foreground antialiased">
         <CartProvider>
+          <ScrollMotion />
           <Navbar />
           <main className="flex-1 flex flex-col">
             {children}

@@ -106,3 +106,109 @@
 .premium-shadow {
   box-shadow: 0 30px 80px -40px rgb(55 22 120 / 0.45);
 }
+
+/* Motion system: restrained, accessible, and shared across all routes. */
+.motion-reveal {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 650ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.motion-reveal.motion-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+main article,
+main [class*="rounded-2xl"],
+main [class*="rounded-3xl"] {
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms ease,
+    border-color 260ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  main article:hover {
+    transform: translateY(-4px);
+  }
+
+  main a[class*="shadow"],
+  main button[class*="shadow"] {
+    transition:
+      transform 180ms ease,
+      box-shadow 220ms ease,
+      background-color 180ms ease;
+  }
+
+  main a[class*="shadow"]:hover,
+  main button[class*="shadow"]:hover {
+    transform: translateY(-2px);
+  }
+}
+
+main a[class*="rounded"],
+main button[class*="rounded"] {
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+main a[class*="rounded"]:active,
+main button[class*="rounded"]:active {
+  transform: scale(0.98);
+}
+
+main section:first-child .premium-shadow,
+main section:first-child [class*="shadow-2xl"] {
+  animation: hero-float 6s ease-in-out infinite;
+}
+
+main .blur-3xl {
+  animation: ambient-drift 9s ease-in-out infinite alternate;
+}
+
+main .blur-3xl:nth-of-type(2n) {
+  animation-delay: -3s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes ambient-drift {
+  from {
+    transform: translate3d(-4px, 2px, 0) scale(0.98);
+  }
+  to {
+    transform: translate3d(8px, -6px, 0) scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .motion-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
