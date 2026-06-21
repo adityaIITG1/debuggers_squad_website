@@ -29,14 +29,9 @@ This is the official e-commerce and product showcase platform for Debuggers Squa
    - Razorpay requires one matching key pair:
      - `RAZORPAY_KEY_ID` — server-side Key ID
      - `RAZORPAY_KEY_SECRET` — server-side secret; never expose it to the browser
-     - `NEXT_PUBLIC_RAZORPAY_KEY_ID` — must match `RAZORPAY_KEY_ID`
-   - Keys beginning with `rzp_test_` cannot accept real UPI/QR payments. After
-     Razorpay activates the account, use matching `rzp_live_` values in Vercel
-     and redeploy.
-   - While Standard Checkout remains in Test Mode, checkout also offers fixed
-     Razorpay Payment Links for NeuroPulseAI and ParaTalk. These payments bypass
-     the website verification API and therefore require manual order and shipping
-     confirmation.
+   - The server returns the Key ID with each created Razorpay order. The Key
+     Secret remains server-only.
+   - Production payments require a matching `rzp_live_` key pair in Vercel.
 
 4. **Run Locally:**
    ```bash

@@ -108,6 +108,35 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Payment amount mismatch" }, { status: 400 });
     }
 
+    const razorpayPayment = await razorpay.payments.fetch(razorpay_payment_id);
+
+    if (
+      razorpayPayment.order_id !== razorpay_order_id ||
+      Number(razorpayPayment.amount) !== product.priceInPaise ||
+      razorpayPayment.currency !== product.currency
+    ) {
+      return NextResponse.json(
+        { error: "Payment details do not match the Razorpay order" },
+        { status: 400 }
+      );
+    }
+
+    const capturedPayment =
+      razorpayPayment.status === "authorized"
+        ? await razorpay.payments.capture(
+            razorpay_payment_id,
+            product.priceInPaise,
+            product.currency
+          )
+        : razorpayPayment;
+
+    if (capturedPayment.status !== "captured") {
+      return NextResponse.json(
+        { error: "Payment was not captured. Contact support before retrying." },
+        { status: 409 }
+      );
+    }
+
     const { data: existingPayment } = await supabaseAdmin
       .from("payments")
       .select("order_id")

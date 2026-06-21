@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import Image from "next/image";
 import Script from "next/script";
 import { useRouter, useSearchParams } from "next/navigation";
-import { AlertTriangle, ExternalLink, LockKeyhole, PackageCheck } from "lucide-react";
+import { AlertTriangle, CreditCard, LockKeyhole, PackageCheck } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -42,6 +42,14 @@ type RazorpayOptions = {
   };
 };
 
+type RazorpayOrderResponse = {
+  key_id: string;
+  order_id: string;
+  amount: number;
+  currency: string;
+  error?: string;
+};
+
 declare global {
   interface Window {
     Razorpay: new (options: RazorpayOptions) => {
@@ -74,8 +82,6 @@ function CheckoutContent() {
   const [selectedSlug, setSelectedSlug] = useState<Product["slug"] | null>(null);
   const product =
     getProduct(selectedSlug ?? searchParams.get("product")) ?? NEUROPULSE_PRODUCT;
-  const isRazorpayTestMode =
-    process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID?.startsWith("rzp_test_") ?? false;
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((current) => ({
@@ -88,16 +94,6 @@ function CheckoutContent() {
     setSelectedSlug(nextProduct.slug);
     setAcceptedDisclaimer(false);
     window.history.replaceState(null, "", `/checkout?product=${nextProduct.slug}`);
-  };
-
-  const openPaymentLink = () => {
-    if (!acceptedDisclaimer) {
-      toast.error("Accept the product disclaimer before continuing to payment.");
-      return;
-    }
-
-    window.open(product.paymentLink, "_blank", "noopener,noreferrer");
-    toast.info("Razorpay Payment Link opened in a new tab.");
   };
 
   const handlePayment = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -125,17 +121,20 @@ function CheckoutContent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ productSlug: product.slug }),
       });
-      const order = await response.json();
+      const order = (await response.json()) as RazorpayOrderResponse;
 
       if (!response.ok) {
         throw new Error(order.error || "Could not start secure checkout.");
+      }
+      if (!order.key_id || !order.order_id) {
+        throw new Error("Secure checkout configuration is incomplete.");
       }
       if (!window.Razorpay) {
         throw new Error("Secure checkout did not load. Refresh the page and try again.");
       }
 
       const options: RazorpayOptions = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "",
+        key: order.key_id,
         amount: order.amount,
         currency: order.currency,
         name: "Debuggers Squad",
@@ -250,14 +249,6 @@ function CheckoutContent() {
               </button>
             ))}
           </div>
-          {isRazorpayTestMode && (
-            <div className="mt-5 max-w-2xl rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950">
-              <strong>Razorpay Test Mode:</strong> This checkout cannot accept real
-              UPI, QR, card, or bank payments. Replace all three Razorpay variables
-              with a matching <code>rzp_live_</code> key pair in the hosting
-              environment after account activation.
-            </div>
-          )}
         </div>
 
         <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr]">
@@ -317,75 +308,33 @@ function CheckoutContent() {
               </div>
             </section>
 
-            {isRazorpayTestMode ? (
-              <>
-                <Button
-                  type="button"
-                  size="lg"
-                  onClick={openPaymentLink}
-                  className="h-14 w-full rounded-xl bg-[#673de6] text-base font-bold text-white shadow-lg shadow-violet-700/20 hover:bg-[#5630c9]"
-                >
-                  <ExternalLink className="size-4" />
-                  Pay ₹{product.price.toLocaleString("en-IN")} securely
-                </Button>
-                <p className="-mt-4 text-center text-xs leading-5 text-slate-500">
-                  Opens the product-specific Razorpay Payment Link. Save the payment
-                  confirmation and contact us for manual order verification.
-                </p>
-
-                <div className="relative flex items-center gap-4">
-                  <div className="h-px flex-1 bg-slate-200" />
-                  <span className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
-                    Developer testing only
-                  </span>
-                  <div className="h-px flex-1 bg-slate-200" />
+            <div className="rounded-2xl border border-violet-200 bg-violet-50 p-4">
+              <div className="flex items-center gap-3">
+                <CreditCard className="size-5 text-[#673de6]" />
+                <div>
+                  <p className="font-bold text-[#2f1c6a]">Pay securely with Razorpay</p>
+                  <p className="text-sm text-slate-600">
+                    UPI, cards, netbanking and supported wallets
+                  </p>
                 </div>
+              </div>
+            </div>
 
-                <Button
-                  type="submit"
-                  size="lg"
-                  variant="outline"
-                  disabled={loading}
-                  className="h-12 w-full rounded-xl border-amber-400 bg-amber-50 font-bold text-amber-950 hover:bg-amber-100"
-                >
-                  <LockKeyhole className="size-4" />
-                  {loading ? "Opening Test Mode…" : "Open Razorpay Test Checkout"}
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button
-                  type="submit"
-                  size="lg"
-                  disabled={loading}
-                  className="h-14 w-full rounded-xl bg-[#673de6] text-base font-bold text-white shadow-lg shadow-violet-700/20 hover:bg-[#5630c9]"
-                >
-                  <LockKeyhole className="size-4" />
-                  {loading
-                    ? "Opening secure payment…"
-                    : `Pay ₹${product.price.toLocaleString("en-IN")}`}
-                </Button>
-
-                <div className="relative flex items-center gap-4">
-                  <div className="h-px flex-1 bg-slate-200" />
-                  <span className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
-                    Alternate payment
-                  </span>
-                  <div className="h-px flex-1 bg-slate-200" />
-                </div>
-
-                <Button
-                  type="button"
-                  size="lg"
-                  variant="outline"
-                  onClick={openPaymentLink}
-                  className="h-14 w-full rounded-xl border-2 border-[#673de6] bg-white text-base font-bold text-[#673de6] hover:bg-[#f3efff]"
-                >
-                  Payment Link
-                  <ExternalLink className="size-4" />
-                </Button>
-              </>
-            )}
+            <Button
+              type="submit"
+              size="lg"
+              disabled={loading}
+              className="h-14 w-full rounded-xl bg-[#673de6] text-base font-bold text-white shadow-lg shadow-violet-700/20 hover:bg-[#5630c9]"
+            >
+              <LockKeyhole className="size-4" />
+              {loading
+                ? "Opening Razorpay…"
+                : `Pay ₹${product.price.toLocaleString("en-IN")} with Razorpay`}
+            </Button>
+            <p className="-mt-4 text-center text-xs leading-5 text-slate-500">
+              Payment details are processed securely by Razorpay and are not stored
+              on this website.
+            </p>
           </form>
 
           <aside>

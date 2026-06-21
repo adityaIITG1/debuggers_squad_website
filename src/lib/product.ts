@@ -8,7 +8,6 @@ export type Product = {
   currency: "INR";
   sku: string;
   image: string;
-  paymentLink: string;
   checkoutNote: string;
   disclaimer: string;
   shipment: {
@@ -29,7 +28,6 @@ export const NEUROPULSE_PRODUCT: Product = {
   currency: "INR",
   sku: "DS-NPAI-01",
   image: "/images/neuropulseai/product-hero.jpeg",
-  paymentLink: "https://rzp.io/rzp/TYJ9xsQ",
   checkoutNote: "Includes device, sensor, electrodes, software, and setup guide.",
   disclaimer:
     "NeuroPulseAI is an education, research, and innovation prototype. It is not a certified medical device and must not be used for diagnosis or treatment.",
@@ -46,7 +44,6 @@ export const PARATALK_PRODUCT: Product = {
   currency: "INR",
   sku: "DS-PTLK-01",
   image: "/images/paratalk/paratalk-device.jpeg",
-  paymentLink: "https://rzp.io/rzp/nE5mKw6c",
   checkoutNote:
     "Includes ParaTalk device, 20 electrodes, 20 alcohol swabs, electrode cable, software-loaded pen drive, and guide manual.",
   disclaimer:
