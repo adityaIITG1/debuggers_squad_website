@@ -8,6 +8,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/components/cart/CartProvider";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { FounderConnect } from "@/components/layout/FounderConnect";
 
 const links = [
   { href: "/product", label: "NeuroPulseAI" },
@@ -50,7 +51,7 @@ export function Navbar() {
             </span>
           </Link>
 
-          <div className="hidden items-center gap-8 lg:flex">
+          <div className="hidden items-center gap-5 xl:flex">
             {links.map((link) => (
               <Link
                 key={link.href}
@@ -63,6 +64,7 @@ export function Navbar() {
           </div>
 
           <div className="hidden items-center gap-3 lg:flex">
+            <FounderConnect />
             <Link
               href="/cart"
               className={cn(
@@ -136,6 +138,7 @@ export function Navbar() {
               >
                 Cart{itemCount > 0 ? ` (${itemCount})` : ""}
               </Link>
+              <FounderConnect mobile />
               <Link
                 href="/#products"
                 onClick={() => setOpen(false)}

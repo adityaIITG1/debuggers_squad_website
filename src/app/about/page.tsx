@@ -17,7 +17,8 @@ const founders = [
     image: "/images/neuropulseai/founder-aditya.jpeg",
     imagePosition: "object-center",
     description:
-      "Aditya builds affordable neurotechnology, biosignal, IoT, and assistive systems for India. His work includes NeuroPulseAI, EMG feedback tools, EOG communication concepts, and practical research prototypes.",
+      "Aditya is an undergraduate pursuing Data Science, AI, and CSE (AI & ML). He builds affordable neurotechnology, biosignal, IoT, and assistive systems using Python, data analysis, prompt engineering, and AI tools.",
+    skills: ["Python", "Data Analysis", "Prompt Engineering", "AI", "IoT"],
   },
   {
     name: "Prakriti Jaiswal",
@@ -25,7 +26,8 @@ const founders = [
     image: "/images/neuropulseai/cofounder-prakriti-2026.jpeg",
     imagePosition: "object-center",
     description:
-      "Prakriti leads operations, presentation, outreach, and brand development for Debuggers Squad, helping turn student-led engineering ideas into clear, accessible, impact-driven initiatives.",
+      "Prakriti is an undergraduate pursuing BCom in Accounts and Finance. She leads operations, presentation, outreach, and brand development while applying data analysis, Python, prompt engineering, and AI tools.",
+    skills: ["Data Analysis", "Python", "Prompt Engineering", "AI", "Finance"],
   },
 ];
 
@@ -119,6 +121,16 @@ export default function AboutPage() {
                   </p>
                   <h3 className="mt-2 text-3xl font-black tracking-tight">{founder.name}</h3>
                   <p className="mt-5 leading-7 text-[#675a88]">{founder.description}</p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {founder.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="rounded-full bg-[#f0ebff] px-3 py-1.5 text-xs font-bold text-[#673de6]"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </article>
             ))}

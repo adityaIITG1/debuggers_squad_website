@@ -92,9 +92,10 @@ const founders = [
     role: "Founder",
     image: "/images/neuropulseai/founder-aditya.jpeg",
     education:
-      "Pursuing an online BSc (Honours) in Data Science and Artificial Intelligence through IIT Guwahati and a BTech in CSE (AI & ML) under AKTU.",
+      "Undergraduate pursuing an online BSc (Honours) in Data Science and Artificial Intelligence through IIT Guwahati and a BTech in CSE (AI & ML) under AKTU.",
     focus:
-      "Neurotechnology, biosignals, IoT, assistive systems, product engineering, and neuroscience-led innovation.",
+      "Neurotechnology, biosignals, IoT, Data Analysis, Python, Prompt Engineering, AI tools, assistive systems, and neuroscience-led innovation.",
+    skills: ["Data Analysis", "Python", "Prompt Engineering", "AI", "IoT"],
     email: "iitianadityakumarsingh@gmail.com",
     linkedin:
       "https://www.linkedin.com/in/aditya-kumar-singh-39245525b",
@@ -104,9 +105,10 @@ const founders = [
     role: "Co-founder",
     image: "/images/neuropulseai/cofounder-prakriti-2026.jpeg",
     education:
-      "Studied BCom with a focus on Accounts and Finance at the University of Allahabad.",
+      "Undergraduate pursuing BCom with a focus on Accounts and Finance at the University of Allahabad.",
     focus:
-      "Operations, finance, presentation, outreach, brand development, and neuroscience-focused innovation.",
+      "Operations, finance, Data Analysis, Python, Prompt Engineering, AI tools, presentation, outreach, and neuroscience-focused innovation.",
+    skills: ["Data Analysis", "Python", "Prompt Engineering", "AI", "Finance"],
     email: "jaiswalprakriti26@gmail.com",
     linkedin: "https://www.linkedin.com/in/prakriti-jaiswal-a67291402",
   },
@@ -348,6 +350,16 @@ export default function MediaKitPage() {
                   <p className="mt-3 text-sm leading-6 text-[#a99cbe]">
                     {founder.focus}
                   </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {founder.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="rounded-full border border-white/15 bg-white/8 px-3 py-1 text-[11px] font-bold text-[#d8cfee]"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                   <div className="mt-6 flex flex-wrap gap-3">
                     <a
                       href={`mailto:${founder.email}`}
