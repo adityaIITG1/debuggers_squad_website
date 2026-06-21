@@ -90,6 +90,16 @@ function CheckoutContent() {
     window.history.replaceState(null, "", `/checkout?product=${nextProduct.slug}`);
   };
 
+  const openPaymentLink = () => {
+    if (!acceptedDisclaimer) {
+      toast.error("Accept the product disclaimer before continuing to payment.");
+      return;
+    }
+
+    window.open(product.paymentLink, "_blank", "noopener,noreferrer");
+    toast.info("Razorpay Payment Link opened in a new tab.");
+  };
+
   const handlePayment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -307,40 +317,75 @@ function CheckoutContent() {
               </div>
             </section>
 
-            <Button
-              type="submit"
-              size="lg"
-              disabled={loading}
-              className="h-14 w-full rounded-xl bg-[#673de6] text-base font-bold text-white shadow-lg shadow-violet-700/20 hover:bg-[#5630c9]"
-            >
-              <LockKeyhole className="size-4" />
-              {loading
-                ? "Opening secure payment..."
-                : `Pay ₹${product.price.toLocaleString("en-IN")}`}
-            </Button>
+            {isRazorpayTestMode ? (
+              <>
+                <Button
+                  type="button"
+                  size="lg"
+                  onClick={openPaymentLink}
+                  className="h-14 w-full rounded-xl bg-[#673de6] text-base font-bold text-white shadow-lg shadow-violet-700/20 hover:bg-[#5630c9]"
+                >
+                  <ExternalLink className="size-4" />
+                  Pay ₹{product.price.toLocaleString("en-IN")} securely
+                </Button>
+                <p className="-mt-4 text-center text-xs leading-5 text-slate-500">
+                  Opens the product-specific Razorpay Payment Link. Save the payment
+                  confirmation and contact us for manual order verification.
+                </p>
 
-            <div className="relative flex items-center gap-4">
-              <div className="h-px flex-1 bg-slate-200" />
-              <span className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
-                Alternate payment
-              </span>
-              <div className="h-px flex-1 bg-slate-200" />
-            </div>
+                <div className="relative flex items-center gap-4">
+                  <div className="h-px flex-1 bg-slate-200" />
+                  <span className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
+                    Developer testing only
+                  </span>
+                  <div className="h-px flex-1 bg-slate-200" />
+                </div>
 
-            <a
-              href={product.paymentLink}
-              target="_blank"
-              rel="noreferrer"
-              className="flex h-14 w-full items-center justify-center gap-2 rounded-xl border-2 border-[#673de6] bg-white px-5 text-base font-bold text-[#673de6] transition-colors hover:bg-[#f3efff]"
-            >
-              Pay ₹{product.price.toLocaleString("en-IN")} using Razorpay Payment Link
-              <ExternalLink className="size-4" />
-            </a>
-            <p className="-mt-4 text-center text-xs leading-5 text-slate-500">
-              After paying through the alternate link, save the Razorpay payment
-              confirmation and contact us with your delivery details for manual order
-              verification.
-            </p>
+                <Button
+                  type="submit"
+                  size="lg"
+                  variant="outline"
+                  disabled={loading}
+                  className="h-12 w-full rounded-xl border-amber-400 bg-amber-50 font-bold text-amber-950 hover:bg-amber-100"
+                >
+                  <LockKeyhole className="size-4" />
+                  {loading ? "Opening Test Mode…" : "Open Razorpay Test Checkout"}
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={loading}
+                  className="h-14 w-full rounded-xl bg-[#673de6] text-base font-bold text-white shadow-lg shadow-violet-700/20 hover:bg-[#5630c9]"
+                >
+                  <LockKeyhole className="size-4" />
+                  {loading
+                    ? "Opening secure payment…"
+                    : `Pay ₹${product.price.toLocaleString("en-IN")}`}
+                </Button>
+
+                <div className="relative flex items-center gap-4">
+                  <div className="h-px flex-1 bg-slate-200" />
+                  <span className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
+                    Alternate payment
+                  </span>
+                  <div className="h-px flex-1 bg-slate-200" />
+                </div>
+
+                <Button
+                  type="button"
+                  size="lg"
+                  variant="outline"
+                  onClick={openPaymentLink}
+                  className="h-14 w-full rounded-xl border-2 border-[#673de6] bg-white text-base font-bold text-[#673de6] hover:bg-[#f3efff]"
+                >
+                  Payment Link
+                  <ExternalLink className="size-4" />
+                </Button>
+              </>
+            )}
           </form>
 
           <aside>
