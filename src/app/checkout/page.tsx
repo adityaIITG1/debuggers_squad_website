@@ -1,255 +1,324 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Script from "next/script";
+import { useRouter } from "next/navigation";
+import { AlertTriangle, LockKeyhole, PackageCheck } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { toast } from "sonner";
-import { AlertTriangle } from "lucide-react";
+import { NEUROPULSE_PRODUCT } from "@/lib/product";
+
+type RazorpaySuccessResponse = {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+};
+
+type RazorpayFailureResponse = {
+  error: { description: string };
+};
+
+type RazorpayOptions = {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  order_id: string;
+  handler: (response: RazorpaySuccessResponse) => Promise<void>;
+  prefill: { name: string; email: string; contact: string };
+  theme: { color: string };
+};
+
+declare global {
+  interface Window {
+    Razorpay: new (options: RazorpayOptions) => {
+      open: () => void;
+      on: (
+        event: "payment.failed",
+        callback: (response: RazorpayFailureResponse) => void
+      ) => void;
+    };
+  }
+}
+
+const emptyForm = {
+  name: "",
+  email: "",
+  phone: "",
+  address: "",
+  city: "",
+  state: "",
+  pincode: "",
+  landmark: "",
+};
 
 export default function CheckoutPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [acceptedDisclaimer, setAcceptedDisclaimer] = useState(false);
+  const [formData, setFormData] = useState(emptyForm);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    state: "",
-    pincode: "",
-    landmark: "",
-  });
-
-  const cartItems = [
-    {
-      id: "1",
-      name: "NeuroPulseAI",
-      price: 2999,
-      quantity: 1,
-    }
-  ];
-
-  const totalAmount = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((current) => ({
+      ...current,
+      [event.target.name]: event.target.value,
+    }));
   };
 
-  const handlePayment = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handlePayment = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
+    const normalizedPhone = formData.phone.replace(/\D/g, "");
+    if (normalizedPhone.length !== 10) {
+      toast.error("Enter a valid 10-digit phone number.");
+      return;
+    }
+    if (!/^\d{6}$/.test(formData.pincode)) {
+      toast.error("Enter a valid 6-digit PIN code.");
+      return;
+    }
     if (!acceptedDisclaimer) {
-      toast.error("You must accept the legal and medical disclaimer to proceed.");
+      toast.error("Accept the product disclaimer to continue.");
       return;
-    }
-
-    if (formData.phone.length < 10) {
-      toast.error("Please enter a valid phone number.");
-      return;
-    }
-
-    if (formData.pincode.length < 6) {
-       toast.error("Please enter a valid 6-digit pincode.");
-       return;
     }
 
     setLoading(true);
 
     try {
-      // 1. Create Razorpay Order
-      const res = await fetch("/api/payments/razorpay/create-order", {
+      const response = await fetch("/api/payments/razorpay/create-order", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: totalAmount * 100 }), // Amount in paise
       });
+      const order = await response.json();
 
-      const orderData = await res.json();
+      if (!response.ok) {
+        throw new Error(order.error || "Could not start secure checkout.");
+      }
+      if (!window.Razorpay) {
+        throw new Error("Secure checkout did not load. Refresh the page and try again.");
+      }
 
-      if (!res.ok) throw new Error(orderData.error || "Failed to create order");
-
-      // 2. Initialize Razorpay Modal
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: orderData.amount,
-        currency: orderData.currency,
+      const options: RazorpayOptions = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "",
+        amount: order.amount,
+        currency: order.currency,
         name: "Debuggers Squad",
-        description: "NeuroPulseAI Order",
-        order_id: orderData.order_id,
-        handler: async function (response: any) {
+        description: NEUROPULSE_PRODUCT.fullName,
+        order_id: order.order_id,
+        handler: async (payment) => {
+          const toastId = toast.loading("Confirming your payment and order...");
           try {
-            toast.loading("Verifying payment and creating order...");
-            // 3. Verify Payment on Backend
-            const verifyRes = await fetch("/api/payments/razorpay/verify", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-                customerDetails: formData,
-                cartItems: cartItems,
-                totalAmount: totalAmount,
-                disclaimerAccepted: acceptedDisclaimer,
-              }),
-            });
+            const verificationResponse = await fetch(
+              "/api/payments/razorpay/verify",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  ...payment,
+                  customerDetails: {
+                    ...formData,
+                    phone: normalizedPhone,
+                  },
+                  disclaimerAccepted: true,
+                }),
+              }
+            );
+            const verification = await verificationResponse.json();
 
-            const verifyData = await verifyRes.json();
-            
-            if (verifyRes.ok) {
-              toast.dismiss();
-              toast.success("Payment successful! Order confirmed.");
-              router.push(`/order-success?order_id=${verifyData.order_number}`);
-            } else {
-              throw new Error(verifyData.error || "Payment verification failed.");
+            if (!verificationResponse.ok) {
+              throw new Error(
+                verification.error ||
+                  "Payment was received, but order confirmation failed. Contact support."
+              );
             }
-          } catch (err: any) {
-             toast.dismiss();
-             toast.error(err.message || "An error occurred during verification.");
+
+            toast.success("Payment successful. Your order is confirmed.", {
+              id: toastId,
+            });
+            router.push(
+              `/order-success?order_id=${encodeURIComponent(verification.order_number)}`
+            );
+          } catch (error: unknown) {
+            toast.error(
+              error instanceof Error
+                ? error.message
+                : "Order confirmation failed. Contact support.",
+              { id: toastId }
+            );
           }
         },
         prefill: {
           name: formData.name,
           email: formData.email,
-          contact: formData.phone,
+          contact: normalizedPhone,
         },
-        theme: {
-          color: "#00ffff", // Neon Cyan
-        },
+        theme: { color: "#1d4ed8" },
       };
 
-      const rzp = new (window as any).Razorpay(options);
-      rzp.on("payment.failed", function (response: any) {
-        toast.error(`Payment failed: ${response.error.description}`);
+      const checkout = new window.Razorpay(options);
+      checkout.on("payment.failed", (failure) => {
+        toast.error(`Payment failed: ${failure.error.description}`);
       });
-      rzp.open();
-
-    } catch (error: any) {
-      toast.error(error.message || "Something went wrong. Please try again.");
+      checkout.open();
+    } catch (error: unknown) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="container max-w-6xl mx-auto py-12 px-4 md:px-8">
-      <Script src="https://checkout.razorpay.com/v1/checkout.js" />
-      
-      <div className="grid md:grid-cols-2 gap-12">
-        <div>
-          <h1 className="text-3xl font-bold mb-8 text-neon-cyan">Checkout</h1>
-          <form onSubmit={handlePayment} className="space-y-6">
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold border-b border-border pb-2">Shipping Details</h2>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Full Name *</Label>
-                  <Input id="name" name="name" required value={formData.name} onChange={handleInputChange} className="bg-card" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number *</Label>
-                  <Input id="phone" name="phone" type="tel" required minLength={10} value={formData.phone} onChange={handleInputChange} className="bg-card" />
-                </div>
-              </div>
+    <div className="bg-[#f7f8fc] text-slate-950">
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address *</Label>
-                <Input id="email" name="email" type="email" required value={formData.email} onChange={handleInputChange} className="bg-card" />
-              </div>
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+        <div className="mb-9">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-700">
+            Final step
+          </p>
+          <h1 className="mt-2 text-4xl font-black tracking-tight">Secure checkout</h1>
+          <p className="mt-2 text-slate-600">
+            Enter the delivery details for your NeuroPulseAI kit.
+          </p>
+        </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="address">Full Address *</Label>
-                <Input id="address" name="address" required value={formData.address} onChange={handleInputChange} className="bg-card" />
+        <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr]">
+          <form onSubmit={handlePayment} className="space-y-7">
+            <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+              <h2 className="text-xl font-bold">Contact and delivery</h2>
+              <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                <Field label="Full name" id="name">
+                  <Input id="name" name="name" autoComplete="name" required value={formData.name} onChange={handleInputChange} />
+                </Field>
+                <Field label="Phone number" id="phone">
+                  <Input id="phone" name="phone" type="tel" inputMode="numeric" autoComplete="tel" required value={formData.phone} onChange={handleInputChange} />
+                </Field>
+                <div className="sm:col-span-2">
+                  <Field label="Email address" id="email">
+                    <Input id="email" name="email" type="email" autoComplete="email" required value={formData.email} onChange={handleInputChange} />
+                  </Field>
+                </div>
+                <div className="sm:col-span-2">
+                  <Field label="Full address" id="address">
+                    <Input id="address" name="address" autoComplete="street-address" required value={formData.address} onChange={handleInputChange} />
+                  </Field>
+                </div>
+                <Field label="City" id="city">
+                  <Input id="city" name="city" autoComplete="address-level2" required value={formData.city} onChange={handleInputChange} />
+                </Field>
+                <Field label="State" id="state">
+                  <Input id="state" name="state" autoComplete="address-level1" required value={formData.state} onChange={handleInputChange} />
+                </Field>
+                <Field label="PIN code" id="pincode">
+                  <Input id="pincode" name="pincode" inputMode="numeric" autoComplete="postal-code" maxLength={6} required value={formData.pincode} onChange={handleInputChange} />
+                </Field>
+                <Field label="Landmark (optional)" id="landmark">
+                  <Input id="landmark" name="landmark" value={formData.landmark} onChange={handleInputChange} />
+                </Field>
               </div>
+            </section>
 
-              <div className="grid sm:grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="city">City *</Label>
-                  <Input id="city" name="city" required value={formData.city} onChange={handleInputChange} className="bg-card" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="state">State *</Label>
-                  <Input id="state" name="state" required value={formData.state} onChange={handleInputChange} className="bg-card" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="pincode">Pincode *</Label>
-                  <Input id="pincode" name="pincode" required minLength={6} value={formData.pincode} onChange={handleInputChange} className="bg-card" />
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="landmark">Landmark (Optional)</Label>
-                <Input id="landmark" name="landmark" value={formData.landmark} onChange={handleInputChange} className="bg-card" />
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
-              <div className="flex gap-3 items-start">
-                <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
-                <div className="space-y-2">
-                  <p className="text-sm font-semibold text-destructive">Required Legal Disclaimer</p>
-                  <p className="text-sm text-destructive-foreground">
-                    By checking this box, I acknowledge that NeuroPulseAI is an educational, research, and innovation project-kit prototype. It is NOT a certified medical device and should not be used for medical diagnosis, treatment, or cure.
+            <section className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
+              <div className="flex gap-3">
+                <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-700" />
+                <div>
+                  <h2 className="font-bold text-amber-950">Educational-use acknowledgement</h2>
+                  <p className="mt-2 text-sm leading-6 text-amber-900">
+                    NeuroPulseAI is an education, research, and innovation prototype.
+                    It is not a certified medical device and must not be used for
+                    diagnosis or treatment.
                   </p>
-                  <label className="flex items-center gap-2 mt-3 cursor-pointer">
-                    <input 
-                      type="checkbox" 
-                      required
-                      className="h-4 w-4 rounded border-destructive/50 bg-background text-destructive focus:ring-destructive"
+                  <label className="mt-4 flex cursor-pointer items-start gap-3 text-sm font-semibold text-amber-950">
+                    <input
+                      type="checkbox"
+                      className="mt-0.5 size-4 accent-blue-700"
                       checked={acceptedDisclaimer}
-                      onChange={(e) => setAcceptedDisclaimer(e.target.checked)}
+                      onChange={(event) => setAcceptedDisclaimer(event.target.checked)}
                     />
-                    <span className="text-sm font-medium text-destructive-foreground">I accept the disclaimer.</span>
+                    I understand and accept this product-use disclaimer.
                   </label>
                 </div>
               </div>
-            </div>
+            </section>
 
-            <Button type="submit" size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={loading}>
-              {loading ? "Processing..." : `Pay ₹${totalAmount}`}
+            <Button
+              type="submit"
+              size="lg"
+              disabled={loading}
+              className="h-14 w-full rounded-xl bg-blue-700 text-base font-bold text-white shadow-lg shadow-blue-700/20 hover:bg-blue-800"
+            >
+              <LockKeyhole className="size-4" />
+              {loading
+                ? "Opening secure payment..."
+                : `Pay ₹${NEUROPULSE_PRODUCT.price.toLocaleString("en-IN")}`}
             </Button>
           </form>
-        </div>
 
-        <div>
-          <Card className="bg-card/50 border-border sticky top-24">
-            <CardHeader>
-              <CardTitle>Order Summary</CardTitle>
-              <CardDescription>Review your items before payment.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {cartItems.map((item) => (
-                <div key={item.id} className="flex justify-between items-center py-2 border-b border-border/50">
-                  <div className="flex flex-col">
-                    <span className="font-medium">{item.name}</span>
-                    <span className="text-sm text-muted-foreground">Qty: {item.quantity}</span>
-                  </div>
-                  <span>₹{item.price * item.quantity}</span>
+          <aside>
+            <Card className="sticky top-24 overflow-hidden border-slate-200 bg-white text-slate-950 shadow-sm">
+              <div className="relative aspect-[4/3]">
+                <Image
+                  src="/images/neuropulseai/product-hero.jpeg"
+                  alt="NeuroPulseAI single-channel EMG kit"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover"
+                />
+              </div>
+              <CardHeader>
+                <CardTitle>{NEUROPULSE_PRODUCT.fullName}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-5">
+                <div className="flex justify-between border-b border-slate-200 pb-5">
+                  <span className="text-slate-600">Quantity</span>
+                  <span className="font-semibold">1</span>
                 </div>
-              ))}
-              
-              <div className="flex justify-between items-center pt-4 text-muted-foreground">
-                <span>Subtotal</span>
-                <span>₹{totalAmount}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>Estimated Shipping</span>
-                <span className="text-emerald-500">Free</span>
-              </div>
-              
-            </CardContent>
-            <CardFooter className="flex justify-between border-t border-border pt-4">
-              <span className="font-bold text-xl">Total</span>
-              <span className="font-bold text-xl text-neon-cyan">₹{totalAmount}</span>
-            </CardFooter>
-          </Card>
+                <div className="flex justify-between">
+                  <span className="text-slate-600">Delivery</span>
+                  <span className="font-semibold text-emerald-700">Free</span>
+                </div>
+                <div className="flex items-start gap-3 rounded-xl bg-blue-50 p-4 text-sm text-blue-950">
+                  <PackageCheck className="mt-0.5 size-5 shrink-0 text-blue-700" />
+                  <span>Includes device, sensor, electrodes, software, and setup guide.</span>
+                </div>
+              </CardContent>
+              <CardFooter className="flex justify-between border-t border-slate-200 bg-slate-50 py-5">
+                <span className="text-lg font-bold">Total</span>
+                <span className="text-2xl font-black text-blue-700">
+                  ₹{NEUROPULSE_PRODUCT.price.toLocaleString("en-IN")}
+                </span>
+              </CardFooter>
+            </Card>
+          </aside>
         </div>
       </div>
+    </div>
+  );
+}
+
+function Field({
+  label,
+  id,
+  children,
+}: {
+  label: string;
+  id: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="space-y-2">
+      <Label htmlFor={id} className="text-slate-800">
+        {label}
+      </Label>
+      {children}
     </div>
   );
 }

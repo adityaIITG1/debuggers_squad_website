@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Navbar() {
@@ -24,21 +24,17 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <Link href="/cart">
+          <Link href="/checkout">
             <Button variant="ghost" size="icon" className="relative text-muted-foreground hover:text-foreground">
               <ShoppingCart className="h-5 w-5" />
               <span className="sr-only">Cart</span>
             </Button>
           </Link>
-          <Link href="/product" className="hidden md:inline-flex">
+          <Link href="/checkout">
             <Button className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_15px_rgba(0,255,255,0.3)]">
-              Order Now
+              Buy Now
             </Button>
           </Link>
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle menu</span>
-          </Button>
         </div>
       </div>
     </nav>

@@ -1,19 +1,21 @@
 import { NextResponse } from "next/server";
 import { razorpay } from "@/lib/razorpay";
+import { NEUROPULSE_PRODUCT } from "@/lib/product";
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
-    const { amount, receipt } = await req.json();
-
-    // Verify minimum amount (100 paise = 1 INR)
-    if (!amount || amount < 100) {
-      return NextResponse.json({ error: "Invalid amount" }, { status: 400 });
+    if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+      return NextResponse.json({ error: "Payment service is not configured" }, { status: 503 });
     }
 
     const orderOptions = {
-      amount: amount, // amount in the smallest currency unit (paise)
-      currency: "INR",
-      receipt: receipt || `receipt_${Date.now()}`,
+      amount: NEUROPULSE_PRODUCT.priceInPaise,
+      currency: NEUROPULSE_PRODUCT.currency,
+      receipt: `npai_${Date.now()}`,
+      notes: {
+        sku: NEUROPULSE_PRODUCT.sku,
+        product: NEUROPULSE_PRODUCT.fullName,
+      },
     };
 
     const order = await razorpay.orders.create(orderOptions);
@@ -22,6 +24,7 @@ export async function POST(req: Request) {
       order_id: order.id,
       amount: order.amount,
       currency: order.currency,
+      product: NEUROPULSE_PRODUCT.fullName,
     });
   } catch (error) {
     console.error("Razorpay Order Creation Error:", error);

@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 import { AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -38,25 +38,21 @@ export default function DemoPage() {
           </div>
         </section>
 
-        {/* Photo Gallery Mock */}
         <section className="space-y-8">
           <h2 className="text-3xl font-bold text-center">In Action</h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <div className="aspect-square bg-card rounded-lg border border-border flex flex-col justify-end p-4 relative overflow-hidden">
-              <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20"></div>
-              <p className="font-semibold z-10">Real Electrode Placement</p>
-              <p className="text-xs text-muted-foreground z-10">Demonstrating bicep activation</p>
-            </div>
-            <div className="aspect-square bg-card rounded-lg border border-border flex flex-col justify-end p-4 relative overflow-hidden">
-              <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20"></div>
-              <p className="font-semibold z-10">Innovation Showcase</p>
-              <p className="text-xs text-muted-foreground z-10">Event demonstration</p>
-            </div>
-            <div className="aspect-square bg-card rounded-lg border border-border flex flex-col justify-end p-4 relative overflow-hidden">
-              <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20"></div>
-              <p className="font-semibold z-10">Academic Validation</p>
-              <p className="text-xs text-muted-foreground z-10">Support letter placeholder</p>
-            </div>
+            {[
+              ["/images/neuropulseai/sensor-placement.jpeg", "Real electrode placement"],
+              ["/images/neuropulseai/live-demo.jpeg", "Live event demonstration"],
+              ["/images/neuropulseai/product-overview.jpeg", "Portable prototype kit"],
+            ].map(([src, label]) => (
+              <div key={src} className="aspect-square bg-card rounded-lg border border-border relative overflow-hidden">
+                <Image src={src} alt={label} fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover" />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-4 pt-12">
+                  <p className="font-semibold text-white">{label}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 

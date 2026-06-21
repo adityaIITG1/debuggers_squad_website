@@ -2,6 +2,38 @@ import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getShiprocketToken, createShiprocketOrder, assignAWB, requestPickup } from "@/lib/shiprocket";
+import { razorpay } from "@/lib/razorpay";
+import { NEUROPULSE_PRODUCT } from "@/lib/product";
+
+type CustomerDetails = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  pincode: string;
+  landmark?: string;
+};
+
+type ShiprocketDetails = {
+  shipment_id: string;
+  shiprocket_order_id: string;
+  awb_code: string | null;
+  courier_partner: string | null;
+};
+
+function isValidCustomer(customer: CustomerDetails) {
+  return Boolean(
+    customer?.name?.trim() &&
+      customer?.email?.includes("@") &&
+      /^\d{10}$/.test(customer?.phone?.replace(/\D/g, "")) &&
+      customer?.address?.trim() &&
+      customer?.city?.trim() &&
+      customer?.state?.trim() &&
+      /^\d{6}$/.test(customer?.pincode)
+  );
+}
 
 export async function POST(req: Request) {
   try {
@@ -11,10 +43,19 @@ export async function POST(req: Request) {
       razorpay_payment_id, 
       razorpay_signature,
       customerDetails,
-      cartItems,
-      totalAmount,
       disclaimerAccepted
     } = body;
+
+    if (!isValidCustomer(customerDetails) || disclaimerAccepted !== true) {
+      return NextResponse.json({ error: "Invalid checkout details" }, { status: 400 });
+    }
+
+    if (!process.env.RAZORPAY_KEY_SECRET) {
+      return NextResponse.json({ error: "Payment service is not configured" }, { status: 503 });
+    }
+    if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      return NextResponse.json({ error: "Order database is not configured" }, { status: 503 });
+    }
 
     // 1. Verify Razorpay Signature
     const secret = process.env.RAZORPAY_KEY_SECRET!;
@@ -25,6 +66,24 @@ export async function POST(req: Request) {
 
     if (generated_signature !== razorpay_signature) {
       return NextResponse.json({ error: "Invalid payment signature" }, { status: 400 });
+    }
+
+    const razorpayOrder = await razorpay.orders.fetch(razorpay_order_id);
+    if (
+      Number(razorpayOrder.amount) !== NEUROPULSE_PRODUCT.priceInPaise ||
+      razorpayOrder.currency !== NEUROPULSE_PRODUCT.currency
+    ) {
+      return NextResponse.json({ error: "Payment amount mismatch" }, { status: 400 });
+    }
+
+    const { data: existingPayment } = await supabaseAdmin
+      .from("payments")
+      .select("order_id")
+      .eq("razorpay_payment_id", razorpay_payment_id)
+      .maybeSingle();
+
+    if (existingPayment) {
+      return NextResponse.json({ error: "This payment has already been processed" }, { status: 409 });
     }
 
     // 2. Save Customer to Supabase
@@ -47,7 +106,7 @@ export async function POST(req: Request) {
 
     // Generate Order Number: DS-NP-YYYY-XXXX
     const year = new Date().getFullYear();
-    const orderNumber = `DS-NP-${year}-${Math.floor(1000 + Math.random() * 9000)}`;
+    const orderNumber = `DS-NP-${year}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
 
     // 3. Save Order to Supabase
     const { data: order, error: orderError } = await supabaseAdmin
@@ -55,7 +114,7 @@ export async function POST(req: Request) {
       .insert({
         order_number: orderNumber,
         customer_id: customer.id,
-        total_amount: totalAmount,
+        total_amount: NEUROPULSE_PRODUCT.price,
         payment_status: "paid",
         order_status: "processing",
         shipping_status: "pending",
@@ -67,14 +126,20 @@ export async function POST(req: Request) {
     if (orderError) throw new Error(`Order Error: ${orderError.message}`);
 
     // 4. Save Order Items
-    const orderItemsToInsert = cartItems.map((item: any) => ({
+    const { data: product } = await supabaseAdmin
+      .from("products")
+      .select("id")
+      .eq("slug", NEUROPULSE_PRODUCT.slug)
+      .maybeSingle();
+
+    const orderItemsToInsert = [{
       order_id: order.id,
-      product_id: item.product_id, // Ensure this exists or pass null for prototype
-      product_name: item.name,
-      quantity: item.quantity,
-      unit_price: item.price,
-      total_price: item.price * item.quantity,
-    }));
+      product_id: product?.id ?? null,
+      product_name: NEUROPULSE_PRODUCT.fullName,
+      quantity: 1,
+      unit_price: NEUROPULSE_PRODUCT.price,
+      total_price: NEUROPULSE_PRODUCT.price,
+    }];
 
     const { error: itemsError } = await supabaseAdmin.from("order_items").insert(orderItemsToInsert);
     if (itemsError) throw new Error(`Items Error: ${itemsError.message}`);
@@ -85,13 +150,13 @@ export async function POST(req: Request) {
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
-      amount: totalAmount,
+      amount: NEUROPULSE_PRODUCT.price,
       status: "successful",
     });
     if (paymentError) throw new Error(`Payment Error: ${paymentError.message}`);
 
     // 6. Shiprocket Automation
-    let shiprocketDetails: any = null;
+    let shiprocketDetails: ShiprocketDetails | null = null;
     let shippingStatus = "Manual scheduling required";
 
     try {
@@ -114,14 +179,14 @@ export async function POST(req: Request) {
           billing_email: customer.email,
           billing_phone: customer.phone,
           shipping_is_billing: true,
-          order_items: cartItems.map((i: any) => ({
-            name: i.name,
-            sku: i.name.substring(0, 10).toUpperCase(),
-            units: i.quantity,
-            selling_price: i.price,
-          })),
+          order_items: [{
+            name: NEUROPULSE_PRODUCT.fullName,
+            sku: NEUROPULSE_PRODUCT.sku,
+            units: 1,
+            selling_price: NEUROPULSE_PRODUCT.price,
+          }],
           payment_method: "Prepaid",
-          sub_total: totalAmount,
+          sub_total: NEUROPULSE_PRODUCT.price,
           length: 25,
           breadth: 17,
           height: 10,
@@ -132,7 +197,7 @@ export async function POST(req: Request) {
         const shipmentId = srOrder.shipment_id;
         
         const awbData = await assignAWB(shipmentId, token);
-        const pickupData = await requestPickup(shipmentId, token);
+        await requestPickup(shipmentId, token);
 
         shiprocketDetails = {
           shipment_id: shipmentId.toString(),
@@ -169,8 +234,9 @@ export async function POST(req: Request) {
       order_number: orderNumber 
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Verification Error:", error);
-    return NextResponse.json({ error: error.message || "Failed to verify and process order" }, { status: 500 });
+    const message = error instanceof Error ? error.message : "Failed to verify and process order";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

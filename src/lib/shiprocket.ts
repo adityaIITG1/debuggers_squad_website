@@ -16,7 +16,7 @@ export async function getShiprocketToken() {
   return data.token;
 }
 
-export async function createShiprocketOrder(orderData: any, token: string) {
+export async function createShiprocketOrder(orderData: Record<string, unknown>, token: string) {
   const response = await fetch("https://apiv2.shiprocket.in/v1/external/orders/create/adhoc", {
     method: "POST",
     headers: {

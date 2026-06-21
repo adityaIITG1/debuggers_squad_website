@@ -92,7 +92,7 @@ export default function Home() {
           >
             <Link href="/product">
               <Button size="lg" className="w-full sm:w-auto bg-neon-gradient text-white border-0 shadow-[0_0_20px_rgba(0,255,255,0.4)] hover:shadow-[0_0_30px_rgba(0,255,255,0.6)] transition-all">
-                Explore NeuroPulseAI
+                Buy NeuroPulseAI — ₹2,999
               </Button>
             </Link>
             <Link href="/demo">

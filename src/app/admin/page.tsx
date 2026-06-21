@@ -3,6 +3,16 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
+type AdminOrder = {
+  id: string;
+  order_number: string;
+  total_amount: number;
+  payment_status: string;
+  shipping_status: string;
+  created_at: string;
+  customers: { full_name: string; email: string } | null;
+};
+
 export default async function AdminDashboard() {
   const supabase = await createClient();
 
@@ -67,7 +77,7 @@ export default async function AdminDashboard() {
               </TableHeader>
               <TableBody>
                 {orders && orders.length > 0 ? (
-                  orders.map((order: any) => (
+                  (orders as unknown as AdminOrder[]).map((order) => (
                     <TableRow key={order.id}>
                       <TableCell className="font-mono font-medium">{order.order_number}</TableCell>
                       <TableCell>

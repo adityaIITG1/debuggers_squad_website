@@ -40,11 +40,16 @@ function OrderSuccessContent() {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-3 pb-8">
-          <Link href="/track" className="w-full">
+          <a
+            href="https://wa.me/919170397988?text=Hello%2C%20I%20want%20an%20update%20on%20my%20NeuroPulseAI%20order."
+            target="_blank"
+            rel="noreferrer"
+            className="w-full"
+          >
             <Button variant="outline" className="w-full border-primary/50 text-foreground hover:bg-primary/10">
-              Track Order
+              Get order support
             </Button>
-          </Link>
+          </a>
           <Link href="/" className="w-full">
             <Button variant="ghost" className="w-full">
               Return to Home

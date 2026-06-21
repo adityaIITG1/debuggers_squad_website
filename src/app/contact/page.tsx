@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Mail, Phone, MapPin, MessageSquare } from "lucide-react";
+import { Mail, Phone, MessageSquare } from "lucide-react";
 
 export default function ContactPage() {
   const [loading, setLoading] = useState(false);
@@ -45,7 +45,7 @@ export default function ContactPage() {
       setFormData({
         name: "", email: "", phone: "", organization: "", productInterest: "NeuroPulseAI", message: ""
       });
-    } catch (error) {
+    } catch {
       toast.error("An error occurred. Please try again.");
     } finally {
       setLoading(false);
@@ -61,7 +61,7 @@ export default function ContactPage() {
           <div>
             <h1 className="text-4xl font-bold tracking-tighter mb-4">Get in <span className="text-neon-cyan">Touch</span></h1>
             <p className="text-muted-foreground text-lg">
-              Have questions about NeuroPulseAI? Looking to book a demonstration for your college or clinic? We're here to help.
+              Have questions about NeuroPulseAI? Looking to book a demonstration for your college or clinic? We are here to help.
             </p>
           </div>
 
@@ -124,7 +124,7 @@ export default function ContactPage() {
               <CardDescription>
                 {isDemo 
                   ? "We offer remote and in-person (subject to location) demonstrations for educational institutes and clinics." 
-                  : "Fill out the form below and we'll get back to you as soon as possible."}
+                  : "Fill out the form below and we’ll get back to you as soon as possible."}
               </CardDescription>
             </CardHeader>
             <CardContent>

@@ -1,149 +1,287 @@
-"use client";
-
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { CheckCircle2, AlertTriangle, ShieldCheck } from "lucide-react";
-import { motion } from "framer-motion";
+import {
+  Activity,
+  AlertTriangle,
+  BookOpen,
+  Box,
+  Check,
+  GraduationCap,
+  Laptop,
+  ShieldCheck,
+  Truck,
+} from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { NEUROPULSE_PRODUCT } from "@/lib/product";
+import { cn } from "@/lib/utils";
+
+export const metadata: Metadata = {
+  title: "Buy NeuroPulseAI Single-Channel EMG Kit | Debuggers Squad",
+  description:
+    "Order the NeuroPulseAI single-channel EMG education and research kit for ₹2,999 with secure Razorpay checkout and delivery across India.",
+};
+
+const includedItems = [
+  "NeuroPulseAI single-channel EMG device",
+  "Muscle Patchy EMG sensor",
+  "USB extender and electrode wires",
+  "12 disposable gel electrodes",
+  "6 alcohol swabs",
+  "EMG Plotter software on USB drive",
+  "Printed quick-start guide",
+];
+
+const useCases = [
+  {
+    icon: GraduationCap,
+    title: "Student projects",
+    text: "A ready-to-use platform for biosignal, embedded systems, and biomedical projects.",
+  },
+  {
+    icon: BookOpen,
+    title: "Research learning",
+    text: "Observe and visualize surface muscle activity during controlled demonstrations.",
+  },
+  {
+    icon: Activity,
+    title: "Physiotherapy education",
+    text: "Demonstrate muscle activation feedback in supervised learning environments.",
+  },
+];
 
 export default function ProductPage() {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Product Hero Section */}
-      <section className="w-full py-16 md:py-24 bg-background">
-        <div className="container px-4 md:px-6 max-w-6xl mx-auto">
-          <div className="grid gap-12 lg:grid-cols-2">
-            
-            {/* Image Placeholder area */}
-            <div className="flex flex-col gap-4">
-              <div className="aspect-square bg-card rounded-xl border border-border shadow-lg overflow-hidden flex items-center justify-center relative">
-                {/* Fallback pattern if image is missing */}
-                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20"></div>
-                <div className="text-center z-10 p-6 space-y-4">
-                   <h2 className="text-3xl font-bold text-neon-cyan opacity-50">NeuroPulseAI</h2>
-                   <p className="text-muted-foreground">Prototype Visualization</p>
+    <div className="min-h-screen bg-[#f7f8fc] text-slate-950">
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:py-16">
+          <div className="space-y-4">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm">
+              <Image
+                src="/images/neuropulseai/product-hero.jpeg"
+                alt="NeuroPulseAI portable single-channel EMG kit and included accessories"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 55vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                {
+                  src: "/images/neuropulseai/sensor-placement.jpeg",
+                  alt: "EMG sensor placed on a forearm",
+                },
+                {
+                  src: "/images/neuropulseai/live-demo.jpeg",
+                  alt: "NeuroPulseAI being demonstrated on a forearm",
+                },
+                {
+                  src: "/images/neuropulseai/product-overview.jpeg",
+                  alt: "NeuroPulseAI product overview",
+                },
+              ].map((image) => (
+                <div
+                  key={image.src}
+                  className="relative aspect-[4/3] overflow-hidden rounded-xl border border-slate-200 bg-slate-50"
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(max-width: 1024px) 33vw, 18vw"
+                    className="object-cover"
+                  />
                 </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="aspect-square w-24 bg-card rounded-lg border border-border"></div>
-                <div className="aspect-square w-24 bg-card rounded-lg border border-border"></div>
-                <div className="aspect-square w-24 bg-card rounded-lg border border-border"></div>
-              </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-center">
+            <div className="mb-5 flex flex-wrap gap-2">
+              <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+                Single-channel EMG
+              </span>
+              <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                In stock
+              </span>
             </div>
 
-            {/* Product Details */}
-            <div className="flex flex-col space-y-6">
-              <div>
-                <h1 className="text-3xl md:text-5xl font-bold tracking-tight">NeuroPulseAI</h1>
-                <p className="text-xl text-muted-foreground mt-2">Single-Channel EMG Rehabilitation Feedback Kit</p>
-              </div>
+            <p className="mb-2 text-sm font-bold uppercase tracking-[0.22em] text-blue-700">
+              Debuggers Squad
+            </p>
+            <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
+              NeuroPulse<span className="text-blue-700">AI</span>
+            </h1>
+            <p className="mt-3 text-xl font-medium text-slate-600">
+              Portable EMG muscle-activity feedback kit
+            </p>
 
-              <div className="flex items-baseline gap-4">
-                <span className="text-4xl font-bold text-foreground">₹2,999</span>
-                <span className="text-sm text-muted-foreground line-through">₹4,999</span>
-                <span className="text-xs font-semibold px-2 py-1 bg-neon-gradient text-white rounded-md">Pre-order Launch</span>
-              </div>
+            <div className="mt-7 flex items-end gap-3">
+              <span className="text-4xl font-black">
+                ₹{NEUROPULSE_PRODUCT.price.toLocaleString("en-IN")}
+              </span>
+              <span className="pb-1 text-sm text-slate-500">inclusive of taxes</span>
+            </div>
+            <p className="mt-2 text-sm font-medium text-emerald-700">
+              Free prepaid delivery across India
+            </p>
 
-              {/* Medical Disclaimer Banner */}
-              <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive-foreground flex gap-3 items-start">
-                <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
-                <p>
-                  <strong>Disclaimer:</strong> This product is a prototype intended for educational, research, and innovation demonstration purposes only. It is <strong>NOT</strong> a certified medical or diagnostic device.
-                </p>
-              </div>
+            <p className="mt-7 max-w-xl leading-7 text-slate-600">
+              Connect the device to a Windows laptop, place the included electrodes,
+              and view live muscle signals through the supplied NeuroPulseAI plotting
+              software. Built for students, labs, educators, and innovation demos.
+            </p>
 
-              <p className="text-muted-foreground leading-relaxed">
-                NeuroPulseAI is designed to make muscle activity monitoring affordable and accessible. Perfect for physiotherapy students, hardware innovators, research labs, and academic demonstrations, this kit connects directly to your laptop via USB to provide real-time EMG feedback.
-              </p>
+            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+              {[
+                "Live EMG graph visualization",
+                "USB-powered laptop connection",
+                "Compact, reusable project kit",
+                "Software and setup guide included",
+              ].map((feature) => (
+                <div key={feature} className="flex items-center gap-2 text-sm font-medium">
+                  <span className="grid size-5 place-items-center rounded-full bg-blue-100 text-blue-700">
+                    <Check className="size-3.5" />
+                  </span>
+                  {feature}
+                </div>
+              ))}
+            </div>
 
-              <div className="space-y-4">
-                <h3 className="font-semibold text-lg">What's in the Box?</h3>
-                <ul className="space-y-2">
-                  {[
-                    "NeuroPulseAI Prototype Device",
-                    "USB Extender Cable",
-                    "Electrode Wires",
-                    "12x Gel Electrodes",
-                    "Alcohol Swabs",
-                    "Setup Guide Manual & Disclaimer Card"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-center gap-3">
-                      <CheckCircle2 className="h-4 w-4 text-primary" />
-                      <span className="text-sm">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <div className="mt-8 space-y-3">
+              <Link
+                href="/checkout"
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "h-14 w-full rounded-xl bg-blue-700 text-base font-bold text-white shadow-lg shadow-blue-700/20 hover:bg-blue-800"
+                )}
+              >
+                Buy now for ₹{NEUROPULSE_PRODUCT.price.toLocaleString("en-IN")}
+              </Link>
+              <a
+                href="https://wa.me/919170397988?text=I%20want%20to%20buy%20NeuroPulseAI%20for%20a%20lab%20or%20bulk%20order."
+                target="_blank"
+                rel="noreferrer"
+                className={cn(
+                  buttonVariants({ size: "lg", variant: "outline" }),
+                  "h-12 w-full rounded-xl border-slate-300 bg-white text-slate-800 hover:bg-slate-50"
+                )}
+              >
+                Ask about lab or bulk orders
+              </a>
+            </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link href="/checkout" className="w-full">
-                  <Button size="lg" className="w-full bg-primary text-primary-foreground shadow-[0_0_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_25px_rgba(0,255,255,0.5)]">
-                    Order Now - ₹2,999
-                  </Button>
-                </Link>
-                <Link href="/contact" className="w-full">
-                  <Button size="lg" variant="outline" className="w-full border-border">
-                    Inquire for Bulk / Lab
-                  </Button>
-                </Link>
-              </div>
-
-              <div className="flex items-center gap-2 text-sm text-muted-foreground pt-4 border-t border-border">
-                <ShieldCheck className="h-4 w-4" />
-                <span>Secure payment via Razorpay. Fast shipping across India.</span>
-              </div>
+            <div className="mt-6 grid grid-cols-2 gap-3 border-t border-slate-200 pt-6 text-sm text-slate-600">
+              <span className="flex items-center gap-2">
+                <ShieldCheck className="size-4 text-blue-700" />
+                Secure Razorpay payment
+              </span>
+              <span className="flex items-center gap-2">
+                <Truck className="size-4 text-blue-700" />
+                India-wide shipping
+              </span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Specifications Section */}
-      <section className="w-full py-16 md:py-24 bg-card/30 border-t border-border">
-        <div className="container px-4 md:px-6 max-w-4xl mx-auto space-y-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold">Technical Specifications</h2>
-            <p className="text-muted-foreground mt-2">Everything you need to know about the prototype.</p>
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="rounded-3xl bg-slate-950 p-8 text-white">
+            <Box className="size-9 text-cyan-400" />
+            <h2 className="mt-5 text-3xl font-bold">Everything in the box</h2>
+            <ul className="mt-7 space-y-4">
+              {includedItems.map((item) => (
+                <li key={item} className="flex gap-3 text-slate-300">
+                  <Check className="mt-0.5 size-5 shrink-0 text-cyan-400" />
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="rounded-xl border border-border overflow-hidden bg-background">
-            <Table>
-              <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium bg-card/50 w-1/3">Product Name</TableCell>
-                  <TableCell>NeuroPulseAI</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium bg-card/50">Category</TableCell>
-                  <TableCell>EMG Educational / Research / Project Kit</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium bg-card/50">Signal Type</TableCell>
-                  <TableCell>Single-channel EMG</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium bg-card/50">Connectivity</TableCell>
-                  <TableCell>USB-based laptop connection</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium bg-card/50">Software</TableCell>
-                  <TableCell>EMG Plotter / Visualization Dashboard (VS Code Setup)</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium bg-card/50">Report Capability</TableCell>
-                  <TableCell>1-minute session report conceptualization</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium bg-card/50">Power Source</TableCell>
-                  <TableCell>USB / Microcontroller-based</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium bg-card/50">Dimensions</TableCell>
-                  <TableCell>25 cm × 17 cm (Prototype Box)</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {useCases.map(({ icon: Icon, title, text }) => (
+              <article
+                key={title}
+                className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+              >
+                <span className="grid size-11 place-items-center rounded-2xl bg-blue-50 text-blue-700">
+                  <Icon className="size-5" />
+                </span>
+                <h3 className="mt-5 text-lg font-bold">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+              </article>
+            ))}
           </div>
         </div>
+      </section>
+
+      <section className="border-y border-slate-200 bg-white">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-700">
+              Simple setup
+            </p>
+            <h2 className="mt-3 text-3xl font-black">From box to live signal</h2>
+            <ol className="mt-8 space-y-6">
+              {[
+                ["Install", "Copy the supplied NeuroPulseAI software from the USB drive."],
+                ["Connect", "Attach the device to your Windows laptop through USB."],
+                ["Observe", "Place electrodes correctly and view the live EMG graph."],
+              ].map(([title, text], index) => (
+                <li key={title} className="flex gap-4">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-blue-700 font-bold text-white">
+                    {index + 1}
+                  </span>
+                  <div>
+                    <h3 className="font-bold">{title}</h3>
+                    <p className="mt-1 text-sm leading-6 text-slate-600">{text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div className="relative aspect-[2/3] max-h-[620px] overflow-hidden rounded-3xl border border-slate-200">
+            <Image
+              src="/images/neuropulseai/quick-start-guide.jpeg"
+              alt="NeuroPulseAI quick-start guide"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="flex gap-4 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-amber-950">
+          <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-700" />
+          <p className="text-sm leading-6">
+            <strong>Educational prototype:</strong> NeuroPulseAI is intended for
+            education, research, and innovation demonstrations. It is not a certified
+            medical or diagnostic device and must not be used to diagnose, treat, or
+            cure any condition.
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-blue-700 px-4 py-14 text-center text-white">
+        <Laptop className="mx-auto size-9 text-cyan-300" />
+        <h2 className="mt-4 text-3xl font-black">Start exploring muscle signals</h2>
+        <p className="mx-auto mt-3 max-w-xl text-blue-100">
+          One complete NeuroPulseAI kit, software included, delivered to your door.
+        </p>
+        <Link
+          href="/checkout"
+          className={cn(
+            buttonVariants({ size: "lg" }),
+            "mt-7 bg-white font-bold text-blue-800 hover:bg-blue-50"
+          )}
+        >
+          Proceed to secure checkout
+        </Link>
       </section>
     </div>
   );
