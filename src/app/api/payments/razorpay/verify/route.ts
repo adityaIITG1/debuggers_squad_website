@@ -23,21 +23,30 @@ type ShiprocketDetails = {
   courier_partner: string | null;
 };
 
-function isValidCustomer(customer: CustomerDetails) {
+function isValidCustomer(customer: unknown): customer is CustomerDetails {
+  if (typeof customer !== "object" || customer === null) return false;
+  const value = customer as Partial<CustomerDetails>;
+
   return Boolean(
-    customer?.name?.trim() &&
-      customer?.email?.includes("@") &&
-      /^\d{10}$/.test(customer?.phone?.replace(/\D/g, "")) &&
-      customer?.address?.trim() &&
-      customer?.city?.trim() &&
-      customer?.state?.trim() &&
-      /^\d{6}$/.test(customer?.pincode)
+    value.name?.trim() &&
+      value.email?.includes("@") &&
+      /^\d{10}$/.test(value.phone?.replace(/\D/g, "") || "") &&
+      value.address?.trim() &&
+      value.city?.trim() &&
+      value.state?.trim() &&
+      /^\d{6}$/.test(value.pincode || "")
   );
 }
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    let body: Record<string, unknown>;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+    }
+
     const { 
       razorpay_order_id, 
       razorpay_payment_id, 
@@ -45,6 +54,17 @@ export async function POST(req: Request) {
       customerDetails,
       disclaimerAccepted
     } = body;
+
+    if (
+      typeof razorpay_order_id !== "string" ||
+      typeof razorpay_payment_id !== "string" ||
+      typeof razorpay_signature !== "string"
+    ) {
+      return NextResponse.json(
+        { error: "Missing or invalid Razorpay payment fields" },
+        { status: 400 }
+      );
+    }
 
     if (!isValidCustomer(customerDetails) || disclaimerAccepted !== true) {
       return NextResponse.json({ error: "Invalid checkout details" }, { status: 400 });
@@ -64,7 +84,13 @@ export async function POST(req: Request) {
       .update(razorpay_order_id + "|" + razorpay_payment_id)
       .digest("hex");
 
-    if (generated_signature !== razorpay_signature) {
+    const generatedBuffer = Buffer.from(generated_signature, "utf8");
+    const receivedBuffer = Buffer.from(razorpay_signature, "utf8");
+    const signatureMatches =
+      generatedBuffer.length === receivedBuffer.length &&
+      crypto.timingSafeEqual(generatedBuffer, receivedBuffer);
+
+    if (!signatureMatches) {
       return NextResponse.json({ error: "Invalid payment signature" }, { status: 400 });
     }
 

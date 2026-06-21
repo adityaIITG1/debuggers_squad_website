@@ -32,6 +32,14 @@ type RazorpayOptions = {
   handler: (response: RazorpaySuccessResponse) => Promise<void>;
   prefill: { name: string; email: string; contact: string };
   theme: { color: string };
+  modal: {
+    ondismiss: () => void;
+    confirm_close: boolean;
+  };
+  retry: {
+    enabled: boolean;
+    max_count: number;
+  };
 };
 
 declare global {
@@ -66,6 +74,8 @@ function CheckoutContent() {
   const [selectedSlug, setSelectedSlug] = useState<Product["slug"] | null>(null);
   const product =
     getProduct(selectedSlug ?? searchParams.get("product")) ?? NEUROPULSE_PRODUCT;
+  const isRazorpayTestMode =
+    process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID?.startsWith("rzp_test_") ?? false;
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((current) => ({
@@ -169,6 +179,16 @@ function CheckoutContent() {
           contact: normalizedPhone,
         },
         theme: { color: "#673de6" },
+        modal: {
+          confirm_close: true,
+          ondismiss: () => {
+            toast.info("Payment was cancelled. Your order has not been charged.");
+          },
+        },
+        retry: {
+          enabled: true,
+          max_count: 2,
+        },
       };
 
       const checkout = new window.Razorpay(options);
@@ -220,6 +240,14 @@ function CheckoutContent() {
               </button>
             ))}
           </div>
+          {isRazorpayTestMode && (
+            <div className="mt-5 max-w-2xl rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950">
+              <strong>Razorpay Test Mode:</strong> This checkout cannot accept real
+              UPI, QR, card, or bank payments. Replace all three Razorpay variables
+              with a matching <code>rzp_live_</code> key pair in the hosting
+              environment after account activation.
+            </div>
+          )}
         </div>
 
         <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr]">

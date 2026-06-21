@@ -26,6 +26,13 @@ This is the official e-commerce and product showcase platform for Debuggers Squa
    - Rename `.env.example` to `.env.local`.
    - Fill in all the API keys (Supabase, Razorpay, Shiprocket).
    - Ensure `SUPABASE_SERVICE_ROLE_KEY` is added for backend operations.
+   - Razorpay requires one matching key pair:
+     - `RAZORPAY_KEY_ID` — server-side Key ID
+     - `RAZORPAY_KEY_SECRET` — server-side secret; never expose it to the browser
+     - `NEXT_PUBLIC_RAZORPAY_KEY_ID` — must match `RAZORPAY_KEY_ID`
+   - Keys beginning with `rzp_test_` cannot accept real UPI/QR payments. After
+     Razorpay activates the account, use matching `rzp_live_` values in Vercel
+     and redeploy.
 
 4. **Run Locally:**
    ```bash
