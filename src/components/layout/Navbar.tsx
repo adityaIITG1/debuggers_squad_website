@@ -14,6 +14,7 @@ const links = [
   { href: "/paratalk", label: "ParaTalk" },
   { href: "/demo", label: "How it works" },
   { href: "/about", label: "Our story" },
+  { href: "/media-kit", label: "Media kit" },
   { href: "/contact", label: "Contact" },
 ];
 

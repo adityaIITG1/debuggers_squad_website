@@ -233,7 +233,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-y border-[#ded5f5] bg-[#211449] py-16 text-white lg:py-20">
+      <section id="proof-trust" className="border-y border-[#ded5f5] bg-[#211449] py-16 text-white lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-end gap-6 lg:grid-cols-[1fr_0.8fr]">
             <div>

@@ -16,6 +16,7 @@ const footerGroups = [
     title: "Company",
     links: [
       ["/about", "About us"],
+      ["/media-kit", "Investor & media kit"],
       ["/contact", "Contact"],
     ],
   },
