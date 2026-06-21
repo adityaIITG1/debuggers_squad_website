@@ -22,7 +22,7 @@ const founders = [
   {
     name: "Prakriti Jaiswal",
     role: "Co-founder",
-    image: "/images/neuropulseai/cofounder-prakriti.jpeg",
+    image: "/images/neuropulseai/cofounder-prakriti-2026.jpeg",
     imagePosition: "object-center",
     description:
       "Prakriti leads operations, presentation, outreach, and brand development for Debuggers Squad, helping turn student-led engineering ideas into clear, accessible, impact-driven initiatives.",

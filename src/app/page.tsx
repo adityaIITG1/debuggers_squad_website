@@ -463,7 +463,7 @@ export default function Home() {
               </div>
               <div className="relative mt-10 aspect-[3/4] overflow-hidden rounded-[26px] border-4 border-white shadow-xl">
                 <Image
-                  src="/images/neuropulseai/cofounder-prakriti.jpeg"
+                  src="/images/neuropulseai/cofounder-prakriti-2026.jpeg"
                   alt="Prakriti Jaiswal, co-founder of Debuggers Squad"
                   fill
                   sizes="(max-width: 1024px) 50vw, 23vw"
