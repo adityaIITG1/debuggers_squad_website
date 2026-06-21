@@ -1,16 +1,28 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Script from "next/script";
 import { useRouter, useSearchParams } from "next/navigation";
-import { AlertTriangle, CreditCard, LockKeyhole, PackageCheck } from "lucide-react";
+import {
+  AlertTriangle,
+  CreditCard,
+  LockKeyhole,
+  Minus,
+  PackageCheck,
+  Plus,
+  ShoppingCart,
+  Trash2,
+} from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { getProduct, NEUROPULSE_PRODUCT, PRODUCTS, type Product } from "@/lib/product";
+import { getProduct } from "@/lib/product";
+import { useCart } from "@/components/cart/CartProvider";
+import { priceCartItems } from "@/lib/cart";
 
 type RazorpaySuccessResponse = {
   razorpay_order_id: string;
@@ -76,12 +88,24 @@ const emptyForm = {
 function CheckoutContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const {
+    items,
+    ready,
+    addItem,
+    setQuantity,
+    removeItem,
+    clearCart,
+  } = useCart();
   const [loading, setLoading] = useState(false);
   const [acceptedDisclaimer, setAcceptedDisclaimer] = useState(false);
   const [formData, setFormData] = useState(emptyForm);
-  const [selectedSlug, setSelectedSlug] = useState<Product["slug"] | null>(null);
-  const product =
-    getProduct(selectedSlug ?? searchParams.get("product")) ?? NEUROPULSE_PRODUCT;
+  const cart = priceCartItems(items);
+
+  useEffect(() => {
+    if (!ready || items.length > 0) return;
+    const legacyProduct = getProduct(searchParams.get("product"));
+    if (legacyProduct) addItem(legacyProduct.slug);
+  }, [ready, items.length, searchParams, addItem]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((current) => ({
@@ -90,15 +114,13 @@ function CheckoutContent() {
     }));
   };
 
-  const selectProduct = (nextProduct: Product) => {
-    setSelectedSlug(nextProduct.slug);
-    setAcceptedDisclaimer(false);
-    window.history.replaceState(null, "", `/checkout?product=${nextProduct.slug}`);
-  };
-
   const handlePayment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (cart.items.length === 0) {
+      toast.error("Your cart is empty.");
+      return;
+    }
     const normalizedPhone = formData.phone.replace(/\D/g, "");
     if (normalizedPhone.length !== 10) {
       toast.error("Enter a valid 10-digit phone number.");
@@ -119,7 +141,7 @@ function CheckoutContent() {
       const response = await fetch("/api/payments/razorpay/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productSlug: product.slug }),
+        body: JSON.stringify({ items }),
       });
       const order = (await response.json()) as RazorpayOrderResponse;
 
@@ -138,7 +160,10 @@ function CheckoutContent() {
         amount: order.amount,
         currency: order.currency,
         name: "Debuggers Squad",
-        description: product.fullName,
+        description:
+          cart.items.length === 1
+            ? cart.items[0].product.fullName
+            : `${cart.items.length} products from Debuggers Squad`,
         order_id: order.order_id,
         handler: async (payment) => {
           const toastId = toast.loading("Confirming your payment and order...");
@@ -170,6 +195,7 @@ function CheckoutContent() {
             toast.success("Payment successful. Your order is confirmed.", {
               id: toastId,
             });
+            clearCart();
             router.push(
               `/order-success?order_id=${encodeURIComponent(verification.order_number)}`
             );
@@ -216,6 +242,26 @@ function CheckoutContent() {
     }
   };
 
+  if (!ready || (cart.items.length === 0 && getProduct(searchParams.get("product")))) {
+    return <div className="mx-auto max-w-6xl px-4 py-20">Loading checkout…</div>;
+  }
+
+  if (cart.items.length === 0) {
+    return (
+      <div className="mx-auto flex min-h-[65vh] max-w-xl flex-col items-center justify-center px-4 text-center">
+        <ShoppingCart className="size-12 text-[#673de6]" />
+        <h1 className="mt-5 text-3xl font-black text-[#2f1c6a]">Your cart is empty</h1>
+        <p className="mt-3 text-slate-600">Add a product before opening checkout.</p>
+        <Link
+          href="/#products"
+          className="mt-7 rounded-xl bg-[#673de6] px-6 py-3 font-bold text-white"
+        >
+          Shop products
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-[#fbfaff] text-[#2f1c6a]">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
@@ -227,28 +273,8 @@ function CheckoutContent() {
           </p>
           <h1 className="mt-2 text-4xl font-black tracking-tight">Secure checkout</h1>
           <p className="mt-2 text-slate-600">
-            Enter the delivery details for your {product.name} kit.
+            Enter delivery details and complete payment through Razorpay.
           </p>
-          <div className="mt-6 grid max-w-2xl gap-3 sm:grid-cols-2">
-            {PRODUCTS.map((item) => (
-              <button
-                key={item.slug}
-                type="button"
-                onClick={() => selectProduct(item)}
-                className={`rounded-2xl border p-4 text-left transition-all ${
-                  product.slug === item.slug
-                    ? "border-[#673de6] bg-[#f0ebff] ring-2 ring-[#673de6]/15"
-                    : "border-slate-200 bg-white hover:border-[#b9a8ee]"
-                }`}
-              >
-                <span className="block text-sm font-black">{item.name}</span>
-                <span className="mt-1 block text-xs text-slate-600">{item.shortDescription}</span>
-                <span className="mt-2 block font-black text-[#673de6]">
-                  ₹{item.price.toLocaleString("en-IN")}
-                </span>
-              </button>
-            ))}
-          </div>
         </div>
 
         <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr]">
@@ -293,7 +319,9 @@ function CheckoutContent() {
                 <div>
                   <h2 className="font-bold text-amber-950">Educational-use acknowledgement</h2>
                   <p className="mt-2 text-sm leading-6 text-amber-900">
-                    {product.disclaimer}
+                    {cart.items
+                      .map(({ product }) => product.disclaimer)
+                      .join(" ")}
                   </p>
                   <label className="mt-4 flex cursor-pointer items-start gap-3 text-sm font-semibold text-amber-950">
                     <input
@@ -329,7 +357,7 @@ function CheckoutContent() {
               <LockKeyhole className="size-4" />
               {loading
                 ? "Opening Razorpay…"
-                : `Pay ₹${product.price.toLocaleString("en-IN")} with Razorpay`}
+                : `Pay ₹${cart.total.toLocaleString("en-IN")} with Razorpay`}
             </Button>
             <p className="-mt-4 text-center text-xs leading-5 text-slate-500">
               Payment details are processed securely by Razorpay and are not stored
@@ -339,36 +367,73 @@ function CheckoutContent() {
 
           <aside>
             <Card className="sticky top-24 overflow-hidden border-slate-200 bg-white text-slate-950 shadow-sm">
-              <div className="relative aspect-[4/3]">
-                <Image
-                  src={product.image}
-                  alt={product.fullName}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-cover"
-                />
-              </div>
               <CardHeader>
-                <CardTitle>{product.fullName}</CardTitle>
+                <CardTitle>Your order</CardTitle>
               </CardHeader>
               <CardContent className="space-y-5">
-                <div className="flex justify-between border-b border-slate-200 pb-5">
-                  <span className="text-slate-600">Quantity</span>
-                  <span className="font-semibold">1</span>
-                </div>
+                {cart.items.map(({ product, quantity, lineTotal }) => (
+                  <div
+                    key={product.slug}
+                    className="flex items-center gap-3 border-b border-slate-200 pb-4"
+                  >
+                    <div className="relative size-14 shrink-0 overflow-hidden rounded-lg">
+                      <Image src={product.image} alt="" fill className="object-cover" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-semibold">{product.name}</p>
+                      <div className="mt-2 flex items-center gap-1">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="icon-xs"
+                          aria-label={`Decrease ${product.name} quantity`}
+                          onClick={() => setQuantity(product.slug, quantity - 1)}
+                        >
+                          <Minus />
+                        </Button>
+                        <span className="w-7 text-center text-sm font-bold">{quantity}</span>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="icon-xs"
+                          aria-label={`Increase ${product.name} quantity`}
+                          onClick={() => setQuantity(product.slug, quantity + 1)}
+                        >
+                          <Plus />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon-xs"
+                          className="ml-1 text-red-600"
+                          aria-label={`Remove ${product.name}`}
+                          onClick={() => removeItem(product.slug)}
+                        >
+                          <Trash2 />
+                        </Button>
+                      </div>
+                    </div>
+                    <span className="font-semibold">
+                      ₹{lineTotal.toLocaleString("en-IN")}
+                    </span>
+                  </div>
+                ))}
                 <div className="flex justify-between">
                   <span className="text-slate-600">Delivery</span>
                   <span className="font-semibold text-emerald-700">Free</span>
                 </div>
                 <div className="flex items-start gap-3 rounded-xl bg-[#f0ebff] p-4 text-sm text-[#2f1c6a]">
                   <PackageCheck className="mt-0.5 size-5 shrink-0 text-[#673de6]" />
-                  <span>{product.checkoutNote}</span>
+                  <span>
+                    Shiprocket pickup will be requested automatically after successful
+                    payment verification.
+                  </span>
                 </div>
               </CardContent>
               <CardFooter className="flex justify-between border-t border-slate-200 bg-slate-50 py-5">
                 <span className="text-lg font-bold">Total</span>
                 <span className="text-2xl font-black text-[#673de6]">
-                  ₹{product.price.toLocaleString("en-IN")}
+                  ₹{cart.total.toLocaleString("en-IN")}
                 </span>
               </CardFooter>
             </Card>

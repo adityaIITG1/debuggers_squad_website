@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Menu, ShoppingBag, X } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useCart } from "@/components/cart/CartProvider";
 
 const links = [
   { href: "/product", label: "NeuroPulseAI" },
@@ -17,6 +18,7 @@ const links = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const { itemCount } = useCart();
 
   return (
     <>
@@ -59,14 +61,14 @@ export function Navbar() {
 
           <div className="hidden items-center gap-3 lg:flex">
             <Link
-              href="/checkout"
+              href="/cart"
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
                 "h-11 rounded-xl border-[#673de6] bg-transparent px-5 font-bold text-[#673de6] hover:bg-[#f1ecff]"
               )}
             >
               <ShoppingBag className="size-4" />
-              Checkout
+              Cart{itemCount > 0 ? ` (${itemCount})` : ""}
             </Link>
             <Link
               href="/#products"
@@ -103,6 +105,13 @@ export function Navbar() {
                   {link.label}
                 </Link>
               ))}
+              <Link
+                href="/cart"
+                onClick={() => setOpen(false)}
+                className="rounded-xl px-4 py-3 text-sm font-semibold text-[#2f1c6a] hover:bg-[#f5f2ff]"
+              >
+                Cart{itemCount > 0 ? ` (${itemCount})` : ""}
+              </Link>
               <Link
                 href="/#products"
                 onClick={() => setOpen(false)}

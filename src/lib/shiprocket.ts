@@ -9,7 +9,7 @@ export async function getShiprocketToken() {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to authenticate with Shiprocket");
+    throw new Error(`Shiprocket authentication failed: ${await response.text()}`);
   }
 
   const data = await response.json();
@@ -27,9 +27,7 @@ export async function createShiprocketOrder(orderData: Record<string, unknown>, 
   });
 
   if (!response.ok) {
-    const errorData = await response.json();
-    console.error("Shiprocket Create Order Error:", errorData);
-    throw new Error("Failed to create Shiprocket order");
+    throw new Error(`Shiprocket order creation failed: ${await response.text()}`);
   }
 
   return response.json();
@@ -48,8 +46,7 @@ export async function assignAWB(shipmentId: number, token: string) {
   });
 
   if (!response.ok) {
-     console.error("Shiprocket Assign AWB Error:", await response.text());
-     throw new Error("Failed to assign AWB");
+     throw new Error(`Shiprocket AWB assignment failed: ${await response.text()}`);
   }
 
   return response.json();
@@ -68,8 +65,7 @@ export async function requestPickup(shipmentId: number, token: string) {
   });
 
   if (!response.ok) {
-    console.error("Shiprocket Pickup Error:", await response.text());
-    throw new Error("Failed to request pickup");
+    throw new Error(`Shiprocket pickup request failed: ${await response.text()}`);
   }
 
   return response.json();

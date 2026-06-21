@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import {
   Activity,
   AlertTriangle,
@@ -15,6 +14,7 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { NEUROPULSE_PRODUCT } from "@/lib/product";
 import { cn } from "@/lib/utils";
+import { AddToCartButton } from "@/components/cart/AddToCartButton";
 
 export const metadata: Metadata = {
   title: "Buy NeuroPulseAI Single-Channel EMG Kit | Debuggers Squad",
@@ -150,15 +150,18 @@ export default function ProductPage() {
             </div>
 
             <div className="mt-8 space-y-3">
-              <Link
-                href="/checkout?product=neuropulseai"
-                className={cn(
-                  buttonVariants({ size: "lg" }),
-                  "h-14 w-full rounded-xl bg-[#673de6] text-base font-bold text-white shadow-lg shadow-violet-700/20 hover:bg-[#5630c9]"
-                )}
-              >
-                Buy now for ₹{NEUROPULSE_PRODUCT.price.toLocaleString("en-IN")}
-              </Link>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <AddToCartButton
+                  slug="neuropulseai"
+                  className="w-full bg-[#673de6] text-white hover:bg-[#5630c9]"
+                />
+                <AddToCartButton
+                  slug="neuropulseai"
+                  buyNow
+                  label={`Buy now for ₹${NEUROPULSE_PRODUCT.price.toLocaleString("en-IN")}`}
+                  className="w-full bg-[#2f1c6a] text-white hover:bg-[#241650]"
+                />
+              </div>
               <a
                 href="https://wa.me/919170397988?text=I%20want%20to%20buy%20NeuroPulseAI%20for%20a%20lab%20or%20bulk%20order."
                 target="_blank"
@@ -273,15 +276,12 @@ export default function ProductPage() {
         <p className="mx-auto mt-3 max-w-xl text-[#ddd4ff]">
           One complete NeuroPulseAI kit, software included, delivered to your door.
         </p>
-        <Link
-          href="/checkout?product=neuropulseai"
-          className={cn(
-            buttonVariants({ size: "lg" }),
-            "mt-7 bg-white font-bold text-[#673de6] hover:bg-[#f5f2ff]"
-          )}
-        >
-          Proceed to secure checkout
-        </Link>
+        <AddToCartButton
+          slug="neuropulseai"
+          buyNow
+          label="Buy NeuroPulseAI"
+          className="mt-7 bg-white px-7 text-[#673de6] hover:bg-[#f5f2ff]"
+        />
       </section>
     </div>
   );

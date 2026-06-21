@@ -9,6 +9,7 @@ This is the official e-commerce and product showcase platform for Debuggers Squa
 - **Database & Auth:** Supabase
 - **Payments:** Razorpay
 - **Shipping:** Shiprocket API
+- **Transactional Email:** Resend
 
 ## Local Setup Instructions
 
@@ -32,8 +33,21 @@ This is the official e-commerce and product showcase platform for Debuggers Squa
    - The server returns the Key ID with each created Razorpay order. The Key
      Secret remains server-only.
    - Production payments require a matching `rzp_live_` key pair in Vercel.
+   - Shiprocket automation requires:
+     - `SHIPROCKET_EMAIL`
+     - `SHIPROCKET_PASSWORD`
+     - `SHIPROCKET_PICKUP_LOCATION` — exact pickup nickname configured in Shiprocket
+     - `SHIPROCKET_CHANNEL_ID` — website/custom channel ID
+   - Order emails require:
+     - `RESEND_API_KEY`
+     - `ORDER_EMAIL_FROM` — sender on a domain verified in Resend
+     - `ORDER_NOTIFICATION_EMAIL` — internal order recipient
 
-4. **Run Locally:**
+4. **Existing Supabase deployments:**
+   - Run `supabase_checkout_migration.sql` once in the Supabase SQL Editor.
+   - This adds an idempotency constraint for Razorpay payment IDs.
+
+5. **Run Locally:**
    ```bash
    npm run dev
    ```
@@ -55,7 +69,15 @@ This is the official e-commerce and product showcase platform for Debuggers Squa
 4. **Deploy:**
    Click Deploy. Vercel will automatically build the Next.js App Router application.
 
-5. **Custom Domain:**
+5. **Production checks:**
+   - Razorpay payment capture should be automatic. The server also attempts capture
+     when Razorpay returns an authorised payment.
+   - Verify UPI/cards are enabled in the Razorpay live account.
+   - Verify the Shiprocket pickup address and channel are active.
+   - Verify `debuggerssquad.com` in Resend before using an
+     `@debuggerssquad.com` sender.
+
+6. **Custom Domain:**
    Once deployed, go to the project settings in Vercel -> Domains.
    Add `www.debuggerssquad.com` and configure your DNS settings as instructed by Vercel.
 

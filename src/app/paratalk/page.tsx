@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import {
   AlertTriangle,
   ArrowRight,
@@ -21,6 +20,7 @@ import {
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { AddToCartButton } from "@/components/cart/AddToCartButton";
 
 export const metadata: Metadata = {
   title: "ParaTalk Eye-Blink Communication & Control Kit | Debuggers Squad",
@@ -114,16 +114,12 @@ export default function ParaTalkPage() {
               ))}
             </div>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/checkout?product=paratalk"
-                className={cn(
-                  buttonVariants({ size: "lg" }),
-                  "h-14 rounded-xl bg-[#0869bd] px-8 text-base font-black text-white shadow-xl shadow-blue-800/20 hover:bg-[#07599f]"
-                )}
-              >
-                Buy ParaTalk — ₹7,999
-                <ArrowRight className="size-4" />
-              </Link>
+              <AddToCartButton
+                slug="paratalk"
+                buyNow
+                label="Buy ParaTalk — ₹7,999"
+                className="bg-[#0869bd] px-8 text-base font-black text-white shadow-xl shadow-blue-800/20 hover:bg-[#07599f]"
+              />
               <a
                 href="https://youtube.com/shorts/JLQoj-U82aU"
                 target="_blank"
@@ -377,15 +373,12 @@ export default function ParaTalkPage() {
           software-loaded pen drive, and guide manual.
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Link
-            href="/checkout?product=paratalk"
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              "h-14 rounded-xl bg-white px-8 text-base font-black text-[#0869bd] hover:bg-[#edf8ff]"
-            )}
-          >
-            Order ParaTalk — ₹7,999
-          </Link>
+          <AddToCartButton
+            slug="paratalk"
+            buyNow
+            label="Order ParaTalk — ₹7,999"
+            className="bg-white px-8 text-base font-black text-[#0869bd] hover:bg-[#edf8ff]"
+          />
           <a
             href="https://youtube.com/shorts/JLQoj-U82aU"
             target="_blank"

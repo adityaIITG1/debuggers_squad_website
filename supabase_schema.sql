@@ -66,6 +66,10 @@ CREATE TABLE payments (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE UNIQUE INDEX payments_razorpay_payment_id_unique
+ON payments (razorpay_payment_id)
+WHERE razorpay_payment_id IS NOT NULL;
+
 -- Shipments Table
 CREATE TABLE shipments (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

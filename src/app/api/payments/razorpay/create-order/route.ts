@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { razorpay } from "@/lib/razorpay";
-import { getProduct } from "@/lib/product";
+import { priceCartItems } from "@/lib/cart";
 
 type RazorpayApiError = {
   statusCode?: number;
@@ -20,27 +20,30 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
     }
 
-    const productSlug =
-      typeof body === "object" && body !== null && "productSlug" in body
-        ? (body as { productSlug?: unknown }).productSlug
+    const rawItems =
+      typeof body === "object" && body !== null && "items" in body
+        ? (body as { items?: unknown }).items
         : undefined;
-    const product = getProduct(productSlug);
+    const cart = priceCartItems(rawItems);
 
-    if (!product) {
-      return NextResponse.json({ error: "Invalid product" }, { status: 400 });
+    if (cart.items.length === 0) {
+      return NextResponse.json({ error: "Cart is empty or invalid" }, { status: 400 });
     }
-    if (product.priceInPaise < 100) {
+    if (cart.totalInPaise < 100) {
       return NextResponse.json({ error: "Amount must be at least 100 paise" }, { status: 400 });
     }
 
     const orderOptions = {
-      amount: product.priceInPaise,
-      currency: product.currency,
-      receipt: `${product.slug.slice(0, 8)}_${Date.now()}`,
+      amount: cart.totalInPaise,
+      currency: "INR",
+      receipt: `ds_${Date.now()}`,
       notes: {
-        sku: product.sku,
-        product: product.fullName,
-        product_slug: product.slug,
+        cart: JSON.stringify(
+          cart.items.map(({ slug, quantity }) => ({ slug, quantity }))
+        ),
+        item_count: String(
+          cart.items.reduce((sum, item) => sum + item.quantity, 0)
+        ),
       },
     };
 
@@ -51,8 +54,6 @@ export async function POST(req: Request) {
       order_id: order.id,
       amount: order.amount,
       currency: order.currency,
-      product: product.fullName,
-      product_slug: product.slug,
     });
   } catch (error: unknown) {
     console.error("Razorpay Order Creation Error:", error);
