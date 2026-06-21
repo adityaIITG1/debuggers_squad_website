@@ -33,6 +33,10 @@ This is the official e-commerce and product showcase platform for Debuggers Squa
    - Keys beginning with `rzp_test_` cannot accept real UPI/QR payments. After
      Razorpay activates the account, use matching `rzp_live_` values in Vercel
      and redeploy.
+   - While Standard Checkout remains in Test Mode, checkout also offers fixed
+     Razorpay Payment Links for NeuroPulseAI and ParaTalk. These payments bypass
+     the website verification API and therefore require manual order and shipping
+     confirmation.
 
 4. **Run Locally:**
    ```bash

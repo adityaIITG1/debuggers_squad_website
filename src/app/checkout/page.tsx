@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import Image from "next/image";
 import Script from "next/script";
 import { useRouter, useSearchParams } from "next/navigation";
-import { AlertTriangle, LockKeyhole, PackageCheck } from "lucide-react";
+import { AlertTriangle, ExternalLink, LockKeyhole, PackageCheck } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -318,6 +318,29 @@ function CheckoutContent() {
                 ? "Opening secure payment..."
                 : `Pay ₹${product.price.toLocaleString("en-IN")}`}
             </Button>
+
+            <div className="relative flex items-center gap-4">
+              <div className="h-px flex-1 bg-slate-200" />
+              <span className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
+                Alternate payment
+              </span>
+              <div className="h-px flex-1 bg-slate-200" />
+            </div>
+
+            <a
+              href={product.paymentLink}
+              target="_blank"
+              rel="noreferrer"
+              className="flex h-14 w-full items-center justify-center gap-2 rounded-xl border-2 border-[#673de6] bg-white px-5 text-base font-bold text-[#673de6] transition-colors hover:bg-[#f3efff]"
+            >
+              Pay ₹{product.price.toLocaleString("en-IN")} using Razorpay Payment Link
+              <ExternalLink className="size-4" />
+            </a>
+            <p className="-mt-4 text-center text-xs leading-5 text-slate-500">
+              After paying through the alternate link, save the Razorpay payment
+              confirmation and contact us with your delivery details for manual order
+              verification.
+            </p>
           </form>
 
           <aside>
