@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { NEUROPULSE_PRODUCT, PARATALK_PRODUCT } from "@/lib/product";
+import { NEUROPULSE_PRODUCT } from "@/lib/product";
 
 const benefits = [
   {
@@ -350,11 +350,11 @@ export default function Home() {
             <div className="relative overflow-hidden rounded-[32px] border border-white bg-white p-3 shadow-2xl shadow-blue-900/15">
               <div className="relative aspect-[4/3] overflow-hidden rounded-[24px]">
                 <Image
-                  src={PARATALK_PRODUCT.image}
-                  alt="ParaTalk eye-blink communication and computer-control kit"
+                  src="/images/paratalk/paratalk-product-poster.jpeg"
+                  alt="Professional ParaTalk eye-blink communication and control kit product poster"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
             </div>

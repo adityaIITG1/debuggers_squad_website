@@ -143,14 +143,14 @@ export default function ParaTalkPage() {
             <div className="absolute -left-8 top-8 size-40 rounded-full bg-[#a8e8ff] blur-3xl" />
             <div className="absolute -right-8 bottom-5 size-44 rounded-full bg-[#cfc2ff] blur-3xl" />
             <div className="relative rounded-[34px] border border-white bg-white/80 p-4 shadow-2xl shadow-blue-900/15 backdrop-blur">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[26px] bg-gradient-to-br from-[#eaf7ff] to-[#eee9ff]">
+              <div className="relative aspect-[5/7] max-h-[720px] overflow-hidden rounded-[26px] bg-white">
                 <Image
-                  src="/images/paratalk/paratalk-device.jpeg"
-                  alt="Real ParaTalk eye-blink communication and control device with electrode and USB cables"
+                  src="/images/paratalk/paratalk-product-poster.jpeg"
+                  alt="Professional ParaTalk eye-blink communication and control kit product poster"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 55vw"
-                  className="object-contain p-3"
+                  className="object-contain"
                 />
               </div>
               <div className="absolute -bottom-6 left-8 right-8 flex items-center justify-between rounded-2xl bg-[#073d73] p-5 text-white shadow-xl">
