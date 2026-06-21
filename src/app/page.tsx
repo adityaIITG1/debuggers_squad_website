@@ -342,7 +342,7 @@ export default function Home() {
 
       <section className="border-y border-[#e2daf5] bg-white py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
+          <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.2em] text-[#673de6]">
                 Built by Debuggers Squad
@@ -366,14 +366,25 @@ export default function Home() {
                 <ArrowRight className="size-4" />
               </Link>
             </div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[28px]">
-              <Image
-                src="/images/neuropulseai/gallery/team-founders.jpeg"
-                alt="Debuggers Squad team"
-                fill
-                sizes="(max-width: 1024px) 100vw, 45vw"
-                className="object-cover"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-[26px] border-4 border-white shadow-xl">
+                <Image
+                  src="/images/neuropulseai/founder-aditya.jpeg"
+                  alt="Aditya Kumar Singh, founder of Debuggers Squad"
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 23vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="relative mt-10 aspect-[3/4] overflow-hidden rounded-[26px] border-4 border-white shadow-xl">
+                <Image
+                  src="/images/neuropulseai/cofounder-prakriti.jpeg"
+                  alt="Prakriti Jaiswal, co-founder of Debuggers Squad"
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 23vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>

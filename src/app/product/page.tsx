@@ -73,8 +73,8 @@ export default function ProductPage() {
                   alt: "EMG sensor placed on a forearm",
                 },
                 {
-                  src: "/images/neuropulseai/live-demo.jpeg",
-                  alt: "NeuroPulseAI being demonstrated on a forearm",
+                  src: "/images/neuropulseai/emg-software-live.jpeg",
+                  alt: "NeuroPulseAI live EMG software displaying a muscle signal",
                 },
                 {
                   src: "/images/neuropulseai/product-overview.jpeg",

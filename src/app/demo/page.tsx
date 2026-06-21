@@ -1,69 +1,152 @@
 import Image from "next/image";
-import { AlertTriangle } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Activity, AlertTriangle, ArrowRight, Laptop, Play, Usb } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+const gallery = [
+  {
+    src: "/images/neuropulseai/emg-software-live.jpeg",
+    label: "Live EMG software output",
+    span: "md:col-span-2",
+    ratio: "aspect-video",
+  },
+  {
+    src: "/images/neuropulseai/gallery/forearm-live-demo.jpeg",
+    label: "Real electrode demonstration",
+    span: "",
+    ratio: "aspect-square",
+  },
+  {
+    src: "/images/neuropulseai/gallery/workshop-demo-portrait.jpeg",
+    label: "Hands-on workshop testing",
+    span: "",
+    ratio: "aspect-square",
+  },
+];
 
 export default function DemoPage() {
   return (
-    <div className="flex flex-col min-h-screen py-16 md:py-24 bg-background">
-      <div className="container px-4 md:px-6 max-w-5xl mx-auto space-y-16">
-        
-        <section className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter">Demo & <span className="text-neon-cyan">Validation</span></h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            See how NeuroPulseAI performs in real-world educational and innovation-driven environments.
+    <div className="bg-[#fbfaff] text-[#2f1c6a]">
+      <section className="premium-grid">
+        <div className="mx-auto max-w-5xl px-4 py-20 text-center sm:px-6 lg:px-8 lg:py-28">
+          <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-[#eee9ff] text-[#673de6]">
+            <Activity className="size-7" />
+          </span>
+          <p className="mt-6 text-sm font-black uppercase tracking-[0.2em] text-[#673de6]">
+            Real hardware. Real signals.
           </p>
-        </section>
-
-        {/* Disclaimer */}
-        <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive-foreground flex gap-3 items-start max-w-3xl mx-auto">
-          <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
-          <p>
-            <strong>Legal & Medical Disclaimer:</strong> Images and demonstrations shown are for educational and project presentation purposes only. The device is tested in educational and research-oriented observation settings, designed for learning, demonstration, and prototype validation.
+          <h1 className="mt-4 text-5xl font-black tracking-[-0.045em] sm:text-6xl">
+            NeuroPulseAI in action
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#66598a]">
+            See the complete workflow—from electrode placement and USB connection to
+            real-time muscle activity on the NeuroPulseAI plotting dashboard.
           </p>
         </div>
+      </section>
 
-        {/* Video Demo */}
-        <section className="space-y-6">
-          <h2 className="text-3xl font-bold text-center">Video Demonstration</h2>
-          <div className="w-full max-w-sm mx-auto aspect-[9/16] rounded-xl overflow-hidden border border-primary/20 shadow-[0_0_30px_rgba(255,0,255,0.1)] relative">
-            <iframe 
-              className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/DiS-mlOMdkE" 
-              title="NeuroPulseAI Demo" 
-              frameBorder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowFullScreen
-            ></iframe>
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.08fr_0.92fr]">
+          <div className="relative aspect-video overflow-hidden rounded-[30px] border-8 border-white bg-black shadow-2xl shadow-violet-900/15">
+            <Image
+              src="/images/neuropulseai/emg-software-live.jpeg"
+              alt="Live NeuroPulseAI EMG software graph responding to hand movement"
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 55vw"
+              className="object-cover"
+            />
           </div>
-        </section>
-
-        <section className="space-y-8">
-          <h2 className="text-3xl font-bold text-center">In Action</h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {[
-              ["/images/neuropulseai/sensor-placement.jpeg", "Real electrode placement"],
-              ["/images/neuropulseai/live-demo.jpeg", "Live event demonstration"],
-              ["/images/neuropulseai/product-overview.jpeg", "Portable prototype kit"],
-            ].map(([src, label]) => (
-              <div key={src} className="aspect-square bg-card rounded-lg border border-border relative overflow-hidden">
-                <Image src={src} alt={label} fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover" />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-4 pt-12">
-                  <p className="font-semibold text-white">{label}</p>
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#673de6]">
+              The signal journey
+            </p>
+            <h2 className="mt-4 text-4xl font-black tracking-[-0.035em]">
+              Movement becomes visible data
+            </h2>
+            <div className="mt-8 space-y-6">
+              {[
+                { icon: Activity, title: "Sense", text: "Surface electrodes capture changes associated with muscle activation." },
+                { icon: Usb, title: "Connect", text: "The portable kit sends the signal to a Windows laptop over USB." },
+                { icon: Laptop, title: "Visualize", text: "The supplied software displays the incoming waveform in real time." },
+              ].map(({ icon: Icon, title, text }) => (
+                <div key={title} className="flex gap-4">
+                  <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-[#eee9ff] text-[#673de6]">
+                    <Icon className="size-5" />
+                  </span>
+                  <div>
+                    <h3 className="font-black">{title}</h3>
+                    <p className="mt-1 text-sm leading-6 text-[#6b5e8d]">{text}</p>
+                  </div>
                 </div>
-              </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#f0ebff] py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-[#673de6]">
+              Demonstration gallery
+            </p>
+            <h2 className="mt-4 text-4xl font-black tracking-tight">Used in real environments</h2>
+          </div>
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {gallery.map((item) => (
+              <article
+                key={item.src}
+                className={cn(
+                  "group relative overflow-hidden rounded-[26px] border-4 border-white bg-white shadow-xl",
+                  item.span,
+                  item.ratio
+                )}
+              >
+                <Image
+                  src={item.src}
+                  alt={item.label}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 66vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#24134f]/90 to-transparent p-5 pt-16">
+                  <p className="font-black text-white">{item.label}</p>
+                </div>
+              </article>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="text-center pt-8 border-t border-border">
-          <p className="mb-6 text-lg">Interested in seeing a live demo for your college or clinic?</p>
-          <Link href="/contact">
-            <Button size="lg" className="bg-neon-gradient text-white">Book a Demo Session</Button>
-          </Link>
-        </section>
+      <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+        <div className="flex gap-4 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-950">
+          <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-700" />
+          <p>
+            Images and demonstrations are for educational, research, and prototype
+            validation purposes. NeuroPulseAI is not a certified medical or diagnostic device.
+          </p>
+        </div>
+      </section>
 
-      </div>
+      <section className="bg-[#673de6] px-4 py-16 text-center text-white">
+        <Play className="mx-auto size-8 fill-current" />
+        <h2 className="mt-5 text-4xl font-black">Want a guided demonstration?</h2>
+        <p className="mx-auto mt-4 max-w-xl text-lg text-[#ddd4ff]">
+          Talk to Debuggers Squad about student, college, lab, or innovation showcase use.
+        </p>
+        <Link
+          href="/contact"
+          className={cn(
+            buttonVariants({ size: "lg" }),
+            "mt-8 h-14 rounded-xl bg-white px-8 font-black text-[#673de6] hover:bg-[#f5f2ff]"
+          )}
+        >
+          Book a demo
+          <ArrowRight className="size-4" />
+        </Link>
+      </section>
     </div>
   );
 }

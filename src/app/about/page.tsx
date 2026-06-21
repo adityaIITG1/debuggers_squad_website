@@ -1,80 +1,163 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  ArrowRight,
+  BrainCircuit,
+  HeartHandshake,
+  Lightbulb,
+  Target,
+} from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+const founders = [
+  {
+    name: "Aditya Kumar Singh",
+    role: "Founder · IoT Developer",
+    image: "/images/neuropulseai/founder-aditya.jpeg",
+    imagePosition: "object-center",
+    description:
+      "Aditya builds affordable neurotechnology, biosignal, IoT, and assistive systems for India. His work includes NeuroPulseAI, EMG feedback tools, EOG communication concepts, and practical research prototypes.",
+  },
+  {
+    name: "Prakriti Jaiswal",
+    role: "Co-founder",
+    image: "/images/neuropulseai/cofounder-prakriti.jpeg",
+    imagePosition: "object-center",
+    description:
+      "Prakriti leads operations, presentation, outreach, and brand development for Debuggers Squad, helping turn student-led engineering ideas into clear, accessible, impact-driven initiatives.",
+  },
+];
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-background py-16 md:py-24">
-      <div className="container px-4 md:px-6 max-w-5xl mx-auto space-y-16">
-        
-        {/* About Debuggers Squad */}
-        <section className="space-y-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter">About <span className="text-neon-cyan">Debuggers Squad</span></h1>
-          <p className="text-xl text-muted-foreground font-medium">Build • Innovate • Impact</p>
-          <p className="max-w-[800px] mx-auto text-muted-foreground leading-relaxed">
-            Debuggers Squad is a technology-driven innovation team focused on building affordable, impactful, and human-centered solutions in healthcare, neuroscience, education, and assistive technology. We transform practical ideas into real-world tools that help people and turn innovation into meaningful impact.
+    <div className="bg-[#fbfaff] text-[#2f1c6a]">
+      <section className="premium-grid relative overflow-hidden">
+        <div className="absolute left-1/4 top-0 size-72 rounded-full bg-[#ded2ff] blur-3xl" />
+        <div className="relative mx-auto max-w-5xl px-4 py-20 text-center sm:px-6 lg:px-8 lg:py-28">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-[#673de6]">
+            Our story
           </p>
-        </section>
+          <h1 className="mt-5 text-5xl font-black tracking-[-0.045em] sm:text-6xl">
+            We build technology
+            <span className="block text-[#673de6]">with a human purpose.</span>
+          </h1>
+          <p className="mx-auto mt-7 max-w-3xl text-lg leading-8 text-[#66598a]">
+            Debuggers Squad is an innovation team creating affordable, practical,
+            human-centered solutions across healthcare learning, neuroscience,
+            education, IoT, and assistive technology.
+          </p>
+        </div>
+      </section>
 
-        {/* Vision & Goal */}
-        <section className="grid md:grid-cols-2 gap-8">
-          <Card className="bg-card/50 border-primary/20">
-            <CardHeader>
-              <CardTitle className="text-2xl text-neon-cyan">Our Vision</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground leading-relaxed">
-                To make advanced bio-signal and neurotechnology tools affordable, portable, and reachable for students, innovators, educators, small labs, and future rehabilitation-support ecosystems across India and beyond.
-              </p>
-            </CardContent>
-          </Card>
-          <Card className="bg-card/50 border-secondary/20">
-            <CardHeader>
-              <CardTitle className="text-2xl text-neon-purple">Our Goal</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground leading-relaxed">
-                To build low-cost, practical, and easy-to-use EMG, EOG, assistive, and rehabilitation-oriented project kits that bridge the gap between expensive laboratory systems and real-world learning, demonstration, and accessibility needs.
-              </p>
-            </CardContent>
-          </Card>
-        </section>
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <div className="grid gap-5 md:grid-cols-3">
+          {[
+            {
+              icon: Lightbulb,
+              title: "Build",
+              text: "Transform useful ideas into working hardware and software prototypes.",
+            },
+            {
+              icon: BrainCircuit,
+              title: "Innovate",
+              text: "Make biosignal and assistive technologies simpler and more accessible.",
+            },
+            {
+              icon: HeartHandshake,
+              title: "Impact",
+              text: "Focus engineering effort on meaningful educational and social outcomes.",
+            },
+          ].map(({ icon: Icon, title, text }) => (
+            <article
+              key={title}
+              className="rounded-3xl border border-[#e4dcf7] bg-white p-8 shadow-[0_20px_55px_-40px_rgba(47,28,106,0.55)]"
+            >
+              <span className="grid size-12 place-items-center rounded-2xl bg-[#eee9ff] text-[#673de6]">
+                <Icon className="size-5" />
+              </span>
+              <h2 className="mt-6 text-2xl font-black">{title}</h2>
+              <p className="mt-3 leading-7 text-[#6b5e8c]">{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
-        {/* Founders */}
-        <section className="space-y-8 pt-8 border-t border-border">
-          <div className="text-center space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter">Meet The Founders</h2>
-            <p className="text-muted-foreground">The minds driving the innovation forward.</p>
+      <section className="bg-[#f0ebff] py-20 lg:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-[#673de6]">
+              The people behind the work
+            </p>
+            <h2 className="mt-4 text-4xl font-black tracking-[-0.035em] sm:text-5xl">
+              Meet the founders
+            </h2>
+            <p className="mt-4 text-lg text-[#66598a]">
+              The minds driving Debuggers Squad forward.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 pt-8">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="w-48 h-48 rounded-full bg-card border-4 border-primary/50 shadow-[0_0_20px_rgba(0,255,255,0.2)] overflow-hidden flex items-center justify-center relative">
-                <span className="text-muted-foreground">Photo Placeholder</span>
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold">Aditya Kumar Singh</h3>
-                <p className="text-primary font-medium">Founder</p>
-              </div>
-              <p className="text-muted-foreground max-w-sm text-sm leading-relaxed">
-                Aditya is focused on building affordable neurotechnology, bio-signal, and assistive innovation for India. His work includes EMG-based feedback systems, EOG assistive communication concepts, and low-cost research-oriented prototypes.
-              </p>
-            </div>
-
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="w-48 h-48 rounded-full bg-card border-4 border-secondary/50 shadow-[0_0_20px_rgba(255,0,255,0.2)] overflow-hidden flex items-center justify-center relative">
-                 <span className="text-muted-foreground">Photo Placeholder</span>
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold">Prakriti Jaiswal</h3>
-                <p className="text-secondary font-medium">Co-founder</p>
-              </div>
-              <p className="text-muted-foreground max-w-sm text-sm leading-relaxed">
-                Prakriti supports Debuggers Squad in operations, presentation, outreach, and brand-building for student-led innovation and impact-driven projects.
-              </p>
-            </div>
+          <div className="mt-14 grid gap-8 md:grid-cols-2">
+            {founders.map((founder) => (
+              <article
+                key={founder.name}
+                className="overflow-hidden rounded-[30px] border border-[#ddd3f5] bg-white shadow-[0_28px_75px_-50px_rgba(47,28,106,0.65)]"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#e8e1fa]">
+                  <Image
+                    src={founder.image}
+                    alt={`${founder.name}, ${founder.role}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className={`object-cover ${founder.imagePosition}`}
+                  />
+                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#2f1c6a]/55 to-transparent" />
+                </div>
+                <div className="p-7 sm:p-9">
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-[#673de6]">
+                    {founder.role}
+                  </p>
+                  <h3 className="mt-2 text-3xl font-black tracking-tight">{founder.name}</h3>
+                  <p className="mt-5 leading-7 text-[#675a88]">{founder.description}</p>
+                </div>
+              </article>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-      </div>
+      <section className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
+        <div>
+          <span className="grid size-12 place-items-center rounded-2xl bg-[#eee9ff] text-[#673de6]">
+            <Target className="size-5" />
+          </span>
+          <h2 className="mt-6 text-4xl font-black tracking-[-0.035em]">Our direction</h2>
+          <p className="mt-5 text-lg leading-8 text-[#66598a]">
+            We aim to bridge the gap between expensive laboratory systems and
+            real-world learning by creating low-cost EMG, EOG, IoT, assistive, and
+            rehabilitation-oriented project kits.
+          </p>
+          <Link
+            href="/product"
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "mt-8 h-13 rounded-xl bg-[#673de6] px-7 font-black text-white hover:bg-[#5630c9]"
+            )}
+          >
+            Explore NeuroPulseAI
+            <ArrowRight className="size-4" />
+          </Link>
+        </div>
+        <div className="relative aspect-video overflow-hidden rounded-[28px] border-8 border-white shadow-2xl shadow-violet-900/15">
+          <Image
+            src="/images/neuropulseai/emg-software-live.jpeg"
+            alt="NeuroPulseAI live EMG plotting software displaying muscle activity"
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover"
+          />
+        </div>
+      </section>
     </div>
   );
 }
