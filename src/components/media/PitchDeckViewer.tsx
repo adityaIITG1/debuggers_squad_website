@@ -122,7 +122,7 @@ export function PitchDeckViewer() {
   const slide = slides[index];
 
   return (
-    <section className="border-y border-[#ded5f5] bg-[#160d34] py-16 text-white lg:py-20">
+    <section className="border-y border-[#ded5f5] bg-[#160d34] py-12 text-white sm:py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
@@ -132,7 +132,7 @@ export function PitchDeckViewer() {
                 Interactive pitch deck
               </p>
             </div>
-            <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] sm:text-5xl">
+            <h2 className="mt-4 text-3xl font-black tracking-[-0.04em] sm:text-5xl">
               Turn through the NeuroPulseAI story
             </h2>
             <p className="mt-4 max-w-3xl leading-7 text-[#cec2e7]">
@@ -140,7 +140,7 @@ export function PitchDeckViewer() {
               and roadmap. Use the arrow keys or controls to navigate.
             </p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Button
               type="button"
               variant="outline"
@@ -163,9 +163,9 @@ export function PitchDeckViewer() {
           </div>
         </div>
 
-        <div className="mt-10 overflow-hidden rounded-[28px] border border-white/15 bg-black/25 p-2 shadow-2xl shadow-black/35 sm:p-4">
+        <div className="mt-7 overflow-hidden rounded-[20px] border border-white/15 bg-black/25 p-1.5 shadow-2xl shadow-black/35 sm:mt-10 sm:rounded-[28px] sm:p-4">
           <div
-            className="relative aspect-video overflow-hidden rounded-[20px] bg-white [perspective:1800px]"
+            className="relative aspect-video overflow-hidden rounded-[14px] bg-white [perspective:1800px] sm:rounded-[20px]"
             aria-live="polite"
           >
             <AnimatePresence initial={false} custom={direction} mode="popLayout">
@@ -198,7 +198,7 @@ export function PitchDeckViewer() {
               type="button"
               onClick={previous}
               aria-label="Previous pitch deck slide"
-              className="absolute left-3 top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-white/40 bg-[#160d34]/75 text-white shadow-lg backdrop-blur transition hover:scale-105 hover:bg-[#2f1c6a] sm:left-5"
+              className="absolute left-1.5 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-white/40 bg-[#160d34]/75 text-white shadow-lg backdrop-blur transition hover:scale-105 hover:bg-[#2f1c6a] sm:left-5 sm:size-11"
             >
               <ChevronLeft />
             </button>
@@ -206,12 +206,12 @@ export function PitchDeckViewer() {
               type="button"
               onClick={next}
               aria-label="Next pitch deck slide"
-              className="absolute right-3 top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-white/40 bg-[#160d34]/75 text-white shadow-lg backdrop-blur transition hover:scale-105 hover:bg-[#2f1c6a] sm:right-5"
+              className="absolute right-1.5 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-white/40 bg-[#160d34]/75 text-white shadow-lg backdrop-blur transition hover:scale-105 hover:bg-[#2f1c6a] sm:right-5 sm:size-11"
             >
               <ChevronRight />
             </button>
 
-            <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 rounded-full border border-white/30 bg-[#160d34]/80 px-4 py-2 text-xs font-bold text-white backdrop-blur sm:bottom-5">
+            <div className="absolute bottom-1.5 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/30 bg-[#160d34]/80 px-3 py-1.5 text-[10px] font-bold text-white backdrop-blur sm:bottom-5 sm:gap-3 sm:px-4 sm:py-2 sm:text-xs">
               <span>{String(index + 1).padStart(2, "0")}</span>
               <span className="h-px w-8 bg-white/40" />
               <span>{String(slides.length).padStart(2, "0")}</span>

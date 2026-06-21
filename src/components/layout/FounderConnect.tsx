@@ -80,7 +80,7 @@ export function FounderConnect({ mobile = false }: { mobile?: boolean }) {
             transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             className={`z-[70] rounded-2xl border border-[#ddd3f5] bg-white p-3 shadow-2xl shadow-[#2f1c6a]/15 ${
               mobile
-                ? "mt-2 w-full"
+                ? "mt-2 w-full max-w-full"
                 : "absolute right-0 top-[calc(100%+10px)] w-[360px]"
             }`}
           >
@@ -118,7 +118,7 @@ export function FounderConnect({ mobile = false }: { mobile?: boolean }) {
                       </p>
                     </div>
                   </div>
-                  <div className="mt-3 grid grid-cols-2 gap-2">
+                  <div className="mt-3 grid grid-cols-2 gap-2 max-[360px]:grid-cols-1">
                     <a
                       href={`mailto:${founder.email}`}
                       role="menuitem"

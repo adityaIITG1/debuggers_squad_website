@@ -10,7 +10,7 @@ export function AnimatedBrand({ onClick }: { onClick?: () => void }) {
   return (
     <Link
       href="/"
-      className="group flex items-center gap-3"
+      className="group flex min-w-0 items-center gap-2.5 sm:gap-3"
       onClick={onClick}
       aria-label="Debuggers Squad home"
     >
@@ -23,7 +23,7 @@ export function AnimatedBrand({ onClick }: { onClick?: () => void }) {
           ease: [0.22, 1, 0.36, 1],
           scale: { type: "spring", stiffness: 320, damping: 20 },
         }}
-        className="brand-logo-glow relative grid size-10 shrink-0 place-items-center overflow-hidden rounded-xl bg-black"
+        className="brand-logo-glow relative grid size-9 shrink-0 place-items-center overflow-hidden rounded-xl bg-black sm:size-10"
       >
         <Image
           src="/images/neuropulseai/gallery/debuggers-squad-logo.jpeg"
@@ -46,7 +46,7 @@ export function AnimatedBrand({ onClick }: { onClick?: () => void }) {
           initial={reduceMotion ? false : { opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.45, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="block text-[15px] font-black tracking-[0.08em] text-[#2f1c6a]"
+          className="block truncate text-[13px] font-black tracking-[0.06em] text-[#2f1c6a] min-[390px]:text-[14px] sm:text-[15px] sm:tracking-[0.08em]"
         >
           DEBUGGERS SQUAD
         </motion.span>
@@ -58,7 +58,7 @@ export function AnimatedBrand({ onClick }: { onClick?: () => void }) {
           }
           animate={{ opacity: 1, y: 0, letterSpacing: "0.22em" }}
           transition={{ duration: 0.55, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-1 block whitespace-nowrap text-[10px] font-bold text-[#8b5cf6]"
+          className="mt-1 hidden whitespace-nowrap text-[9px] font-bold text-[#8b5cf6] min-[360px]:block sm:text-[10px]"
         >
           BUILD · INNOVATE · IMPACT
         </motion.span>

@@ -38,9 +38,9 @@ export default function CartPage() {
   }
 
   return (
-    <div className="bg-[#fbfaff] px-4 py-12 text-[#2f1c6a] sm:px-6 lg:py-16">
+    <div className="bg-[#fbfaff] px-4 py-9 text-[#2f1c6a] sm:px-6 sm:py-12 lg:py-16">
       <div className="mx-auto max-w-5xl">
-        <h1 className="text-4xl font-black">Shopping cart</h1>
+        <h1 className="text-3xl font-black sm:text-4xl">Shopping cart</h1>
         <p className="mt-2 text-slate-600">Review products and quantities before checkout.</p>
 
         <div className="mt-9 grid gap-8 lg:grid-cols-[1fr_340px]">
@@ -48,9 +48,9 @@ export default function CartPage() {
             {cart.items.map(({ product, quantity, lineTotal }) => (
               <article
                 key={product.slug}
-                className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:items-center"
+                className="grid grid-cols-[72px_1fr] gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm sm:flex sm:items-center sm:gap-4 sm:p-4"
               >
-                <div className="relative size-24 shrink-0 overflow-hidden rounded-xl bg-slate-100">
+                <div className="relative size-[72px] shrink-0 overflow-hidden rounded-xl bg-slate-100 sm:size-24">
                   <Image src={product.image} alt={product.name} fill className="object-cover" />
                 </div>
                 <div className="min-w-0 flex-1">
@@ -58,7 +58,7 @@ export default function CartPage() {
                   <p className="mt-1 text-sm text-slate-500">
                     ₹{product.price.toLocaleString("en-IN")} each
                   </p>
-                  <div className="mt-4 flex flex-wrap items-center gap-3">
+                  <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-4 sm:gap-3">
                     <div className="flex items-center rounded-xl border border-slate-300">
                       <Button
                         type="button"
@@ -92,7 +92,9 @@ export default function CartPage() {
                     </Button>
                   </div>
                 </div>
-                <p className="font-black">₹{lineTotal.toLocaleString("en-IN")}</p>
+                <p className="col-span-2 text-right font-black sm:col-auto">
+                  ₹{lineTotal.toLocaleString("en-IN")}
+                </p>
               </article>
             ))}
           </div>

@@ -48,11 +48,11 @@ export default function AboutPage() {
     <div className="bg-[#fbfaff] text-[#2f1c6a]">
       <section className="premium-grid relative overflow-hidden">
         <div className="absolute left-1/4 top-0 size-72 rounded-full bg-[#ded2ff] blur-3xl" />
-        <div className="relative mx-auto max-w-5xl px-4 py-20 text-center sm:px-6 lg:px-8 lg:py-28">
+        <div className="relative mx-auto max-w-5xl px-4 py-14 text-center sm:px-6 sm:py-20 lg:px-8 lg:py-28">
           <p className="text-sm font-black uppercase tracking-[0.2em] text-[#673de6]">
             Our story
           </p>
-          <h1 className="mt-5 text-5xl font-black tracking-[-0.045em] sm:text-6xl">
+          <h1 className="mt-5 text-[40px] font-black leading-[1.06] tracking-[-0.045em] sm:text-6xl">
             We build technology
             <span className="block text-[#673de6]">with a human purpose.</span>
           </h1>
@@ -64,7 +64,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
         <div className="grid gap-5 md:grid-cols-3">
           {[
             {

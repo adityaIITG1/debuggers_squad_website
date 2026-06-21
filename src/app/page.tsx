@@ -119,17 +119,17 @@ export default function Home() {
     <div className="overflow-hidden bg-[#fbfaff] text-[#2f1c6a]">
       <section className="premium-grid relative">
         <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-[#eee8ff] to-transparent" />
-        <div className="relative mx-auto grid min-h-[660px] max-w-7xl items-center gap-14 px-4 py-14 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8 lg:py-12">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-10 sm:min-h-[660px] sm:gap-14 sm:px-6 sm:py-14 lg:grid-cols-[0.92fr_1.08fr] lg:px-8 lg:py-12">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#d7ccf7] bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#673de6] shadow-sm">
               <Sparkles className="size-3.5" />
               Affordable biosignal innovation
             </div>
-            <h1 className="mt-7 max-w-2xl text-5xl font-black leading-[1.03] tracking-[-0.045em] sm:text-6xl lg:text-[68px]">
+            <h1 className="mt-6 max-w-2xl text-[42px] font-black leading-[1.04] tracking-[-0.045em] sm:mt-7 sm:text-6xl lg:text-[68px]">
               See muscle activity.
               <span className="block text-[#673de6]">Understand every signal.</span>
             </h1>
-            <p className="mt-7 max-w-xl text-lg leading-8 text-[#5b4d7e]">
+            <p className="mt-5 max-w-xl text-base leading-7 text-[#5b4d7e] sm:mt-7 sm:text-lg sm:leading-8">
               NeuroPulseAI is a portable single-channel EMG kit that makes real-time
               muscle signal visualization accessible for education, research, and
               supervised rehabilitation learning.
@@ -150,7 +150,7 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row">
               <Link
                 href="/product"
                 className={cn(
@@ -199,7 +199,7 @@ export default function Home() {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute -bottom-7 left-5 right-5 flex items-center justify-between rounded-2xl border border-white/80 bg-white/95 p-4 shadow-xl backdrop-blur sm:left-10 sm:right-10 sm:p-5">
+              <div className="relative mt-3 flex items-center justify-between rounded-2xl border border-white/80 bg-white/95 p-4 shadow-xl backdrop-blur sm:absolute sm:-bottom-7 sm:left-10 sm:right-10 sm:mt-0 sm:p-5">
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.15em] text-[#8a7aa9]">
                     Complete kit
@@ -301,12 +301,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-black uppercase tracking-[0.2em] text-[#673de6]">
             Powerful, without the complexity
           </p>
-          <h2 className="mt-4 text-4xl font-black tracking-[-0.035em] sm:text-5xl">
+          <h2 className="mt-4 text-3xl font-black tracking-[-0.035em] sm:text-5xl">
             Everything you need to explore EMG
           </h2>
           <p className="mt-5 text-lg leading-8 text-[#66598a]">
@@ -392,7 +392,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="products" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section id="products" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="grid overflow-hidden rounded-[34px] border border-[#d9cef6] bg-white shadow-[0_35px_90px_-55px_rgba(47,28,106,0.55)] lg:grid-cols-[0.9fr_1.1fr]">
           <div className="bg-[#2f1c6a] p-8 text-white sm:p-12 lg:p-14">
             <p className="text-sm font-black uppercase tracking-[0.18em] text-[#cbbdff]">
@@ -401,7 +401,7 @@ export default function Home() {
             <h2 className="mt-4 text-4xl font-black tracking-tight">NeuroPulseAI</h2>
             <p className="mt-3 text-lg text-[#d9d1ef]">Single-channel EMG learning system</p>
             <div className="mt-9 flex items-end gap-3">
-              <span className="text-5xl font-black">₹2,999</span>
+              <span className="text-4xl font-black sm:text-5xl">₹2,999</span>
               <span className="pb-2 text-sm font-bold text-[#c8bfe0]">one-time</span>
             </div>
             <p className="mt-2 text-sm font-bold text-[#76e7c4]">Free prepaid delivery in India</p>
@@ -478,7 +478,7 @@ export default function Home() {
               <Sparkles className="size-3.5" />
               Introducing ParaTalk
             </div>
-            <h2 className="mt-6 text-5xl font-black tracking-[-0.045em]">
+            <h2 className="mt-6 text-4xl font-black tracking-[-0.045em] sm:text-5xl">
               An eye blink becomes a voice, a selection, and a way to participate.
             </h2>
             <p className="mt-6 text-lg leading-8 text-[#596b83]">

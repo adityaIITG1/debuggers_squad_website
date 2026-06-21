@@ -119,16 +119,16 @@ export default function MediaKitPage() {
     <div className="overflow-hidden bg-[#fbfaff] text-[#2f1c6a]">
       <section className="premium-grid relative border-b border-[#ddd4f5]">
         <div className="absolute left-1/4 top-0 size-80 rounded-full bg-[#dcd0ff] blur-3xl" />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:py-28">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 sm:py-20 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:py-28">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.2em] text-[#673de6]">
               Investor & media kit
             </p>
-            <h1 className="mt-5 max-w-4xl text-5xl font-black tracking-[-0.05em] sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 max-w-4xl text-[40px] font-black leading-[1.05] tracking-[-0.05em] sm:text-6xl lg:text-7xl">
               Affordable neurotechnology
               <span className="block text-[#673de6]">built for India.</span>
             </h1>
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-[#66598a]">
+            <p className="mt-5 max-w-2xl text-base leading-7 text-[#66598a] sm:mt-7 sm:text-lg sm:leading-8">
               Debuggers Squad develops practical EMG, EOG, IoT, and assistive
               technology products that move advanced learning from expensive
               laboratories into classrooms, project teams, and real-world innovation.
@@ -194,7 +194,7 @@ export default function MediaKitPage() {
 
       <PitchDeckViewer />
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
         <div className="grid gap-6 lg:grid-cols-2">
           <article className="rounded-3xl bg-[#2f1c6a] p-8 text-white sm:p-10">
             <BrainCircuit className="size-9 text-[#bdaaff]" />

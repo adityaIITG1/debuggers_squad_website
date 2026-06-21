@@ -75,14 +75,49 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   body {
     @apply bg-background text-foreground;
+    min-width: 320px;
+    overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
   }
 
   ::selection {
     background: rgb(124 58 237 / 22%);
+  }
+}
+
+@media (max-width: 639px) {
+  main section {
+    scroll-margin-top: 7rem;
+  }
+
+  main h1 {
+    text-wrap: balance;
+  }
+
+  main h2,
+  main h3 {
+    text-wrap: pretty;
+  }
+
+  main p {
+    overflow-wrap: anywhere;
+  }
+
+  button,
+  a {
+    touch-action: manipulation;
   }
 }
 

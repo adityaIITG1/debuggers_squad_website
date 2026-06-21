@@ -78,13 +78,13 @@ export default function ParaTalkPage() {
     <div className="overflow-hidden bg-[#f7fbff] text-[#14213d]">
       <section className="relative border-b border-[#cfe3f7] bg-gradient-to-br from-[#eef7ff] via-white to-[#eeeaff]">
         <div className="absolute inset-0 premium-grid opacity-50" />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-4 py-16 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8 lg:py-24">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:gap-14 sm:px-6 sm:py-16 lg:grid-cols-[0.92fr_1.08fr] lg:px-8 lg:py-24">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#b9dff6] bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#0768b8] shadow-sm">
               <Sparkles className="size-3.5" />
               Assistive innovation by Debuggers Squad
             </div>
-            <h1 className="mt-7 text-5xl font-black leading-[1.02] tracking-[-0.05em] sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 text-[42px] font-black leading-[1.03] tracking-[-0.05em] sm:mt-7 sm:text-6xl lg:text-7xl">
               Para<span className="text-[#12a8e8]">Talk</span>
             </h1>
             <p className="mt-3 text-xl font-black uppercase tracking-[0.18em] text-[#63738c]">
@@ -166,7 +166,7 @@ export default function ParaTalkPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-black uppercase tracking-[0.2em] text-[#0878c8]">
             Accessible digital participation

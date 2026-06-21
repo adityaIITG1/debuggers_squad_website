@@ -33,10 +33,12 @@ export function Navbar() {
             control at ₹7,999
           </p>
           <div className="ml-auto flex w-full items-center justify-end gap-2 sm:w-auto">
-            <FounderConnect />
+            <div className="hidden lg:block">
+              <FounderConnect />
+            </div>
             <Link
               href="/media-kit"
-              className="inline-flex h-10 items-center justify-center rounded-xl border border-white/25 bg-white/10 px-4 text-xs font-black text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20 sm:text-sm"
+              className="inline-flex h-9 items-center justify-center rounded-xl border border-white/25 bg-white/10 px-3.5 text-xs font-black text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20 sm:h-10 sm:px-4 sm:text-sm"
             >
               Investors
             </Link>
@@ -44,7 +46,7 @@ export function Navbar() {
         </div>
       </div>
       <nav className="sticky top-0 z-50 border-b border-[#e5def8] bg-[#fbfaff]/90 backdrop-blur-xl">
-        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-3 sm:h-[72px] sm:px-6 lg:px-8">
           <AnimatedBrand onClick={() => setOpen(false)} />
 
           <div className="hidden items-center gap-5 xl:flex">
@@ -97,7 +99,7 @@ export function Navbar() {
 
           <button
             type="button"
-            className="grid size-10 place-items-center rounded-xl text-[#2f1c6a] hover:bg-[#f1ecff] lg:hidden"
+            className="grid size-11 place-items-center rounded-xl text-[#2f1c6a] hover:bg-[#f1ecff] lg:hidden"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-label="Toggle navigation"
@@ -113,7 +115,7 @@ export function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-[#e5def8] bg-white px-4 py-5 lg:hidden"
+            className="max-h-[calc(100dvh-104px)] overflow-y-auto border-t border-[#e5def8] bg-white px-4 py-4 overscroll-contain lg:hidden"
           >
             <div className="mx-auto flex max-w-7xl flex-col gap-2">
               {links.map((link) => (
