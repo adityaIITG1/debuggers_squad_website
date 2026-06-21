@@ -331,6 +331,101 @@ export default function ParaTalkPage() {
         </div>
       </section>
 
+      <section className="border-y border-amber-200 bg-[#120d0a] py-20 text-white lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.88fr_1.12fr] lg:px-8">
+          <div className="rounded-[30px] border border-amber-400/30 bg-gradient-to-br from-[#21170c] to-[#0d0907] p-7 shadow-2xl shadow-black/30 sm:p-9">
+            <div className="flex items-center justify-between">
+              <span className="grid size-14 place-items-center rounded-2xl bg-amber-400 text-[#211408]">
+                <ChessKnight className="size-7" />
+              </span>
+              <span className="rounded-full border border-amber-300/30 bg-amber-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-amber-300">
+                Proposal for evaluation
+              </span>
+            </div>
+            <p className="mt-8 text-sm font-black uppercase tracking-[0.2em] text-amber-400">
+              ParaTalk Inclusive Chess Vision
+            </p>
+            <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] sm:text-5xl">
+              Let chess skill—not physical movement—decide the game.
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-[#d9cbbd]">
+              ParaTalk can enable a player with significant motor limitations to
+              navigate and select moves on a digital chessboard using intentional
+              eye blinks.
+            </p>
+          </div>
+
+          <div className="flex flex-col justify-center">
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-amber-400">
+              Message for FIDE and chess organisations
+            </p>
+            <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
+              A pathway toward more accessible competitive chess
+            </h2>
+            <p className="mt-6 leading-8 text-[#d9cbbd]">
+              We invite the International Chess Federation (FIDE), national chess
+              federations, accessibility experts, and fair-play teams to evaluate
+              ParaTalk through controlled demonstrations and technical trials. With
+              appropriate testing, standardisation, anti-cheating safeguards, and
+              tournament approval, eye-blink control could help skilled players who
+              cannot use conventional pieces, a mouse, or a keyboard compete more
+              independently.
+            </p>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {[
+                [Eye, "Eye-blink input", "Intentional EOG signals control move selection."],
+                [ShieldCheck, "Fair-play review", "Designed for controlled evaluation and safeguards."],
+                [ChessKnight, "Skill-first access", "Chess ability remains the deciding factor."],
+              ].map(([Icon, title, text]) => {
+                const FeatureIcon = Icon as typeof Eye;
+                return (
+                  <article
+                    key={String(title)}
+                    className="rounded-2xl border border-white/10 bg-white/5 p-5"
+                  >
+                    <FeatureIcon className="size-5 text-amber-400" />
+                    <h3 className="mt-4 font-black">{String(title)}</h3>
+                    <p className="mt-2 text-sm leading-6 text-[#bfae9e]">
+                      {String(text)}
+                    </p>
+                  </article>
+                );
+              })}
+            </div>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="mailto:debuggerssquad@gmail.com?subject=ParaTalk%20Inclusive%20Chess%20Demonstration"
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "h-13 rounded-xl bg-amber-400 px-7 font-black text-[#211408] hover:bg-amber-300"
+                )}
+              >
+                Request a demonstration
+              </a>
+              <a
+                href="https://youtube.com/shorts/JLQoj-U82aU"
+                target="_blank"
+                rel="noreferrer"
+                className={cn(
+                  buttonVariants({ size: "lg", variant: "outline" }),
+                  "h-13 rounded-xl border-amber-300/50 bg-transparent px-7 font-black text-amber-300 hover:bg-amber-300/10 hover:text-amber-200"
+                )}
+              >
+                <Play className="size-4 fill-current" />
+                Watch ParaTalk demo
+              </a>
+            </div>
+
+            <p className="mt-5 text-xs leading-5 text-[#978777]">
+              ParaTalk is not currently approved by or affiliated with FIDE. This is
+              an independent accessibility proposal for technical evaluation.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-white py-20">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <div>
