@@ -143,14 +143,14 @@ export default function ParaTalkPage() {
             <div className="absolute -left-8 top-8 size-40 rounded-full bg-[#a8e8ff] blur-3xl" />
             <div className="absolute -right-8 bottom-5 size-44 rounded-full bg-[#cfc2ff] blur-3xl" />
             <div className="relative rounded-[34px] border border-white bg-white/80 p-4 shadow-2xl shadow-blue-900/15 backdrop-blur">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[26px]">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[26px] bg-gradient-to-br from-[#eaf7ff] to-[#eee9ff]">
                 <Image
-                  src="/images/paratalk/product-kit.svg"
-                  alt="Illustration of the ParaTalk eye-blink communication and control kit"
+                  src="/images/paratalk/paratalk-device.jpeg"
+                  alt="Real ParaTalk eye-blink communication and control device with electrode and USB cables"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 55vw"
-                  className="object-cover"
+                  className="object-contain p-3"
                 />
               </div>
               <div className="absolute -bottom-6 left-8 right-8 flex items-center justify-between rounded-2xl bg-[#073d73] p-5 text-white shadow-xl">
@@ -195,6 +195,50 @@ export default function ParaTalkPage() {
               <p className="mt-3 text-sm leading-6 text-[#61728a]">{text}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-12 lg:grid-cols-[0.82fr_1.18fr]">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-[#0878c8]">
+              Product overview
+            </p>
+            <h2 className="mt-4 text-4xl font-black tracking-[-0.04em]">
+              See the full ParaTalk system at a glance
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-[#61728a]">
+              The complete product poster explains its communication modes, eye-blink
+              workflow, accessibility use cases, electrode placement, and everything
+              supplied in the box.
+            </p>
+            <a
+              href="/images/paratalk/paratalk-product-poster.jpeg"
+              target="_blank"
+              rel="noreferrer"
+              className={cn(
+                buttonVariants({ size: "lg", variant: "outline" }),
+                "mt-8 h-13 rounded-xl border-[#0878c8] bg-white px-7 font-black text-[#0878c8] hover:bg-[#edf8ff]"
+              )}
+            >
+              View full-size product poster
+              <ArrowRight className="size-4" />
+            </a>
+          </div>
+          <a
+            href="/images/paratalk/paratalk-product-poster.jpeg"
+            target="_blank"
+            rel="noreferrer"
+            className="relative aspect-[5/7] max-h-[760px] overflow-hidden rounded-[28px] border-8 border-white bg-white shadow-2xl shadow-blue-900/15"
+          >
+            <Image
+              src="/images/paratalk/paratalk-product-poster.jpeg"
+              alt="ParaTalk professional product poster showing features, workflow, use cases, and kit contents"
+              fill
+              sizes="(max-width: 1024px) 100vw, 55vw"
+              className="object-contain"
+            />
+          </a>
         </div>
       </section>
 

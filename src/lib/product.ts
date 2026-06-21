@@ -43,7 +43,7 @@ export const PARATALK_PRODUCT: Product = {
   priceInPaise: 799900,
   currency: "INR",
   sku: "DS-PTLK-01",
-  image: "/images/paratalk/product-kit.svg",
+  image: "/images/paratalk/paratalk-device.jpeg",
   checkoutNote:
     "Includes ParaTalk device, 20 electrodes, 20 alcohol swabs, electrode cable, software-loaded pen drive, and guide manual.",
   disclaimer:
