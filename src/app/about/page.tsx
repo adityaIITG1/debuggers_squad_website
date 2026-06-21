@@ -3,8 +3,12 @@ import Link from "next/link";
 import {
   ArrowRight,
   BrainCircuit,
+  BriefcaseBusiness,
+  ExternalLink,
   HeartHandshake,
   Lightbulb,
+  Mail,
+  Sparkles,
   Target,
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
@@ -19,6 +23,10 @@ const founders = [
     description:
       "Aditya is an undergraduate pursuing Data Science, AI, and CSE (AI & ML). He builds affordable neurotechnology, biosignal, IoT, and assistive systems using Python, data analysis, prompt engineering, and AI tools.",
     skills: ["Python", "Data Analysis", "Prompt Engineering", "AI", "IoT"],
+    email: "iitianadityakumarsingh@gmail.com",
+    linkedin: "https://www.linkedin.com/in/aditya-kumar-singh-39245525b",
+    accent: "from-[#673de6] via-[#875cf0] to-[#d946ef]",
+    softAccent: "bg-[#f0ebff] text-[#673de6]",
   },
   {
     name: "Prakriti Jaiswal",
@@ -28,6 +36,10 @@ const founders = [
     description:
       "Prakriti is an undergraduate pursuing BCom in Accounts and Finance. She leads operations, presentation, outreach, and brand development while applying data analysis, Python, prompt engineering, and AI tools.",
     skills: ["Data Analysis", "Python", "Prompt Engineering", "AI", "Finance"],
+    email: "jaiswalprakriti26@gmail.com",
+    linkedin: "https://www.linkedin.com/in/prakriti-jaiswal-a67291402",
+    accent: "from-[#0878c8] via-[#12a8e8] to-[#28d3aa]",
+    softAccent: "bg-[#e9f8ff] text-[#0878c8]",
   },
 ];
 
@@ -100,36 +112,67 @@ export default function AboutPage() {
           </div>
 
           <div className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-2">
-            {founders.map((founder) => (
+            {founders.map((founder, index) => (
               <article
                 key={founder.name}
-                className="overflow-hidden rounded-[24px] border border-[#ddd3f5] bg-white shadow-[0_24px_65px_-48px_rgba(47,28,106,0.6)]"
+                className="group relative overflow-hidden rounded-[26px] border border-white/80 bg-white shadow-[0_28px_75px_-46px_rgba(47,28,106,0.52)] ring-1 ring-[#ddd3f5]/80"
               >
-                <div className="relative h-[300px] overflow-hidden bg-[#e8e1fa] sm:h-[330px] lg:h-[350px]">
+                <div className={`h-1.5 bg-gradient-to-r ${founder.accent}`} />
+                <div className="relative h-[285px] overflow-hidden bg-[#e8e1fa] sm:h-[315px] lg:h-[330px]">
                   <Image
                     src={founder.image}
                     alt={`${founder.name}, ${founder.role}`}
                     fill
                     sizes="(max-width: 768px) 100vw, 480px"
-                    className={`object-cover ${founder.imagePosition}`}
+                    className={`object-cover transition-transform duration-700 group-hover:scale-[1.025] ${founder.imagePosition}`}
                   />
-                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#2f1c6a]/55 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#17102f]/70 via-transparent to-white/5" />
+                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
+                    <span className="rounded-full border border-white/25 bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-[#2f1c6a] shadow-lg backdrop-blur">
+                      {founder.role}
+                    </span>
+                    <span className="grid size-9 place-items-center rounded-full border border-white/25 bg-[#2f1c6a]/85 text-xs font-black text-white backdrop-blur">
+                      0{index + 1}
+                    </span>
+                  </div>
                 </div>
-                <div className="p-6 sm:p-7">
-                  <p className="text-xs font-black uppercase tracking-[0.18em] text-[#673de6]">
-                    {founder.role}
+                <div className="relative p-6 sm:p-7">
+                  <div className={`absolute right-5 top-5 grid size-9 place-items-center rounded-xl ${founder.softAccent}`}>
+                    <Sparkles className="size-4" />
+                  </div>
+                  <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#8b70d8]">
+                    Building for impact
                   </p>
-                  <h3 className="mt-2 text-2xl font-black tracking-tight">{founder.name}</h3>
+                  <h3 className="mt-2 pr-12 text-2xl font-black tracking-tight">{founder.name}</h3>
                   <p className="mt-4 text-sm leading-6 text-[#675a88]">{founder.description}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {founder.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="rounded-full bg-[#f0ebff] px-3 py-1.5 text-xs font-bold text-[#673de6]"
+                        className={`rounded-full px-3 py-1.5 text-[11px] font-bold ${founder.softAccent}`}
                       >
                         {skill}
                       </span>
                     ))}
+                  </div>
+                  <div className="mt-6 grid grid-cols-2 gap-3 border-t border-[#eee8f9] pt-5">
+                    <a
+                      href={`mailto:${founder.email}`}
+                      className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#2f1c6a] px-4 py-2.5 text-xs font-black text-white shadow-sm hover:bg-[#432a89]"
+                    >
+                      <Mail className="size-3.5" />
+                      Email
+                    </a>
+                    <a
+                      href={founder.linkedin}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#d4c8f2] bg-[#faf8ff] px-4 py-2.5 text-xs font-black text-[#5630c9] hover:bg-[#f0ebff]"
+                    >
+                      <BriefcaseBusiness className="size-3.5" />
+                      LinkedIn
+                      <ExternalLink className="size-3" />
+                    </a>
                   </div>
                 </div>
               </article>
