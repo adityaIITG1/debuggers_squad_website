@@ -17,10 +17,13 @@ import {
   Microscope,
   PackageCheck,
   Play,
+  Presentation,
   ShieldCheck,
   Sparkles,
   Star,
+  Trophy,
   Usb,
+  Wrench,
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -65,6 +68,51 @@ const included = [
   "EMG Plotter software",
   "Printed quick-start guide",
 ];
+
+const proofPoints = [
+  {
+    title: "HackDiwas 3.0 Winner",
+    detail: "National hackathon winner · United University",
+    image: "/images/proof/hackdiwas-winner-certificate.jpeg",
+    imagePosition: "object-center",
+    icon: Trophy,
+  },
+  {
+    title: "TRAE Best Solution",
+    detail: "Recognised for an impactful hackathon solution",
+    image: "/images/proof/trae-best-solution-certificate.jpeg",
+    imagePosition: "object-center",
+    icon: Star,
+  },
+  {
+    title: "IIT (BHU) 2nd Runner-Up",
+    detail: "Jagriti ’26 Serve-Smart Hackathon",
+    image: "/images/proof/iit-bhu-jagriti-runner-up.jpeg",
+    imagePosition: "object-center",
+    icon: Trophy,
+  },
+  {
+    title: "2.4M+ Social Views",
+    detail: "Biosignal education content reached a large audience",
+    image: "/images/proof/social-reach-2-4m.jpeg",
+    imagePosition: "object-top",
+    icon: BarChart3,
+  },
+  {
+    title: "Real Hardware Tested",
+    detail: "Working EMG hardware demonstrated with live signals",
+    image: "/images/neuropulseai/gallery/forearm-live-demo.jpeg",
+    imagePosition: "object-center",
+    icon: Wrench,
+  },
+  {
+    title: "College / Lab Demo Ready",
+    detail: "Designed for workshops, classrooms, labs, and showcases",
+    image: "/images/neuropulseai/gallery/workshop-demo-wide.jpeg",
+    imagePosition: "object-center",
+    icon: Presentation,
+  },
+] as const;
 
 export default function Home() {
   return (
@@ -181,6 +229,63 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-[#ded5f5] bg-[#211449] py-16 text-white lg:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-end gap-6 lg:grid-cols-[1fr_0.8fr]">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-[#bba8ff]">
+                Proof & trust
+              </p>
+              <h2 className="mt-3 max-w-3xl text-4xl font-black tracking-[-0.04em] sm:text-5xl">
+                Built, tested, demonstrated, and recognised.
+              </h2>
+            </div>
+            <p className="max-w-xl leading-7 text-[#d7ccef] lg:justify-self-end">
+              Debuggers Squad products come from real hardware development, public
+              demonstrations, institutional environments, and recognised innovation
+              competitions—not mockups alone.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {proofPoints.map(
+              ({ title, detail, image, imagePosition, icon: Icon }) => (
+                <a
+                  key={title}
+                  href={image}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group overflow-hidden rounded-3xl border border-white/15 bg-white/8 shadow-xl shadow-black/10 backdrop-blur transition hover:-translate-y-1 hover:border-white/30 hover:bg-white/12"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden bg-[#120a2c]">
+                    <Image
+                      src={image}
+                      alt={`Evidence for ${title}`}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className={cn(
+                        "object-cover transition-transform duration-500 group-hover:scale-[1.03]",
+                        imagePosition
+                      )}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#160c36]/60 via-transparent to-transparent" />
+                  </div>
+                  <div className="flex items-start gap-4 p-5">
+                    <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-[#8b5cf6] text-white shadow-lg shadow-violet-950/30">
+                      <Icon className="size-5" />
+                    </span>
+                    <div>
+                      <h3 className="font-black">{title}</h3>
+                      <p className="mt-1 text-sm leading-6 text-[#cfc2e9]">{detail}</p>
+                    </div>
+                  </div>
+                </a>
+              )
+            )}
           </div>
         </div>
       </section>
