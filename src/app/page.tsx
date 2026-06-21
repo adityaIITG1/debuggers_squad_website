@@ -119,7 +119,7 @@ export default function Home() {
     <div className="overflow-hidden bg-[#fbfaff] text-[#2f1c6a]">
       <section className="premium-grid relative">
         <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-[#eee8ff] to-transparent" />
-        <div className="relative mx-auto grid min-h-[720px] max-w-7xl items-center gap-14 px-4 py-16 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8 lg:py-20">
+        <div className="relative mx-auto grid min-h-[660px] max-w-7xl items-center gap-14 px-4 py-14 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8 lg:py-12">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#d7ccf7] bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#673de6] shadow-sm">
               <Sparkles className="size-3.5" />
