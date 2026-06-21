@@ -17,7 +17,6 @@ const footerGroups = [
     links: [
       ["/about", "About us"],
       ["/contact", "Contact"],
-      ["/admin", "Admin portal"],
     ],
   },
   {
