@@ -17,7 +17,7 @@ export default function ContactPage() {
     email: "",
     phone: "",
     organization: "",
-    productInterest: "NeuroPulseAI",
+    productInterest: "NeuroPulseAI / ParaTalk",
     message: "",
   });
 
@@ -43,7 +43,7 @@ export default function ContactPage() {
 
       toast.success(isDemo ? "Demo request sent successfully!" : "Message sent successfully!");
       setFormData({
-        name: "", email: "", phone: "", organization: "", productInterest: "NeuroPulseAI", message: ""
+        name: "", email: "", phone: "", organization: "", productInterest: "NeuroPulseAI / ParaTalk", message: ""
       });
     } catch {
       toast.error("An error occurred. Please try again.");
@@ -61,7 +61,7 @@ export default function ContactPage() {
           <div>
             <h1 className="text-4xl font-bold tracking-tighter mb-4">Get in <span className="text-neon-cyan">Touch</span></h1>
             <p className="text-muted-foreground text-lg">
-              Have questions about NeuroPulseAI? Looking to book a demonstration for your college or clinic? We are here to help.
+              Have questions about NeuroPulseAI or ParaTalk? Looking to book a demonstration for your college, lab, clinic, or accessibility program? We are here to help.
             </p>
           </div>
 

@@ -21,7 +21,7 @@ function OrderSuccessContent() {
           </div>
           <CardTitle className="text-2xl text-neon-cyan">Order Confirmed!</CardTitle>
           <CardDescription className="text-base mt-2">
-            Thank you for purchasing NeuroPulseAI. Your order has been successfully placed.
+            Thank you for purchasing from Debuggers Squad. Your order has been successfully placed.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -36,12 +36,12 @@ function OrderSuccessContent() {
           </div>
 
           <div className="text-xs text-muted-foreground pt-4 border-t border-border">
-            <p><strong>Reminder:</strong> This product is a prototype for educational/research use.</p>
+            <p><strong>Reminder:</strong> This product is an educational, research, or assistive-technology prototype and not a certified medical device.</p>
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-3 pb-8">
           <a
-            href="https://wa.me/919170397988?text=Hello%2C%20I%20want%20an%20update%20on%20my%20NeuroPulseAI%20order."
+            href="https://wa.me/919170397988?text=Hello%2C%20I%20want%20an%20update%20on%20my%20Debuggers%20Squad%20order."
             target="_blank"
             rel="noreferrer"
             className="w-full"

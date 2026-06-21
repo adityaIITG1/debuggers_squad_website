@@ -7,6 +7,7 @@ const footerGroups = [
     title: "Product",
     links: [
       ["/product", "NeuroPulseAI"],
+      ["/paratalk", "ParaTalk"],
       ["/demo", "Demo & validation"],
       ["/checkout", "Secure checkout"],
     ],
@@ -86,8 +87,9 @@ export function Footer() {
         <div className="mt-12 flex gap-3 rounded-2xl border border-amber-300/60 bg-amber-50 p-4 text-sm leading-6 text-amber-950">
           <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-700" />
           <p>
-            NeuroPulseAI is an educational and research prototype, not a certified
-            medical or diagnostic device. It must not replace professional medical advice.
+            NeuroPulseAI and ParaTalk are educational, research, and assistive-technology
+            prototypes, not certified medical, diagnostic, emergency, or life-support
+            devices. They must not replace professional medical advice.
           </p>
         </div>
 

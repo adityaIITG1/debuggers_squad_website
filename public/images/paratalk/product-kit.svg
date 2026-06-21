@@ -1,0 +1,52 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EDF7FF"/>
+      <stop offset="1" stop-color="#E8E3FF"/>
+    </linearGradient>
+    <linearGradient id="case" x1="305" y1="240" x2="753" y2="685" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1598ED"/>
+      <stop offset="1" stop-color="#0756B4"/>
+    </linearGradient>
+    <filter id="shadow" x="159" y="145" width="771" height="685" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#123A75" flood-opacity=".25"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="900" rx="48" fill="url(#bg)"/>
+  <circle cx="1014" cy="142" r="176" fill="#C9F9F3" fill-opacity=".65"/>
+  <circle cx="107" cy="775" r="202" fill="#D8CBFF" fill-opacity=".6"/>
+  <g opacity=".25" stroke="#3787DA" stroke-width="3">
+    <path d="M77 126H236L296 186H418"/>
+    <path d="M819 709H963L1046 626H1151"/>
+    <circle cx="68" cy="126" r="9"/><circle cx="1158" cy="626" r="9"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="266" y="207" width="488" height="507" rx="72" fill="url(#case)"/>
+    <rect x="292" y="233" width="436" height="455" rx="52" stroke="#76D6FF" stroke-width="8"/>
+    <path d="M374 207V162C374 140 392 122 414 122H604C626 122 644 140 644 162V207" stroke="#0C67C5" stroke-width="34" stroke-linecap="round"/>
+    <rect x="339" y="296" width="343" height="298" rx="28" fill="white"/>
+    <text x="510" y="354" fill="#115BA8" font-size="50" font-family="Arial, sans-serif" font-weight="800" text-anchor="middle">ParaTalk</text>
+    <text x="510" y="393" fill="#60738B" font-size="22" font-family="Arial, sans-serif" font-weight="700" letter-spacing="5" text-anchor="middle">EOG EYE-BLINK INTERFACE</text>
+    <path d="M404 470C458 413 563 413 617 470C563 527 458 527 404 470Z" stroke="#1584DE" stroke-width="14"/>
+    <circle cx="511" cy="470" r="36" fill="#613DE6"/>
+    <circle cx="511" cy="470" r="14" fill="white"/>
+    <g fill="#DDEFFF">
+      <rect x="374" y="546" width="76" height="28" rx="14"/>
+      <rect x="461" y="546" width="100" height="28" rx="14"/>
+      <rect x="572" y="546" width="76" height="28" rx="14"/>
+    </g>
+  </g>
+  <path d="M748 378C891 281 957 310 976 374C999 452 879 467 912 550C938 615 1042 580 1089 655" stroke="#172445" stroke-width="20" stroke-linecap="round"/>
+  <path d="M753 429C844 386 858 488 925 469" stroke="#ED344C" stroke-width="10" stroke-linecap="round"/>
+  <path d="M752 456C840 429 867 529 949 505" stroke="#F5C122" stroke-width="10" stroke-linecap="round"/>
+  <path d="M752 483C841 471 877 567 971 541" stroke="#111827" stroke-width="10" stroke-linecap="round"/>
+  <rect x="1039" y="634" width="124" height="60" rx="10" transform="rotate(19 1039 634)" fill="#1E293B"/>
+  <rect x="1109" y="659" width="55" height="36" rx="5" transform="rotate(19 1109 659)" fill="#B7C4D5"/>
+  <g transform="translate(850 128)">
+    <rect width="260" height="110" rx="28" fill="white" fill-opacity=".9"/>
+    <path d="M48 55C78 25 132 25 162 55C132 85 78 85 48 55Z" stroke="#673DE6" stroke-width="8"/>
+    <circle cx="105" cy="55" r="18" fill="#16A7D8"/>
+    <text x="184" y="62" fill="#2F1C6A" font-size="25" font-family="Arial, sans-serif" font-weight="800">BLINK</text>
+  </g>
+  <text x="78" y="824" fill="#2F1C6A" font-size="38" font-family="Arial, sans-serif" font-weight="800">EYE-BLINK COMMUNICATION &amp; CONTROL KIT</text>
+</svg>

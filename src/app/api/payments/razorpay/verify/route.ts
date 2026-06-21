@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getShiprocketToken, createShiprocketOrder, assignAWB, requestPickup } from "@/lib/shiprocket";
 import { razorpay } from "@/lib/razorpay";
-import { NEUROPULSE_PRODUCT } from "@/lib/product";
+import { getProduct } from "@/lib/product";
 
 type CustomerDetails = {
   name: string;
@@ -69,9 +69,15 @@ export async function POST(req: Request) {
     }
 
     const razorpayOrder = await razorpay.orders.fetch(razorpay_order_id);
+    const product = getProduct(razorpayOrder.notes?.product_slug);
+
+    if (!product) {
+      return NextResponse.json({ error: "Payment product is invalid" }, { status: 400 });
+    }
+
     if (
-      Number(razorpayOrder.amount) !== NEUROPULSE_PRODUCT.priceInPaise ||
-      razorpayOrder.currency !== NEUROPULSE_PRODUCT.currency
+      Number(razorpayOrder.amount) !== product.priceInPaise ||
+      razorpayOrder.currency !== product.currency
     ) {
       return NextResponse.json({ error: "Payment amount mismatch" }, { status: 400 });
     }
@@ -106,7 +112,8 @@ export async function POST(req: Request) {
 
     // Generate Order Number: DS-NP-YYYY-XXXX
     const year = new Date().getFullYear();
-    const orderNumber = `DS-NP-${year}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+    const orderPrefix = product.slug === "paratalk" ? "PT" : "NP";
+    const orderNumber = `DS-${orderPrefix}-${year}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
 
     // 3. Save Order to Supabase
     const { data: order, error: orderError } = await supabaseAdmin
@@ -114,7 +121,7 @@ export async function POST(req: Request) {
       .insert({
         order_number: orderNumber,
         customer_id: customer.id,
-        total_amount: NEUROPULSE_PRODUCT.price,
+        total_amount: product.price,
         payment_status: "paid",
         order_status: "processing",
         shipping_status: "pending",
@@ -126,19 +133,19 @@ export async function POST(req: Request) {
     if (orderError) throw new Error(`Order Error: ${orderError.message}`);
 
     // 4. Save Order Items
-    const { data: product } = await supabaseAdmin
+    const { data: productRecord } = await supabaseAdmin
       .from("products")
       .select("id")
-      .eq("slug", NEUROPULSE_PRODUCT.slug)
+      .eq("slug", product.slug)
       .maybeSingle();
 
     const orderItemsToInsert = [{
       order_id: order.id,
-      product_id: product?.id ?? null,
-      product_name: NEUROPULSE_PRODUCT.fullName,
+      product_id: productRecord?.id ?? null,
+      product_name: product.fullName,
       quantity: 1,
-      unit_price: NEUROPULSE_PRODUCT.price,
-      total_price: NEUROPULSE_PRODUCT.price,
+      unit_price: product.price,
+      total_price: product.price,
     }];
 
     const { error: itemsError } = await supabaseAdmin.from("order_items").insert(orderItemsToInsert);
@@ -150,7 +157,7 @@ export async function POST(req: Request) {
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
-      amount: NEUROPULSE_PRODUCT.price,
+      amount: product.price,
       status: "successful",
     });
     if (paymentError) throw new Error(`Payment Error: ${paymentError.message}`);
@@ -180,17 +187,17 @@ export async function POST(req: Request) {
           billing_phone: customer.phone,
           shipping_is_billing: true,
           order_items: [{
-            name: NEUROPULSE_PRODUCT.fullName,
-            sku: NEUROPULSE_PRODUCT.sku,
+            name: product.fullName,
+            sku: product.sku,
             units: 1,
-            selling_price: NEUROPULSE_PRODUCT.price,
+            selling_price: product.price,
           }],
           payment_method: "Prepaid",
-          sub_total: NEUROPULSE_PRODUCT.price,
-          length: 25,
-          breadth: 17,
-          height: 10,
-          weight: 0.5,
+          sub_total: product.price,
+          length: product.shipment.length,
+          breadth: product.shipment.breadth,
+          height: product.shipment.height,
+          weight: product.shipment.weight,
         };
 
         const srOrder = await createShiprocketOrder(srOrderData, token);

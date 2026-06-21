@@ -116,6 +116,17 @@ VALUES (
   'active'
 );
 
+INSERT INTO products (name, slug, description, price, stock, category, status)
+VALUES (
+  'ParaTalk - Eye-Blink Communication & Control Kit',
+  'paratalk',
+  'EOG-based eye-blink communication and computer-control kit for accessibility, education, learning, games, and digital participation.',
+  7999.00,
+  100,
+  'Assistive Technology Kit',
+  'active'
+);
+
 -- Enable RLS (Row Level Security) - basic rules for public access to create orders/messages and read products
 ALTER TABLE products ENABLE ROW LEVEL SECURITY;
 ALTER TABLE customers ENABLE ROW LEVEL SECURITY;

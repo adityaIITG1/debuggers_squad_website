@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 
 const links = [
   { href: "/product", label: "NeuroPulseAI" },
+  { href: "/paratalk", label: "ParaTalk" },
   { href: "/demo", label: "How it works" },
   { href: "/about", label: "Our story" },
   { href: "/contact", label: "Contact" },
@@ -20,7 +21,7 @@ export function Navbar() {
   return (
     <>
       <div className="bg-[#2f1c6a] px-4 py-2 text-center text-xs font-semibold text-white sm:text-sm">
-        NeuroPulseAI launch offer: complete single-channel EMG kit at ₹2,999 with free India delivery
+        Two impact products: NeuroPulseAI EMG at ₹2,999 and ParaTalk eye-blink control at ₹7,999
       </div>
       <nav className="sticky top-0 z-50 border-b border-[#e5def8] bg-[#fbfaff]/90 backdrop-blur-xl">
         <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -68,13 +69,13 @@ export function Navbar() {
               Checkout
             </Link>
             <Link
-              href="/product"
+              href="/#products"
               className={cn(
                 buttonVariants({ size: "lg" }),
                 "h-11 rounded-xl bg-[#673de6] px-6 font-bold text-white shadow-lg shadow-violet-700/20 hover:bg-[#5630c9]"
               )}
             >
-              Buy now
+              Shop products
             </Link>
           </div>
 
@@ -103,14 +104,14 @@ export function Navbar() {
                 </Link>
               ))}
               <Link
-                href="/checkout"
+                href="/#products"
                 onClick={() => setOpen(false)}
                 className={cn(
                   buttonVariants({ size: "lg" }),
                   "mt-2 h-12 rounded-xl bg-[#673de6] font-bold text-white"
                 )}
               >
-                Buy NeuroPulseAI
+                Shop products
               </Link>
             </div>
           </div>

@@ -8,9 +8,12 @@ import {
   Check,
   ChevronRight,
   CircleCheck,
+  Code2,
+  Eye,
   GraduationCap,
   HeartPulse,
   Laptop,
+  MessageSquareText,
   Microscope,
   PackageCheck,
   Play,
@@ -21,7 +24,7 @@ import {
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { NEUROPULSE_PRODUCT } from "@/lib/product";
+import { NEUROPULSE_PRODUCT, PARATALK_PRODUCT } from "@/lib/product";
 
 const benefits = [
   {
@@ -158,7 +161,7 @@ export default function Home() {
                   </p>
                 </div>
                 <Link
-                  href="/checkout"
+                  href="/checkout?product=neuropulseai"
                   className="flex items-center gap-2 rounded-xl bg-[#2f1c6a] px-5 py-3 text-sm font-black text-white hover:bg-[#432a89]"
                 >
                   Buy now
@@ -284,7 +287,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section id="products" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="grid overflow-hidden rounded-[34px] border border-[#d9cef6] bg-white shadow-[0_35px_90px_-55px_rgba(47,28,106,0.55)] lg:grid-cols-[0.9fr_1.1fr]">
           <div className="bg-[#2f1c6a] p-8 text-white sm:p-12 lg:p-14">
             <p className="text-sm font-black uppercase tracking-[0.18em] text-[#cbbdff]">
@@ -298,7 +301,7 @@ export default function Home() {
             </div>
             <p className="mt-2 text-sm font-bold text-[#76e7c4]">Free prepaid delivery in India</p>
             <Link
-              href="/checkout"
+              href="/checkout?product=neuropulseai"
               className={cn(
                 buttonVariants({ size: "lg" }),
                 "mt-9 h-14 w-full rounded-xl bg-[#fc5185] text-base font-black text-white hover:bg-[#ea3e75]"
@@ -335,6 +338,88 @@ export default function Home() {
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-[#cfe3f7] bg-gradient-to-br from-[#edf8ff] via-white to-[#eeeaff] py-20 lg:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:px-8">
+          <div className="relative">
+            <div className="absolute -left-8 top-8 size-40 rounded-full bg-[#a9e8ff] blur-3xl" />
+            <div className="relative overflow-hidden rounded-[32px] border border-white bg-white p-3 shadow-2xl shadow-blue-900/15">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[24px]">
+                <Image
+                  src={PARATALK_PRODUCT.image}
+                  alt="ParaTalk eye-blink communication and computer-control kit"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+            <div className="absolute -bottom-6 left-8 right-8 flex items-center justify-between rounded-2xl bg-[#073d73] p-5 text-white shadow-xl">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#a8dcff]">
+                  New assistive product
+                </p>
+                <p className="mt-1 text-2xl font-black">₹7,999</p>
+              </div>
+              <Eye className="size-8 text-[#4fe1bd]" />
+            </div>
+          </div>
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#dff4ff] px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#0878c8]">
+              <Sparkles className="size-3.5" />
+              Introducing ParaTalk
+            </div>
+            <h2 className="mt-6 text-5xl font-black tracking-[-0.045em]">
+              An eye blink becomes a voice, a selection, and a way to participate.
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-[#596b83]">
+              ParaTalk is an EOG-based eye-blink communication and computer-control
+              kit for people with significant movement or speech limitations. It
+              supports accessible communication, chess, games, learning, and creative
+              computer work through a configured blink-to-spacebar input.
+            </p>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {[
+                [MessageSquareText, "Voice communication"],
+                [Eye, "Blink-based selection"],
+                [Laptop, "USB laptop connection"],
+                [Code2, "Accessible creative tools"],
+              ].map(([Icon, label]) => {
+                const FeatureIcon = Icon as typeof Eye;
+                return (
+                  <div key={String(label)} className="flex items-center gap-3 font-black text-[#2d4564]">
+                    <span className="grid size-10 place-items-center rounded-xl bg-white text-[#0878c8] shadow-sm">
+                      <FeatureIcon className="size-4" />
+                    </span>
+                    {String(label)}
+                  </div>
+                );
+              })}
+            </div>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/paratalk"
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "h-14 rounded-xl bg-[#0869bd] px-8 text-base font-black text-white hover:bg-[#07599f]"
+                )}
+              >
+                Explore ParaTalk
+                <ArrowRight className="size-4" />
+              </Link>
+              <Link
+                href="/checkout?product=paratalk"
+                className={cn(
+                  buttonVariants({ size: "lg", variant: "outline" }),
+                  "h-14 rounded-xl border-[#0869bd] bg-white px-8 text-base font-black text-[#0869bd] hover:bg-[#edf8ff]"
+                )}
+              >
+                Buy for ₹7,999
+              </Link>
             </div>
           </div>
         </div>
@@ -396,20 +481,21 @@ export default function Home() {
             <Activity className="size-7" />
           </span>
           <h2 className="mt-6 text-4xl font-black tracking-[-0.035em] sm:text-5xl">
-            Ready to see signals differently?
+            Ready to build, communicate, and participate differently?
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#ddd4ff]">
-            Bring hands-on EMG learning to your project, classroom, lab, or innovation demo.
+            Explore NeuroPulseAI for muscle-signal learning and ParaTalk for
+            eye-blink communication and accessible computer control.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
-              href="/product"
+              href="/#products"
               className={cn(
                 buttonVariants({ size: "lg" }),
                 "h-14 rounded-xl bg-white px-8 text-base font-black text-[#673de6] hover:bg-[#f5f2ff]"
               )}
             >
-              Explore NeuroPulseAI
+              Explore both products
             </Link>
             <Link
               href="/contact"

@@ -5,8 +5,9 @@ import { Footer } from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "Debuggers Squad | NeuroPulseAI",
-  description: "Low-cost, real-time muscle activity monitoring for education, research, physiotherapy learning, and future rehabilitation support.",
+  title: "Debuggers Squad | NeuroPulseAI & ParaTalk",
+  description:
+    "Affordable biosignal and assistive-technology products: NeuroPulseAI muscle-signal visualization and ParaTalk eye-blink communication and computer control.",
 };
 
 export default function RootLayout({

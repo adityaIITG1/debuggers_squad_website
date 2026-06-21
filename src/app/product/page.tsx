@@ -151,7 +151,7 @@ export default function ProductPage() {
 
             <div className="mt-8 space-y-3">
               <Link
-                href="/checkout"
+                href="/checkout?product=neuropulseai"
                 className={cn(
                   buttonVariants({ size: "lg" }),
                   "h-14 w-full rounded-xl bg-[#673de6] text-base font-bold text-white shadow-lg shadow-violet-700/20 hover:bg-[#5630c9]"
@@ -274,7 +274,7 @@ export default function ProductPage() {
           One complete NeuroPulseAI kit, software included, delivered to your door.
         </p>
         <Link
-          href="/checkout"
+          href="/checkout?product=neuropulseai"
           className={cn(
             buttonVariants({ size: "lg" }),
             "mt-7 bg-white font-bold text-[#673de6] hover:bg-[#f5f2ff]"
