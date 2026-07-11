@@ -8,6 +8,7 @@ import {
   HeartHandshake,
   Lightbulb,
   Mail,
+  ShieldCheck,
   Sparkles,
   Target,
 } from "lucide-react";
@@ -41,6 +42,14 @@ const founders = [
     accent: "from-[#0878c8] via-[#12a8e8] to-[#28d3aa]",
     softAccent: "bg-[#e9f8ff] text-[#0878c8]",
   },
+];
+
+const legalStatusItems = [
+  "Udyam/MSME registered micro enterprise",
+  "Debuggers Squad trademark applications filed under Classes 5, 9, 10, and 42",
+  "Copyright application filed for the Debuggers Squad logo/artistic work",
+  "NeuroPulseAI working MVP/prototype developed",
+  "Best Category Award winner at Evolothon 1.0",
 ];
 
 export default function AboutPage() {
@@ -94,6 +103,64 @@ export default function AboutPage() {
               <p className="mt-3 leading-7 text-[#6b5e8c]">{text}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="border-y border-[#e2daf5] bg-white py-16 lg:py-20">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-[#673de6]">
+              Trust & Legal Status
+            </p>
+            <h2 className="mt-4 text-4xl font-black tracking-[-0.035em] sm:text-5xl">
+              Registered innovation venture from India
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-[#66598a]">
+              Debuggers Squad&trade; is a Udyam/MSME registered micro enterprise
+              founded by Aditya Kumar Singh, with Prakriti Jaiswal as co-founder,
+              focused on affordable healthtech, neurotechnology, embedded
+              electronics, AI-enabled healthcare software, and
+              rehabilitation-feedback innovation from India.
+            </p>
+            <p className="mt-5 text-lg leading-8 text-[#66598a]">
+              Aditya Kumar Singh, founder of Debuggers Squad and NeuroPulseAI,
+              is a student at IIT Guwahati.
+            </p>
+          </div>
+
+          <div className="rounded-[28px] border border-[#e4dcf7] bg-[#fbfaff] p-6 shadow-[0_28px_75px_-50px_rgba(47,28,106,0.52)] sm:p-8">
+            <div className="flex items-start gap-4">
+              <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[#eee9ff] text-[#673de6]">
+                <ShieldCheck className="size-5" />
+              </span>
+              <div>
+                <h3 className="text-2xl font-black">Current legal & recognition status</h3>
+                <p className="mt-3 leading-7 text-[#66598a]">
+                  NeuroPulseAI is a portable single-channel EMG
+                  rehabilitation-feedback prototype designed for education,
+                  research, physiotherapy learning, biosignal visualization, and
+                  rehabilitation technology demonstrations.
+                </p>
+              </div>
+            </div>
+
+            <ul className="mt-7 grid gap-3">
+              {legalStatusItems.map((item) => (
+                <li
+                  key={item}
+                  className="flex gap-3 rounded-2xl border border-[#e7dff8] bg-white px-4 py-3 text-sm font-bold leading-6 text-[#46336f]"
+                >
+                  <span className="mt-1 size-2 shrink-0 rounded-full bg-[#673de6]" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 rounded-2xl bg-[#f0ebff] p-4 text-sm font-semibold leading-6 text-[#5630c9]">
+              Future roadmap includes structured documentation, expert
+              validation, ISO/QMS planning, clinical validation, and the
+              applicable CDSCO pathway.
+            </p>
+          </div>
         </div>
       </section>
 
