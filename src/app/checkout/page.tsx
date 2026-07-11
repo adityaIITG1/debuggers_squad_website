@@ -57,6 +57,7 @@ type RazorpayOptions = {
 type RazorpayOrderResponse = {
   key_id: string;
   order_id: string;
+  order_number: string;
   amount: number;
   currency: string;
   error?: string;
@@ -141,7 +142,13 @@ function CheckoutContent() {
       const response = await fetch("/api/payments/razorpay/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({
+          items,
+          customerDetails: {
+            ...formData,
+            phone: normalizedPhone,
+          },
+        }),
       });
       const order = (await response.json()) as RazorpayOrderResponse;
 

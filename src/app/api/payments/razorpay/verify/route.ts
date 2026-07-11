@@ -39,6 +39,31 @@ function isValidCustomer(customer: unknown): customer is CustomerDetails {
   );
 }
 
+function customerFromNotes(notes: Record<string, unknown> | undefined): CustomerDetails | null {
+  if (!notes) return null;
+
+  const customer = {
+    name: String(notes.customer_name ?? ""),
+    email: String(notes.customer_email ?? ""),
+    phone: String(notes.customer_phone ?? ""),
+    address: String(notes.customer_address ?? ""),
+    city: String(notes.customer_city ?? ""),
+    state: String(notes.customer_state ?? ""),
+    pincode: String(notes.customer_pincode ?? ""),
+    landmark: String(notes.customer_landmark ?? ""),
+  };
+
+  return isValidCustomer(customer) ? customer : null;
+}
+
+function databaseErrorMessage(stage: string, message: string) {
+  if (message.toLowerCase().includes("fetch failed")) {
+    return `${stage}: Database connection failed. Check NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in the deployed environment.`;
+  }
+
+  return `${stage}: ${message}`;
+}
+
 export async function POST(req: Request) {
   try {
     let body: Record<string, unknown>;
@@ -52,7 +77,7 @@ export async function POST(req: Request) {
       razorpay_order_id, 
       razorpay_payment_id, 
       razorpay_signature,
-      customerDetails,
+      customerDetails: submittedCustomerDetails,
       disclaimerAccepted
     } = body;
 
@@ -67,8 +92,8 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!isValidCustomer(customerDetails) || disclaimerAccepted !== true) {
-      return NextResponse.json({ error: "Invalid checkout details" }, { status: 400 });
+    if (disclaimerAccepted !== true) {
+      return NextResponse.json({ error: "Product disclaimer must be accepted" }, { status: 400 });
     }
 
     if (!process.env.RAZORPAY_KEY_SECRET) {
@@ -96,6 +121,19 @@ export async function POST(req: Request) {
     }
 
     const razorpayOrder = await razorpay.orders.fetch(razorpay_order_id);
+    const customerDetails =
+      isValidCustomer(submittedCustomerDetails)
+        ? {
+            ...submittedCustomerDetails,
+            phone: submittedCustomerDetails.phone.replace(/\D/g, ""),
+            landmark: submittedCustomerDetails.landmark?.trim() || "",
+          }
+        : customerFromNotes(razorpayOrder.notes as Record<string, unknown> | undefined);
+
+    if (!customerDetails) {
+      return NextResponse.json({ error: "Invalid checkout details" }, { status: 400 });
+    }
+
     let rawCart: unknown;
 
     try {
@@ -183,17 +221,26 @@ export async function POST(req: Request) {
       .select()
       .single();
 
-    if (customerError) throw new Error(`Customer Error: ${customerError.message}`);
+    if (customerError) {
+      throw new Error(databaseErrorMessage("Customer Error", customerError.message));
+    }
 
-    // Generate Order Number: DS-NP-YYYY-XXXX
-    const year = new Date().getFullYear();
+    const orderNumberFromNotes =
+      typeof razorpayOrder.notes?.internal_order_number === "string"
+        ? razorpayOrder.notes.internal_order_number
+        : null;
     const orderPrefix =
       cart.items.length === 1
         ? cart.items[0].product.slug === "paratalk"
           ? "PT"
           : "NP"
         : "MX";
-    const orderNumber = `DS-${orderPrefix}-${year}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+    const orderNumber =
+      orderNumberFromNotes ||
+      `DS-${orderPrefix}-${new Date().getFullYear()}-${crypto
+        .randomUUID()
+        .slice(0, 8)
+        .toUpperCase()}`;
 
     // 3. Save Order to Supabase
     const { data: order, error: orderError } = await supabaseAdmin
@@ -210,7 +257,9 @@ export async function POST(req: Request) {
       .select()
       .single();
 
-    if (orderError) throw new Error(`Order Error: ${orderError.message}`);
+    if (orderError) {
+      throw new Error(databaseErrorMessage("Order Error", orderError.message));
+    }
 
     // 4. Save Order Items
     const productSlugs = cart.items.map(({ product }) => product.slug);
@@ -234,7 +283,9 @@ export async function POST(req: Request) {
     );
 
     const { error: itemsError } = await supabaseAdmin.from("order_items").insert(orderItemsToInsert);
-    if (itemsError) throw new Error(`Items Error: ${itemsError.message}`);
+    if (itemsError) {
+      throw new Error(databaseErrorMessage("Items Error", itemsError.message));
+    }
 
     // 5. Save Payment Record
     const { error: paymentError } = await supabaseAdmin.from("payments").insert({
@@ -245,7 +296,9 @@ export async function POST(req: Request) {
       amount: cart.total,
       status: "successful",
     });
-    if (paymentError) throw new Error(`Payment Error: ${paymentError.message}`);
+    if (paymentError) {
+      throw new Error(databaseErrorMessage("Payment Error", paymentError.message));
+    }
 
     // 6. Shiprocket Automation
     let shiprocketDetails: ShiprocketDetails | null = null;
