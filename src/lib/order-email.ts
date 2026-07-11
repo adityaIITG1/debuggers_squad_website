@@ -108,10 +108,15 @@ function orderHtml(details: OrderEmailDetails, admin: boolean) {
 }
 
 function checkoutStartedHtml(details: CheckoutStartedEmailDetails) {
+  const productText =
+    details.items.length === 1
+      ? details.items[0].product.fullName
+      : `${details.items.length} products`;
+
   return `
     <div style="font-family:Arial,sans-serif;max-width:680px;margin:auto;color:#1f2937">
-      <h1 style="color:#673de6">Checkout started</h1>
-      <p>${escapeHtml(details.customerName)} entered delivery details and opened Razorpay checkout on debuggerssquad.com.</p>
+      <h1 style="color:#673de6">Customer trying to buy ${escapeHtml(productText)}</h1>
+      <p>${escapeHtml(details.customerName)} entered delivery details and opened Razorpay checkout on debuggerssquad.com before payment.</p>
       <p><strong>Temporary order ID:</strong> ${escapeHtml(details.orderNumber)}<br>
       <strong>Status:</strong> Awaiting Razorpay payment</p>
       <table style="width:100%;border-collapse:collapse">
@@ -140,7 +145,7 @@ async function sendEmail({
 
   if (!apiKey || !from) {
     console.warn("Order email skipped: RESEND_API_KEY or ORDER_EMAIL_FROM is missing.");
-    return;
+    return false;
   }
 
   const response = await fetch("https://api.resend.com/emails", {
@@ -156,6 +161,8 @@ async function sendEmail({
   if (!response.ok) {
     throw new Error(`Email delivery failed: ${await response.text()}`);
   }
+
+  return true;
 }
 
 export async function sendOrderEmails(details: OrderEmailDetails) {
@@ -189,13 +196,19 @@ export async function sendCheckoutStartedEmail(details: CheckoutStartedEmailDeta
     process.env.ORDER_NOTIFICATION_EMAIL || "debuggerssquad@gmail.com";
 
   try {
-    await sendEmail({
+    const firstProductName =
+      details.items.length === 1
+        ? details.items[0].product.name
+        : `${details.items.length} products`;
+
+    return await sendEmail({
       to: adminEmail,
-      subject: `Checkout started ${details.orderNumber} by ${details.customerName}`,
+      subject: `${details.customerName} is trying to buy ${firstProductName}`,
       html: checkoutStartedHtml(details),
       idempotencyKey: `checkout-started-${details.orderNumber}`,
     });
   } catch (error) {
     console.error("Checkout started email failed:", error);
+    throw error;
   }
 }

@@ -121,15 +121,23 @@ export async function POST(req: Request) {
       .filter(Boolean)
       .join(", ");
 
-    await sendCheckoutStartedEmail({
-      orderNumber,
-      customerName: normalizedCustomer.name,
-      customerEmail: normalizedCustomer.email,
-      customerPhone: normalizedCustomer.phone,
-      deliveryAddress,
-      items: cart.items,
-      total: cart.total,
-    });
+    let checkoutEmailSent = false;
+    let checkoutEmailError: string | undefined;
+
+    try {
+      checkoutEmailSent = await sendCheckoutStartedEmail({
+        orderNumber,
+        customerName: normalizedCustomer.name,
+        customerEmail: normalizedCustomer.email,
+        customerPhone: normalizedCustomer.phone,
+        deliveryAddress,
+        items: cart.items,
+        total: cart.total,
+      });
+    } catch (error) {
+      checkoutEmailError =
+        error instanceof Error ? error.message : "Checkout email failed";
+    }
 
     return NextResponse.json({
       key_id: process.env.RAZORPAY_KEY_ID,
@@ -137,6 +145,8 @@ export async function POST(req: Request) {
       order_number: orderNumber,
       amount: order.amount,
       currency: order.currency,
+      checkout_email_sent: checkoutEmailSent,
+      checkout_email_error: checkoutEmailError,
     });
   } catch (error: unknown) {
     console.error("Razorpay Order Creation Error:", error);
