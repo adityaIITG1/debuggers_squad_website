@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { razorpay } from "@/lib/razorpay";
 import { priceCartItems } from "@/lib/cart";
+import { sendCheckoutStartedEmail } from "@/lib/order-email";
 
 type RazorpayApiError = {
   statusCode?: number;
@@ -110,6 +111,25 @@ export async function POST(req: Request) {
     };
 
     const order = await razorpay.orders.create(orderOptions);
+    const deliveryAddress = [
+      normalizedCustomer.address,
+      normalizedCustomer.landmark,
+      normalizedCustomer.city,
+      normalizedCustomer.state,
+      normalizedCustomer.pincode,
+    ]
+      .filter(Boolean)
+      .join(", ");
+
+    await sendCheckoutStartedEmail({
+      orderNumber,
+      customerName: normalizedCustomer.name,
+      customerEmail: normalizedCustomer.email,
+      customerPhone: normalizedCustomer.phone,
+      deliveryAddress,
+      items: cart.items,
+      total: cart.total,
+    });
 
     return NextResponse.json({
       key_id: process.env.RAZORPAY_KEY_ID,

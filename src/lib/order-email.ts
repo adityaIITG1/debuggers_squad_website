@@ -14,6 +14,11 @@ type OrderEmailDetails = {
   courierPartner?: string | null;
 };
 
+type CheckoutStartedEmailDetails = Omit<
+  OrderEmailDetails,
+  "paymentId" | "shippingStatus" | "awbCode" | "courierPartner"
+>;
+
 function escapeHtml(value: string) {
   return value
     .replaceAll("&", "&amp;")
@@ -23,38 +28,72 @@ function escapeHtml(value: string) {
     .replaceAll("'", "&#039;");
 }
 
-function orderHtml(details: OrderEmailDetails, admin: boolean) {
-  const itemRows = details.items
+function estimatedDeliveryWindow() {
+  const start = new Date();
+  start.setDate(start.getDate() + 5);
+
+  const end = new Date();
+  end.setDate(end.getDate() + 8);
+
+  const format: Intl.DateTimeFormatOptions = {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "Asia/Kolkata",
+  };
+
+  return `${start.toLocaleDateString("en-IN", format)} - ${end.toLocaleDateString("en-IN", format)}`;
+}
+
+function itemRows(items: PricedCartItem[]) {
+  return items
     .map(
       ({ product, quantity, lineTotal }) => `
         <tr>
           <td style="padding:8px;border-bottom:1px solid #e5e7eb">${escapeHtml(product.fullName)}</td>
           <td style="padding:8px;border-bottom:1px solid #e5e7eb;text-align:center">${quantity}</td>
-          <td style="padding:8px;border-bottom:1px solid #e5e7eb;text-align:right">₹${lineTotal.toLocaleString("en-IN")}</td>
+          <td style="padding:8px;border-bottom:1px solid #e5e7eb;text-align:right">Rs ${lineTotal.toLocaleString("en-IN")}</td>
         </tr>`
     )
     .join("");
+}
+
+function customerBlock(
+  details: Pick<
+    OrderEmailDetails,
+    "customerName" | "customerEmail" | "customerPhone" | "deliveryAddress"
+  >
+) {
+  return `<p><strong>Customer:</strong> ${escapeHtml(details.customerName)}<br>
+    <strong>Email:</strong> ${escapeHtml(details.customerEmail)}<br>
+    <strong>Phone:</strong> ${escapeHtml(details.customerPhone)}<br>
+    <strong>Delivery address:</strong> ${escapeHtml(details.deliveryAddress)}</p>`;
+}
+
+function orderHtml(details: OrderEmailDetails, admin: boolean) {
+  const deliveryWindow = estimatedDeliveryWindow();
+  const courierText =
+    details.courierPartner || "Shiprocket / BlueDart / available courier partner";
 
   return `
     <div style="font-family:Arial,sans-serif;max-width:680px;margin:auto;color:#1f2937">
       <h1 style="color:#673de6">${admin ? "New paid order" : "Order confirmed"}</h1>
-      <p>${admin ? `${escapeHtml(details.customerName)} purchased from debuggerssquad.com.` : `Thank you ${escapeHtml(details.customerName)}. Your payment was received and your order is confirmed.`}</p>
+      <p>${
+        admin
+          ? `${escapeHtml(details.customerName)} purchased from debuggerssquad.com.`
+          : `Thank you ${escapeHtml(details.customerName)}. Your payment was received and your order is confirmed.`
+      }</p>
       <p><strong>Order:</strong> ${escapeHtml(details.orderNumber)}<br>
       <strong>Payment ID:</strong> ${escapeHtml(details.paymentId)}<br>
-      <strong>Shipping:</strong> ${escapeHtml(details.shippingStatus)}</p>
+      <strong>Shipping:</strong> ${escapeHtml(details.shippingStatus)}<br>
+      <strong>Courier:</strong> ${escapeHtml(courierText)}<br>
+      <strong>Estimated delivery:</strong> ${escapeHtml(deliveryWindow)}</p>
       <table style="width:100%;border-collapse:collapse">
         <thead><tr><th style="padding:8px;text-align:left">Product</th><th>Qty</th><th style="text-align:right">Amount</th></tr></thead>
-        <tbody>${itemRows}</tbody>
+        <tbody>${itemRows(details.items)}</tbody>
       </table>
-      <p style="font-size:20px"><strong>Total: ₹${details.total.toLocaleString("en-IN")}</strong></p>
-      ${
-        admin
-          ? `<p><strong>Customer:</strong> ${escapeHtml(details.customerName)}<br>
-             <strong>Email:</strong> ${escapeHtml(details.customerEmail)}<br>
-             <strong>Phone:</strong> ${escapeHtml(details.customerPhone)}<br>
-             <strong>Delivery address:</strong> ${escapeHtml(details.deliveryAddress)}</p>`
-          : ""
-      }
+      <p style="font-size:20px"><strong>Total: Rs ${details.total.toLocaleString("en-IN")}</strong></p>
+      ${admin ? customerBlock(details) : ""}
       ${
         details.awbCode
           ? `<p><strong>AWB:</strong> ${escapeHtml(details.awbCode)}${
@@ -64,7 +103,24 @@ function orderHtml(details: OrderEmailDetails, admin: boolean) {
             }</p>`
           : ""
       }
-      <p style="color:#6b7280;font-size:13px">Debuggers Squad · debuggerssquad.com</p>
+      <p style="color:#6b7280;font-size:13px">Debuggers Squad - debuggerssquad.com</p>
+    </div>`;
+}
+
+function checkoutStartedHtml(details: CheckoutStartedEmailDetails) {
+  return `
+    <div style="font-family:Arial,sans-serif;max-width:680px;margin:auto;color:#1f2937">
+      <h1 style="color:#673de6">Checkout started</h1>
+      <p>${escapeHtml(details.customerName)} entered delivery details and opened Razorpay checkout on debuggerssquad.com.</p>
+      <p><strong>Temporary order ID:</strong> ${escapeHtml(details.orderNumber)}<br>
+      <strong>Status:</strong> Awaiting Razorpay payment</p>
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr><th style="padding:8px;text-align:left">Product</th><th>Qty</th><th style="text-align:right">Amount</th></tr></thead>
+        <tbody>${itemRows(details.items)}</tbody>
+      </table>
+      <p style="font-size:20px"><strong>Total: Rs ${details.total.toLocaleString("en-IN")}</strong></p>
+      ${customerBlock(details)}
+      <p style="color:#6b7280;font-size:13px">A paid-order email will follow automatically after successful Razorpay payment capture and verification.</p>
     </div>`;
 }
 
@@ -125,5 +181,21 @@ export async function sendOrderEmails(details: OrderEmailDetails) {
     if (result.status === "rejected") {
       console.error("Order email failed:", result.reason);
     }
+  }
+}
+
+export async function sendCheckoutStartedEmail(details: CheckoutStartedEmailDetails) {
+  const adminEmail =
+    process.env.ORDER_NOTIFICATION_EMAIL || "debuggerssquad@gmail.com";
+
+  try {
+    await sendEmail({
+      to: adminEmail,
+      subject: `Checkout started ${details.orderNumber} by ${details.customerName}`,
+      html: checkoutStartedHtml(details),
+      idempotencyKey: `checkout-started-${details.orderNumber}`,
+    });
+  } catch (error) {
+    console.error("Checkout started email failed:", error);
   }
 }
