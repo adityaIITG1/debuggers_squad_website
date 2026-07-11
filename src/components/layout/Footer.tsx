@@ -47,20 +47,36 @@ export function Footer() {
                   className="object-cover"
                 />
               </span>
-              <span className="text-lg font-black tracking-wide">DEBUGGERS SQUAD</span>
+              <span className="text-lg font-black tracking-wide">
+                DEBUGGERS SQUAD
+              </span>
             </Link>
             <p className="mt-5 leading-7 text-[#574a7d]">
               Affordable, human-centered neurotechnology for education, research,
               physiotherapy learning, and real-world innovation.
             </p>
             <div className="mt-6 flex gap-3">
-              <a href="https://wa.me/919170397988" aria-label="WhatsApp" className="grid size-10 place-items-center rounded-full bg-white text-[#673de6] shadow-sm transition-transform hover:-translate-y-0.5">
+              <a
+                href="https://wa.me/919170397988"
+                aria-label="WhatsApp"
+                className="grid size-10 place-items-center rounded-full bg-white text-[#673de6] shadow-sm transition-transform hover:-translate-y-0.5"
+              >
                 <MessageCircle className="size-4" />
               </a>
-              <a href="mailto:debuggerssquad@gmail.com" aria-label="Email" className="grid size-10 place-items-center rounded-full bg-white text-[#673de6] shadow-sm transition-transform hover:-translate-y-0.5">
+              <a
+                href="mailto:debuggerssquad@gmail.com"
+                aria-label="Email"
+                className="grid size-10 place-items-center rounded-full bg-white text-[#673de6] shadow-sm transition-transform hover:-translate-y-0.5"
+              >
                 <Mail className="size-4" />
               </a>
-              <a href="https://instagram.com/debuggers_squad" target="_blank" rel="noreferrer" aria-label="Instagram" className="grid size-10 place-items-center rounded-full bg-white text-[#673de6] shadow-sm transition-transform hover:-translate-y-0.5">
+              <a
+                href="https://instagram.com/debuggers_squad"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="grid size-10 place-items-center rounded-full bg-white text-[#673de6] shadow-sm transition-transform hover:-translate-y-0.5"
+              >
                 <Camera className="size-4" />
               </a>
             </div>
@@ -69,11 +85,16 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             {footerGroups.map((group) => (
               <div key={group.title}>
-                <h3 className="text-sm font-black uppercase tracking-[0.16em]">{group.title}</h3>
+                <h3 className="text-sm font-black uppercase tracking-[0.16em]">
+                  {group.title}
+                </h3>
                 <ul className="mt-5 space-y-3">
                   {group.links.map(([href, label]) => (
                     <li key={href}>
-                      <Link href={href} className="text-sm font-medium text-[#66598a] hover:text-[#673de6]">
+                      <Link
+                        href={href}
+                        className="text-sm font-medium text-[#66598a] hover:text-[#673de6]"
+                      >
                         {label}
                       </Link>
                     </li>
@@ -87,14 +108,19 @@ export function Footer() {
         <div className="mt-12 flex gap-3 rounded-2xl border border-amber-300/60 bg-amber-50 p-4 text-sm leading-6 text-amber-950">
           <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-700" />
           <p>
-            NeuroPulseAI and ParaTalk are educational, research, and assistive-technology
-            prototypes, not certified medical, diagnostic, emergency, or life-support
-            devices. They must not replace professional medical advice.
+            NeuroPulseAI and ParaTalk are educational, research, and
+            assistive-technology prototypes, not certified medical, diagnostic,
+            emergency, or life-support devices. They must not replace
+            professional medical advice.
           </p>
         </div>
 
         <div className="mt-10 flex flex-col gap-3 border-t border-[#d8cef3] pt-7 text-xs font-medium text-[#766a98] sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Debuggers Squad. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Debuggers Squad&trade;. MSME
+            Registered | Trademark Applied | Copyright Application Filed | Made
+            in Bharat 🇮🇳
+          </p>
           <Link href="/policies/disclaimer" className="hover:text-[#673de6]">
             Medical & product disclaimer
           </Link>
