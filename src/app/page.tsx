@@ -353,6 +353,9 @@ export default function Home() {
                 Demonstrated in real educational and innovation environments.
               </p>
             </div>
+            <p className="mt-8 text-xs font-semibold leading-5 text-[#766a98]">
+              Sensor credit: Muscle BioAmp Patchy by Upside Down Labs.
+            </p>
           </div>
 
           <div>
