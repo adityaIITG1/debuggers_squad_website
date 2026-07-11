@@ -1,3 +1,5 @@
+import { getNotificationEmail, getSenderEmail } from "@/lib/email-env";
+
 type ContactEmailDetails = {
   type: "contact" | "demo";
   name: string;
@@ -44,8 +46,8 @@ function contactHtml(details: ContactEmailDetails) {
 
 export async function sendContactEmail(details: ContactEmailDetails) {
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.ORDER_EMAIL_FROM;
-  const to = process.env.ORDER_NOTIFICATION_EMAIL || "debuggerssquad@gmail.com";
+  const from = getSenderEmail();
+  const to = getNotificationEmail();
 
   if (!apiKey || !from) {
     console.warn("Contact email skipped: RESEND_API_KEY or ORDER_EMAIL_FROM is missing.");

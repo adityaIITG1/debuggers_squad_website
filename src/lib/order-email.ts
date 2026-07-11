@@ -1,4 +1,5 @@
 import type { PricedCartItem } from "@/lib/cart";
+import { getNotificationEmail, getSenderEmail } from "@/lib/email-env";
 
 type OrderEmailDetails = {
   orderNumber: string;
@@ -141,7 +142,7 @@ async function sendEmail({
   idempotencyKey: string;
 }) {
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.ORDER_EMAIL_FROM;
+  const from = getSenderEmail();
 
   if (!apiKey || !from) {
     console.warn("Order email skipped: RESEND_API_KEY or ORDER_EMAIL_FROM is missing.");
@@ -166,8 +167,7 @@ async function sendEmail({
 }
 
 export async function sendOrderEmails(details: OrderEmailDetails) {
-  const adminEmail =
-    process.env.ORDER_NOTIFICATION_EMAIL || "debuggerssquad@gmail.com";
+  const adminEmail = getNotificationEmail();
 
   const results = await Promise.allSettled([
     sendEmail({
@@ -192,8 +192,7 @@ export async function sendOrderEmails(details: OrderEmailDetails) {
 }
 
 export async function sendCheckoutStartedEmail(details: CheckoutStartedEmailDetails) {
-  const adminEmail =
-    process.env.ORDER_NOTIFICATION_EMAIL || "debuggerssquad@gmail.com";
+  const adminEmail = getNotificationEmail();
 
   try {
     const firstProductName =
