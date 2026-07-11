@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import {
   ArrowRight,
   BrainCircuit,
@@ -14,6 +15,15 @@ import {
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
+export const metadata: Metadata = {
+  title: "About Debuggers Squad - Trust, Legal Status & Founders",
+  description:
+    "Debuggers Squad is a Udyam/MSME registered micro enterprise from India founded by Aditya Kumar Singh, student at IIT Guwahati, with Prakriti Jaiswal as co-founder. Learn about NeuroPulseAI, trademark and copyright application status, Evolothon recognition, and the company's healthtech and neurotechnology roadmap.",
+  alternates: {
+    canonical: "https://www.debuggerssquad.com/about",
+  },
+};
 
 const founders = [
   {
