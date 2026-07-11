@@ -116,10 +116,18 @@ export function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col gap-3 border-t border-[#d8cef3] pt-7 text-xs font-medium text-[#766a98] sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            &copy; {new Date().getFullYear()} Debuggers Squad&trade;. MSME
-            Registered | Trademark Applied | Copyright Application Filed | Made
-            in Bharat 🇮🇳
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span>&copy; {new Date().getFullYear()} Debuggers Squad&trade;.</span>
+            <span>MSME Registered</span>
+            <span aria-hidden="true">|</span>
+            <span>Trademark Applied</span>
+            <span aria-hidden="true">|</span>
+            <span>Copyright Application Filed</span>
+            <span aria-hidden="true">|</span>
+            <span>Made in Bharat</span>
+            <span className="rounded-full border border-[#d8cef3] bg-white px-2 py-0.5 text-[10px] font-black tracking-[0.12em] text-[#673de6]">
+              IN
+            </span>
           </p>
           <Link href="/policies/disclaimer" className="hover:text-[#673de6]">
             Medical & product disclaimer
