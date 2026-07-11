@@ -33,6 +33,9 @@ This is the official e-commerce and product showcase platform for Debuggers Squa
    - The server returns the Key ID with each created Razorpay order. The Key
      Secret remains server-only.
    - Production payments require a matching `rzp_live_` key pair in Vercel.
+   - Add `RAZORPAY_WEBHOOK_SECRET` in Vercel and configure a Razorpay webhook
+     for `https://www.debuggerssquad.com/api/payments/razorpay/webhook` with
+     the `payment.captured` event enabled.
    - Shiprocket automation requires:
      - `SHIPROCKET_EMAIL`
      - `SHIPROCKET_PASSWORD`
