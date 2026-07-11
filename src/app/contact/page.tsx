@@ -39,14 +39,22 @@ export default function ContactPage() {
         }),
       });
 
-      if (!res.ok) throw new Error("Failed to submit request.");
+      const result = (await res.json()) as { error?: string };
+
+      if (!res.ok) {
+        throw new Error(result.error || "Failed to submit request.");
+      }
 
       toast.success(isDemo ? "Demo request sent successfully!" : "Message sent successfully!");
       setFormData({
         name: "", email: "", phone: "", organization: "", productInterest: "NeuroPulseAI / ParaTalk", message: ""
       });
-    } catch {
-      toast.error("An error occurred. Please try again.");
+    } catch (error: unknown) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "An error occurred. Please try again."
+      );
     } finally {
       setLoading(false);
     }
