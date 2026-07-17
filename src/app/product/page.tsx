@@ -78,7 +78,7 @@ export default function ProductPage() {
                   alt: "NeuroPulseAI live EMG software displaying a muscle signal",
                 },
                 {
-                  src: "/images/neuropulseai/product-overview.jpeg",
+                  src: "/images/neuropulseai/gallery/product-overview-poster-4999.png",
                   alt: "NeuroPulseAI product overview",
                 },
               ].map((image) => (
