@@ -191,7 +191,7 @@ export default function Home() {
             <div className="premium-shadow relative rounded-[32px] border border-white/80 bg-gradient-to-br from-[#7650ef] via-[#9a70f5] to-[#e889cc] p-3 sm:p-5">
               <div className="relative aspect-[4/3] overflow-hidden rounded-[24px] bg-white">
                 <Image
-                  src="/images/neuropulseai/product-hero.jpeg"
+                  src="/images/neuropulseai/gallery/product-overview-poster-4999.png"
                   alt="NeuroPulseAI portable EMG kit"
                   fill
                   priority

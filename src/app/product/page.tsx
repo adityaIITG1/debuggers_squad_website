@@ -59,7 +59,7 @@ export default function ProductPage() {
           <div className="space-y-4">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm">
               <Image
-                src="/images/neuropulseai/product-hero.jpeg"
+                src="/images/neuropulseai/gallery/product-overview-poster-4999.png"
                 alt="NeuroPulseAI portable single-channel EMG kit and included accessories"
                 fill
                 priority
