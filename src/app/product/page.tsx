@@ -20,7 +20,7 @@ import { ProductFaq } from "@/components/commerce/ProductFaq";
 export const metadata: Metadata = {
   title: "Buy NeuroPulseAI Single-Channel EMG Kit | Debuggers Squad",
   description:
-    "Order the NeuroPulseAI single-channel EMG education and research kit for ₹2,999 with secure Razorpay checkout and delivery across India.",
+    "Order the NeuroPulseAI single-channel EMG education and research kit for ₹4,999 with secure Razorpay checkout and delivery across India.",
 };
 
 const includedItems = [

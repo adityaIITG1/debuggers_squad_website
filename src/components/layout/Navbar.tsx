@@ -29,7 +29,7 @@ export function Navbar() {
       <div className="relative z-[60] bg-[#2f1c6a] px-4 py-2 text-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
           <p className="hidden text-xs font-semibold lg:block xl:text-sm">
-            Two impact products: NeuroPulseAI EMG at ₹2,999 and ParaTalk eye-blink
+            Two impact products: NeuroPulseAI EMG at ₹4,999 and ParaTalk eye-blink
             control at ₹7,999
           </p>
           <div className="ml-auto flex w-full items-center justify-end gap-2 sm:w-auto">

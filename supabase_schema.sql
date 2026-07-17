@@ -114,7 +114,7 @@ VALUES (
   'NeuroPulseAI - Portable EMG Rehabilitation Feedback Kit',
   'neuropulseai',
   'Low-cost, real-time muscle activity monitoring for education, research, physiotherapy learning, and future rehabilitation support.',
-  2999.00,
+  4999.00,
   100,
   'EMG Kit',
   'active'

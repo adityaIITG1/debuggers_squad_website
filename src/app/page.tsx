@@ -404,7 +404,7 @@ export default function Home() {
             <h2 className="mt-4 text-4xl font-black tracking-tight">NeuroPulseAI</h2>
             <p className="mt-3 text-lg text-[#d9d1ef]">Single-channel EMG learning system</p>
             <div className="mt-9 flex items-end gap-3">
-              <span className="text-4xl font-black sm:text-5xl">₹2,999</span>
+              <span className="text-4xl font-black sm:text-5xl">₹4,999</span>
               <span className="pb-2 text-sm font-bold text-[#c8bfe0]">one-time</span>
             </div>
             <p className="mt-2 text-sm font-bold text-[#76e7c4]">Free prepaid delivery in India</p>
