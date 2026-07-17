@@ -458,11 +458,11 @@ export default function Home() {
             <div className="relative overflow-hidden rounded-[32px] border border-white bg-white p-3 shadow-2xl shadow-blue-900/15">
               <div className="relative aspect-[4/3] overflow-hidden rounded-[24px]">
                 <Image
-                  src="/images/paratalk/paratalk-product-poster.jpeg"
-                  alt="Professional ParaTalk eye-blink communication and control kit product poster"
+                  src="/images/paratalk/paratalk-audience-demo.jpeg"
+                  alt="ParaTalk device being shown to an audience during a live demonstration"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-contain"
+                  className="object-cover"
                 />
               </div>
             </div>
