@@ -67,7 +67,7 @@ export default function ProductPage() {
                 className="object-cover"
               />
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
               {[
                 {
                   src: "/images/neuropulseai/kit-box-contents.png",
@@ -84,6 +84,10 @@ export default function ProductPage() {
                 {
                   src: "/images/neuropulseai/gallery/product-overview-poster-4999.png",
                   alt: "NeuroPulseAI product overview poster",
+                },
+                {
+                  src: "/images/neuropulseai/gallery/single-channel-emg-demo-poster.png",
+                  alt: "NeuroPulseAI single-channel EMG live demonstration poster",
                 },
               ].map((image) => (
                 <div
