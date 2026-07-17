@@ -27,7 +27,7 @@ export const NEUROPULSE_PRODUCT: Product = {
   priceInPaise: 499900,
   currency: "INR",
   sku: "DS-NPAI-01",
-  image: "/images/neuropulseai/gallery/product-overview-poster-4999.png",
+  image: "/images/neuropulseai/kit-box-contents.png",
   checkoutNote: "Includes device, sensor, electrodes, software, and setup guide.",
   disclaimer:
     "NeuroPulseAI is an education, research, and innovation prototype. It is not a certified medical device and must not be used for diagnosis or treatment.",

@@ -59,16 +59,20 @@ export default function ProductPage() {
           <div className="space-y-4">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm">
               <Image
-                src="/images/neuropulseai/gallery/product-overview-poster-4999.png"
-                alt="NeuroPulseAI portable single-channel EMG kit and included accessories"
+                src="/images/neuropulseai/kit-box-contents.png"
+                alt="NeuroPulseAI single-channel EMG kit box with device, electrodes, cables, swabs, and quick-start guide"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 55vw"
                 className="object-cover"
               />
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {[
+                {
+                  src: "/images/neuropulseai/kit-box-contents.png",
+                  alt: "NeuroPulseAI kit box contents",
+                },
                 {
                   src: "/images/neuropulseai/sensor-placement.jpeg",
                   alt: "EMG sensor placed on a forearm",
@@ -79,7 +83,7 @@ export default function ProductPage() {
                 },
                 {
                   src: "/images/neuropulseai/gallery/product-overview-poster-4999.png",
-                  alt: "NeuroPulseAI product overview",
+                  alt: "NeuroPulseAI product overview poster",
                 },
               ].map((image) => (
                 <div
