@@ -418,6 +418,16 @@ export default function Home() {
               Order the complete kit
               <ArrowRight className="size-4" />
             </Link>
+            <Link
+              href="/neuropulseai-app"
+              className={cn(
+                buttonVariants({ size: "lg", variant: "outline" }),
+                "mt-3 h-14 w-full rounded-xl border-white/35 bg-white/10 text-base font-black text-white hover:bg-white/20 hover:text-white"
+              )}
+            >
+              Download Android app
+              <ArrowRight className="size-4" />
+            </Link>
             <p className="mt-4 text-center text-xs font-medium text-[#bfb3da]">
               Secure payment powered by Razorpay
             </p>

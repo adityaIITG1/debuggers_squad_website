@@ -12,6 +12,7 @@ import { AnimatedBrand } from "@/components/layout/AnimatedBrand";
 
 const links = [
   { href: "/product", label: "NeuroPulseAI" },
+  { href: "/neuropulseai-app", label: "Android App" },
   { href: "/paratalk", label: "ParaTalk" },
   { href: "/demo", label: "How it works" },
   { href: "/about", label: "Our story" },

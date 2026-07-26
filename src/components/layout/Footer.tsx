@@ -7,6 +7,7 @@ const footerGroups = [
     title: "Product",
     links: [
       ["/product", "NeuroPulseAI"],
+      ["/neuropulseai-app", "Android app"],
       ["/paratalk", "ParaTalk"],
       ["/demo", "Demo & validation"],
       ["/checkout", "Secure checkout"],
