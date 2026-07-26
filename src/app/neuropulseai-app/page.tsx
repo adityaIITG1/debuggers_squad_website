@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ChevronLeft,
   ChevronRight,
@@ -154,6 +154,14 @@ export default function NeuroPulseAppPage() {
   const [copyMessage, setCopyMessage] = useState('');
   const currentScreenshot = screenshots[activeScreenshot];
 
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveScreenshot((current) => (current + 1) % screenshots.length);
+    }, 4200);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
   const handleShare = async () => {
     if (typeof navigator === 'undefined') return;
     if (navigator.share) {
@@ -244,7 +252,7 @@ export default function NeuroPulseAppPage() {
             {copyMessage && <p className="mt-2 text-xs font-semibold text-[#087A55]">{copyMessage}</p>}
           </section>
 
-          <section className="rounded-3xl border border-[#DDE8F5] bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:p-8">
+          <section className="overflow-hidden rounded-3xl border border-[#DDE8F5] bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:p-8">
             <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
               <h2 className="flex items-center gap-3 text-2xl font-bold text-[#062B5B]">
                 <Smartphone className="h-6 w-6 text-[#0866E8]" /> App Screenshots
@@ -259,23 +267,62 @@ export default function NeuroPulseAppPage() {
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-2xl border border-[#DDE8F5] bg-[#071B34]">
-              <div className="relative aspect-[4/5] w-full sm:aspect-[16/10]">
-                <Image src={currentScreenshot.src} alt={currentScreenshot.alt} fill sizes="(min-width: 1024px) 760px, 100vw" className="object-contain" priority />
-              </div>
-              <div className="flex flex-col gap-4 border-t border-white/10 bg-[#062B5B] p-4 sm:flex-row sm:items-center sm:justify-between">
-                <p className="font-semibold text-white">{currentScreenshot.label}</p>
-                <div className="flex flex-wrap gap-2 sm:justify-end">
+            <div className="relative -mx-2 px-2">
+              <div className="overflow-hidden rounded-[28px] bg-[#071B34] shadow-[0_24px_70px_-42px_rgba(6,43,91,0.75)] ring-1 ring-[#DDE8F5]">
+                <div
+                  className="flex transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  style={{ transform: `translateX(-${activeScreenshot * 100}%)` }}
+                >
                   {screenshots.map((screenshot, index) => (
-                    <button
-                      key={screenshot.src}
-                      type="button"
-                      onClick={() => setActiveScreenshot(index)}
-                      aria-label={`Show ${screenshot.label}`}
-                      className={`h-2.5 rounded-full transition-all ${activeScreenshot === index ? 'w-8 bg-[#20E0D0]' : 'w-2.5 bg-white/40 hover:bg-white/70'}`}
-                    />
+                    <div key={screenshot.src} className="min-w-full bg-[#071B34] p-3 sm:p-5">
+                      <div className="relative mx-auto aspect-[4/5] max-h-[620px] w-full overflow-hidden rounded-2xl bg-white shadow-2xl shadow-black/25 sm:aspect-[16/10]">
+                        <Image
+                          src={screenshot.src}
+                          alt={screenshot.alt}
+                          fill
+                          sizes="(min-width: 1024px) 760px, 100vw"
+                          className="object-contain"
+                          priority={index === 0}
+                        />
+                      </div>
+                    </div>
                   ))}
                 </div>
+                <div className="flex flex-col gap-4 border-t border-white/10 bg-[#062B5B] p-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="font-semibold text-white">{currentScreenshot.label}</p>
+                    <p className="mt-1 text-xs font-medium text-white/55">
+                      {activeScreenshot + 1} of {screenshots.length}
+                    </p>
+                  </div>
+                  <div className="flex max-w-full gap-2 overflow-x-auto pb-1 sm:justify-end">
+                    {screenshots.map((screenshot, index) => (
+                      <button
+                        key={screenshot.src}
+                        type="button"
+                        onClick={() => setActiveScreenshot(index)}
+                        aria-label={`Show ${screenshot.label}`}
+                        className={`h-2.5 flex-shrink-0 rounded-full transition-all ${
+                          activeScreenshot === index ? 'w-9 bg-[#20E0D0]' : 'w-2.5 bg-white/35 hover:bg-white/70'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 hidden gap-3 overflow-hidden sm:flex">
+                {screenshots.slice(0, 5).map((screenshot, index) => (
+                  <button
+                    key={screenshot.src}
+                    type="button"
+                    onClick={() => setActiveScreenshot(index)}
+                    className={`relative aspect-[4/3] flex-1 overflow-hidden rounded-xl border bg-slate-50 transition ${
+                      activeScreenshot === index ? 'border-[#20E0D0] shadow-lg shadow-cyan-500/15' : 'border-[#DDE8F5] opacity-80 hover:opacity-100'
+                    }`}
+                  >
+                    <Image src={screenshot.src} alt="" fill sizes="140px" className="object-cover" />
+                  </button>
+                ))}
               </div>
             </div>
           </section>
