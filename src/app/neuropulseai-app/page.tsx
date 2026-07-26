@@ -132,8 +132,15 @@ export default function NeuroPulseAppPage() {
         <div className="space-y-12 lg:col-span-2">
           <section className="rounded-3xl border border-[#DDE8F5] bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:p-8">
             <div className="flex flex-col items-start gap-8 md:flex-row">
-              <div className="relative flex h-32 w-32 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-[#0866E8] to-[#00BFC8] text-white shadow-lg">
-                <span className="text-4xl font-bold">N</span>
+              <div className="relative h-32 w-32 flex-shrink-0 overflow-hidden rounded-3xl shadow-lg shadow-blue-950/15 ring-1 ring-[#DDE8F5]">
+                <Image
+                  src="/images/neuropulseai/app-icon.svg"
+                  alt="NeuroPulseAI app icon"
+                  fill
+                  sizes="128px"
+                  className="object-cover"
+                  priority
+                />
               </div>
               <div className="flex-1">
                 <span className="mb-3 inline-block rounded-full bg-[#E8F1FF] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#0866E8]">
