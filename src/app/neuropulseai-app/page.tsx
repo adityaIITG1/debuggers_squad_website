@@ -33,24 +33,79 @@ const release = {
 
 const screenshots = [
   {
-    src: '/images/neuropulseai/emg-software-live.jpeg',
-    alt: 'NeuroPulseAI live EMG waveform interface',
-    label: 'Live EMG biofeedback',
+    src: '/images/neuropulseai/app-gallery/wireless-emg-overview.jpeg',
+    alt: 'NeuroPulseAI wireless surface EMG monitoring system with phone app',
+    label: 'Wireless EMG overview',
   },
   {
-    src: '/images/neuropulseai/quick-start-guide.jpeg',
-    alt: 'NeuroPulseAI quick start guide',
-    label: 'Guided setup',
+    src: '/images/neuropulseai/app-gallery/progress-analytics.jpeg',
+    alt: 'NeuroPulseAI progress analytics app screen',
+    label: 'Progress analytics',
   },
   {
-    src: '/images/neuropulseai/sensor-placement.jpeg',
-    alt: 'NeuroPulseAI sensor placement reference',
-    label: 'Sensor placement',
+    src: '/images/neuropulseai/app-gallery/clinics-home-use.jpeg',
+    alt: 'NeuroPulseAI clinical workspace and home use app screen',
+    label: 'Clinics and home use',
   },
   {
-    src: '/images/neuropulseai/live-demo.jpeg',
-    alt: 'NeuroPulseAI live demonstration',
-    label: 'Session workflow',
+    src: '/images/neuropulseai/app-gallery/knee-test-setup.jpeg',
+    alt: 'NeuroPulseAI 60-second knee test setup screen',
+    label: '60-second knee test',
+  },
+  {
+    src: '/images/neuropulseai/app-gallery/left-right-symmetry.jpeg',
+    alt: 'NeuroPulseAI left versus right symmetry comparison screen',
+    label: 'Left vs right symmetry',
+  },
+  {
+    src: '/images/neuropulseai/app-gallery/wireless-emg-designed-for.jpeg',
+    alt: 'NeuroPulseAI wireless EMG designed for rehabilitation and clinics',
+    label: 'Designed for care',
+  },
+  {
+    src: '/images/neuropulseai/app-gallery/wireless-emg-features.jpeg',
+    alt: 'NeuroPulseAI wireless EMG feature overview',
+    label: 'Wireless device features',
+  },
+  {
+    src: '/images/neuropulseai/app-gallery/device-app-connectivity.jpeg',
+    alt: 'NeuroPulseAI device app connectivity overview',
+    label: 'Device and app connectivity',
+  },
+  {
+    src: '/images/neuropulseai/app-gallery/realtime-muscle-biofeedback.jpeg',
+    alt: 'NeuroPulseAI real-time muscle biofeedback overview',
+    label: 'Real-time biofeedback',
+  },
+  {
+    src: '/images/neuropulseai/app-gallery/wireless-emg-use-cases.jpeg',
+    alt: 'NeuroPulseAI wireless EMG use case overview',
+    label: 'Use cases',
+  },
+  {
+    src: '/images/neuropulseai/app-gallery/kit-box-contents.jpeg',
+    alt: 'NeuroPulseAI kit box contents',
+    label: 'Kit box contents',
+  },
+  {
+    src: '/images/neuropulseai/app-gallery/app-connected-device.jpeg',
+    alt: 'NeuroPulseAI app connected device overview',
+    label: 'App connected device',
+  },
+  {
+    src: '/images/neuropulseai/app-gallery/device-specs.jpeg',
+    alt: 'NeuroPulseAI wireless device specifications',
+    label: 'Device specifications',
+  },
+  {
+    src: '/images/neuropulseai/app-gallery/compact-device-feedback.jpeg',
+    alt: 'NeuroPulseAI compact device real muscle feedback overview',
+    label: 'Compact device feedback',
+  },
+  {
+    src: '/images/neuropulseai/app-gallery/wireless-emg-monitoring.jpeg',
+    alt: 'NeuroPulseAI wireless EMG monitoring overview',
+    label: 'Wireless monitoring',
   },
 ];
 
@@ -205,12 +260,12 @@ export default function NeuroPulseAppPage() {
             </div>
 
             <div className="overflow-hidden rounded-2xl border border-[#DDE8F5] bg-[#071B34]">
-              <div className="relative aspect-[16/10] w-full">
+              <div className="relative aspect-[4/5] w-full sm:aspect-[16/10]">
                 <Image src={currentScreenshot.src} alt={currentScreenshot.alt} fill sizes="(min-width: 1024px) 760px, 100vw" className="object-contain" priority />
               </div>
               <div className="flex flex-col gap-4 border-t border-white/10 bg-[#062B5B] p-4 sm:flex-row sm:items-center sm:justify-between">
                 <p className="font-semibold text-white">{currentScreenshot.label}</p>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2 sm:justify-end">
                   {screenshots.map((screenshot, index) => (
                     <button
                       key={screenshot.src}
