@@ -19,16 +19,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { QRCodeCanvas } from 'qrcode.react';
 
-const apkPath = '/NeuroPulseAI_App.apk';
-const apkUrl = 'https://www.debuggerssquad.com/NeuroPulseAI_App.apk';
+const apkPath = '/NeuroPulseAI_App_v2.apk';
+const apkUrl = 'https://www.debuggerssquad.com/NeuroPulseAI_App_v2.apk';
 const appPageUrl = 'https://www.debuggerssquad.com/neuropulseai-app';
 
 const release = {
-  versionName: '1.0.0',
-  fileSizeBytes: 87970633,
+  versionName: '2.0.0',
+  fileSizeBytes: 95166594,
   androidMinVersion: '8.0 (Oreo)',
-  releaseDate: '2026-07-26',
-  sha256Checksum: 'F387745AF942AD648942FEB8E060819FA1319282C944AEAE7E1FC3E6E8D07353',
+  releaseDate: '2026-08-08',
+  sha256Checksum: '0F52B5A028C09AF1689C7C55E23A23AAE1C4076D2F552494035E4901CC29AAAA',
 };
 
 const screenshots = [
