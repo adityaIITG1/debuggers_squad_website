@@ -19,17 +19,28 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { QRCodeCanvas } from 'qrcode.react';
 
-const apkPath = '/NeuroPulseAI_App_v2.apk';
-const apkUrl = 'https://www.debuggerssquad.com/NeuroPulseAI_App_v2.apk';
+const apkPath = '/NeuroPulseAI_App_v2_1.apk';
+const apkUrl = 'https://www.debuggerssquad.com/NeuroPulseAI_App_v2_1.apk';
 const appPageUrl = 'https://www.debuggerssquad.com/neuropulseai-app';
 
 const release = {
-  versionName: '2.0.0',
-  fileSizeBytes: 95166594,
+  versionName: '2.1.0',
+  fileSizeBytes: 100832361,
   androidMinVersion: '8.0 (Oreo)',
-  releaseDate: '2026-08-08',
-  sha256Checksum: '0F52B5A028C09AF1689C7C55E23A23AAE1C4076D2F552494035E4901CC29AAAA',
+  releaseDate: '2026-08-10',
+  sha256Checksum: 'B890FD2CDEBF66A234AE28FF3D5DC17FC5F44B6EAED08BD3F4A73D2A60E1372D',
+  highlights: ['Muscle control games', 'Muscle activity visualization', '1 min report'],
 };
+
+const oldReleases = [
+  {
+    versionName: '2.0.0',
+    apkPath: '/NeuroPulseAI_App_v2.apk',
+    fileSizeBytes: 95166594,
+    releaseDate: '2026-08-08',
+    sha256Checksum: '0F52B5A028C09AF1689C7C55E23A23AAE1C4076D2F552494035E4901CC29AAAA',
+  },
+];
 
 const screenshots = [
   {
@@ -249,6 +260,13 @@ export default function NeuroPulseAppPage() {
               <ShieldCheck className="h-4 w-4 text-[#20C878]" />
               Version {release.versionName} | {formatBytes(release.fileSizeBytes)} | Min Android {release.androidMinVersion}
             </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {release.highlights.map((highlight) => (
+                <span key={highlight} className="rounded-full bg-[#E8F1FF] px-3 py-1 text-xs font-semibold text-[#0866E8]">
+                  {highlight}
+                </span>
+              ))}
+            </div>
             {copyMessage && <p className="mt-2 text-xs font-semibold text-[#087A55]">{copyMessage}</p>}
           </section>
 
@@ -335,6 +353,9 @@ export default function NeuroPulseAppPage() {
               <p>
                 NeuroPulseAI is an Android companion application for the NeuroPulseAI compact wireless single-channel surface EMG system. It connects to the device through a local Wi-Fi connection and converts incoming muscle-activity signals into an understandable live visual experience.
               </p>
+              <p className="mt-4">
+                Version 2.1 adds muscle control games, improved muscle activity visualization, and a 1 min report flow for quick session summaries.
+              </p>
               <p className="mt-4">This download page is fully static. It does not require Supabase or any database to serve the APK.</p>
               <div className="mt-8 rounded-xl border border-orange-200 bg-[#FFF8E8] p-5">
                 <h4 className="mb-2 font-bold text-orange-800">Medical Use Notice</h4>
@@ -397,7 +418,7 @@ export default function NeuroPulseAppPage() {
 
         <div className="space-y-8">
           <div className="rounded-3xl border border-[#DDE8F5] bg-white p-8 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-            <h3 className="mb-4 font-bold text-[#062B5B]">Scan APK Link</h3>
+            <h3 className="mb-4 font-bold text-[#062B5B]">Scan Latest APK Link</h3>
             <div className="mb-4 inline-block rounded-xl border border-[#DDE8F5] bg-white p-4">
               <div className="mx-auto flex h-48 w-48 items-center justify-center bg-white">
                 <QRCodeCanvas value={apkUrl} size={180} level="H" includeMargin fgColor="#062B5B" />
@@ -419,6 +440,36 @@ export default function NeuroPulseAppPage() {
                   <Copy className="h-4 w-4 flex-shrink-0 text-[#0866E8]" />
                 </button>
               </div>
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-[#DDE8F5] bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <h3 className="mb-6 font-bold text-[#062B5B]">Old Versions</h3>
+            <div className="space-y-4">
+              {oldReleases.map((oldRelease) => (
+                <div key={oldRelease.versionName} className="rounded-2xl border border-[#DDE8F5] bg-[#F9FCFF] p-4">
+                  <div className="mb-3 flex items-start justify-between gap-3">
+                    <div>
+                      <p className="font-bold text-[#062B5B]">Version {oldRelease.versionName}</p>
+                      <p className="mt-1 text-xs text-[#5E6F85]">
+                        Updated {new Date(oldRelease.releaseDate).toLocaleDateString()} | {formatBytes(oldRelease.fileSizeBytes)}
+                      </p>
+                    </div>
+                    <span className="rounded-full bg-white px-2 py-1 text-[11px] font-bold uppercase text-[#5E6F85] ring-1 ring-[#DDE8F5]">
+                      Old
+                    </span>
+                  </div>
+                  <a href={oldRelease.apkPath} download className="block">
+                    <button className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#DDE8F5] bg-white px-4 py-3 text-sm font-bold text-[#062B5B] transition hover:bg-[#E8F1FF]">
+                      <Download className="h-4 w-4" />
+                      Download v{oldRelease.versionName}
+                    </button>
+                  </a>
+                  <p className="mt-3 break-all font-mono text-[11px] leading-relaxed text-[#5E6F85]">
+                    SHA-256: {oldRelease.sha256Checksum}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
