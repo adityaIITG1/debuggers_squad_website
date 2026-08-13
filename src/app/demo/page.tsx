@@ -6,19 +6,19 @@ import { cn } from "@/lib/utils";
 
 const gallery = [
   {
-    src: "/images/neuropulseai/emg-software-live.jpeg",
+    src: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
     label: "Live EMG software output",
     span: "md:col-span-2",
     ratio: "aspect-video",
   },
   {
-    src: "/images/neuropulseai/gallery/forearm-live-demo.jpeg",
+    src: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
     label: "Real electrode demonstration",
     span: "",
     ratio: "aspect-square",
   },
   {
-    src: "/images/neuropulseai/gallery/workshop-demo-portrait.jpeg",
+    src: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
     label: "Hands-on workshop testing",
     span: "",
     ratio: "aspect-square",
@@ -50,12 +50,12 @@ export default function DemoPage() {
         <div className="grid items-center gap-12 lg:grid-cols-[1.08fr_0.92fr]">
           <div className="relative aspect-video overflow-hidden rounded-[30px] border-8 border-white bg-black shadow-2xl shadow-violet-900/15">
             <Image
-              src="/images/neuropulseai/emg-software-live.jpeg"
-              alt="Live NeuroPulseAI EMG software graph responding to hand movement"
+              src="/images/neuropulseai/neuropulseai-product-poster.jpeg"
+              alt="NeuroPulseAI product poster showing the EMG device, muscle activity visualization, muscle control games, and instant reports"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 55vw"
-              className="object-cover"
+              className="object-contain bg-white"
             />
           </div>
           <div>
@@ -109,7 +109,7 @@ export default function DemoPage() {
                   alt={item.label}
                   fill
                   sizes="(max-width: 768px) 100vw, 66vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  className="object-contain bg-white transition-transform duration-500 group-hover:scale-[1.03]"
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#24134f]/90 to-transparent p-5 pt-16">
                   <p className="font-black text-white">{item.label}</p>

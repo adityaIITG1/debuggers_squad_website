@@ -59,34 +59,34 @@ export default function ProductPage() {
           <div className="space-y-4">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm">
               <Image
-                src="/images/neuropulseai/app-gallery/wireless-emg-overview.jpeg"
-                alt="NeuroPulseAI wireless surface EMG monitoring system with app connected device"
+                src="/images/neuropulseai/neuropulseai-product-poster.jpeg"
+                alt="NeuroPulseAI product poster showing the single-channel surface EMG device, app dashboard, muscle control games, and reports"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 55vw"
-                className="object-cover"
+                className="object-contain bg-white"
               />
             </div>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
               {[
                 {
-                  src: "/images/neuropulseai/app-gallery/wireless-emg-overview.jpeg",
+                  src: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
                   alt: "NeuroPulseAI wireless app connected device overview",
                 },
                 {
-                  src: "/images/neuropulseai/app-gallery/kit-box-contents.jpeg",
+                  src: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
                   alt: "NeuroPulseAI kit box contents with quick-start guide and electrodes",
                 },
                 {
-                  src: "/images/neuropulseai/app-gallery/device-app-connectivity.jpeg",
+                  src: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
                   alt: "NeuroPulseAI wireless device and mobile app connectivity",
                 },
                 {
-                  src: "/images/neuropulseai/app-gallery/device-specs.jpeg",
+                  src: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
                   alt: "NeuroPulseAI wireless device specifications",
                 },
                 {
-                  src: "/images/neuropulseai/app-gallery/compact-device-feedback.jpeg",
+                  src: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
                   alt: "NeuroPulseAI compact device with real muscle feedback",
                 },
               ].map((image) => (
@@ -99,7 +99,7 @@ export default function ProductPage() {
                     alt={image.alt}
                     fill
                     sizes="(max-width: 1024px) 33vw, 18vw"
-                    className="object-cover"
+                    className="object-contain bg-white"
                   />
                 </div>
               ))}
@@ -257,8 +257,8 @@ export default function ProductPage() {
           </div>
           <div className="relative aspect-[2/3] max-h-[620px] overflow-hidden rounded-3xl border border-slate-200">
             <Image
-              src="/images/neuropulseai/app-gallery/kit-box-contents.jpeg"
-              alt="NeuroPulseAI box contents with quick-start guide, device, sensor, electrodes and contact card"
+              src="/images/neuropulseai/neuropulseai-product-poster.jpeg"
+              alt="NeuroPulseAI product poster showing the EMG device, mobile app, reports, and target users"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-contain bg-slate-50"

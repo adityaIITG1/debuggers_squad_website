@@ -74,14 +74,14 @@ const proofPoints = [
     title: "HackDiwas 3.0 Winner",
     detail: "National hackathon winner · United University",
     image: "/images/proof/hackdiwas-winner-certificate.jpeg",
-    imagePosition: "object-center",
+    imagePosition: "object-contain bg-white",
     icon: Trophy,
   },
   {
     title: "TRAE Best Solution",
     detail: "Recognised for an impactful hackathon solution",
     image: "/images/proof/trae-best-solution-certificate.jpeg",
-    imagePosition: "object-center",
+    imagePosition: "object-contain bg-white",
     icon: Star,
   },
   {
@@ -101,14 +101,14 @@ const proofPoints = [
   {
     title: "Real Hardware Tested",
     detail: "Working EMG hardware demonstrated with live signals",
-    image: "/images/neuropulseai/gallery/forearm-live-demo.jpeg",
+    image: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
     imagePosition: "object-center",
     icon: Wrench,
   },
   {
     title: "College / Lab Demo Ready",
     detail: "Designed for workshops, classrooms, labs, and showcases",
-    image: "/images/neuropulseai/gallery/workshop-demo-wide.jpeg",
+    image: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
     imagePosition: "object-center",
     icon: Presentation,
   },
@@ -191,12 +191,12 @@ export default function Home() {
             <div className="premium-shadow relative rounded-[32px] border border-white/80 bg-gradient-to-br from-[#7650ef] via-[#9a70f5] to-[#e889cc] p-3 sm:p-5">
               <div className="relative aspect-[4/3] overflow-hidden rounded-[24px] bg-white">
                 <Image
-                  src="/images/neuropulseai/kit-box-contents.png"
-                  alt="NeuroPulseAI single-channel EMG kit box with device, electrodes, cables, swabs, and quick-start guide"
+                  src="/images/neuropulseai/neuropulseai-product-poster.jpeg"
+                  alt="NeuroPulseAI product poster showing the single-channel surface EMG device, app dashboard, muscle control games, and instant reports"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 55vw"
-                  className="object-cover"
+                  className="object-contain bg-white"
                 />
               </div>
               <div className="relative mt-3 flex items-center justify-between rounded-2xl border border-white/80 bg-white/95 p-4 shadow-xl backdrop-blur sm:absolute sm:-bottom-7 sm:left-10 sm:right-10 sm:mt-0 sm:p-5">
@@ -336,11 +336,11 @@ export default function Home() {
           <div className="relative">
             <div className="relative aspect-[4/3] overflow-hidden rounded-[30px] border-8 border-white shadow-2xl shadow-violet-900/15">
               <Image
-                src="/images/neuropulseai/gallery/forearm-live-demo.jpeg"
-                alt="NeuroPulseAI electrode demonstration"
+                src="/images/neuropulseai/neuropulseai-product-poster.jpeg"
+                alt="NeuroPulseAI product poster showing the EMG device and muscle activity visualization"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
+                className="object-contain bg-white"
               />
             </div>
             <div className="absolute -bottom-6 -right-2 max-w-[260px] rounded-2xl bg-[#2f1c6a] p-5 text-white shadow-xl sm:right-8">

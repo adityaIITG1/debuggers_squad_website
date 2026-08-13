@@ -282,11 +282,11 @@ export default function AboutPage() {
         </div>
         <div className="relative aspect-video overflow-hidden rounded-[28px] border-8 border-white shadow-2xl shadow-violet-900/15">
           <Image
-            src="/images/neuropulseai/emg-software-live.jpeg"
-            alt="NeuroPulseAI live EMG plotting software displaying muscle activity"
+            src="/images/neuropulseai/neuropulseai-product-poster.jpeg"
+            alt="NeuroPulseAI product poster showing the device, app dashboard, muscle activity visualization, and reports"
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover"
+            className="object-contain bg-white"
           />
         </div>
       </section>
