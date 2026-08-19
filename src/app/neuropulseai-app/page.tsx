@@ -19,16 +19,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { QRCodeCanvas } from 'qrcode.react';
 
-const apkPath = '/NeuroPulseAI_App_v2_2.apk';
-const apkUrl = 'https://www.debuggerssquad.com/NeuroPulseAI_App_v2_2.apk';
+const apkPath = '/NeuroPulseAI_App_v2_3.apk';
+const apkUrl = 'https://www.debuggerssquad.com/NeuroPulseAI_App_v2_3.apk';
 const appPageUrl = 'https://www.debuggerssquad.com/neuropulseai-app';
 
 const release = {
-  versionName: '2.2.0',
-  fileSizeBytes: 86736649,
+  versionName: '2.3.0',
+  fileSizeBytes: 43309113,
   androidMinVersion: '8.0 (Oreo)',
-  releaseDate: '2026-08-13',
-  sha256Checksum: '075141E3B635480C2DC995F64DEDC0C330D0019DD5553888E09D4C5BC675891A',
+  releaseDate: '2026-08-20',
+  sha256Checksum: '0B3CDB85740F81356DCDC453904D956B5E2C5124AD0615EED505BA4A94918976',
   highlights: ['Muscle control games', 'Muscle activity visualization', '1 min report'],
 };
 
@@ -354,7 +354,7 @@ export default function NeuroPulseAppPage() {
                 NeuroPulseAI is an Android companion application for the NeuroPulseAI compact wireless single-channel surface EMG system. It connects to the device through a local Wi-Fi connection and converts incoming muscle-activity signals into an understandable live visual experience.
               </p>
               <p className="mt-4">
-                Version 2.2 includes muscle control games, improved muscle activity visualization, and a 1 min report flow for quick session summaries.
+                Version 2.3 includes muscle control games, improved muscle activity visualization, and a 1 min report flow for quick session summaries.
               </p>
               <p className="mt-4">This download page is fully static. It does not require Supabase or any database to serve the APK.</p>
               <div className="mt-8 rounded-xl border border-orange-200 bg-[#FFF8E8] p-5">
