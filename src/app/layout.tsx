@@ -13,14 +13,15 @@ export const metadata: Metadata = {
     template: "%s | Debuggers Squad",
   },
   description:
-    "Debuggers Squad is a Udyam/MSME registered micro enterprise from India founded by Aditya Kumar Singh, with Prakriti Jaiswal as co-founder, building affordable healthtech, neurotechnology, embedded electronics, AI-enabled healthcare software, and rehabilitation-feedback innovations including NeuroPulseAI.",
+    "Debuggers Squad Innovations LLP is an incorporated Indian innovation venture founded by Aditya Kumar Singh, with Prakriti Jaiswal as co-founder, building affordable healthtech, neurotechnology, embedded electronics, AI-enabled healthcare software, and rehabilitation-feedback innovations including NeuroPulseAI.",
   keywords: [
     "Debuggers Squad",
     "NeuroPulseAI",
     "Aditya Kumar Singh",
     "Prakriti Jaiswal",
     "IIT Guwahati",
-    "Udyam MSME registered micro enterprise",
+    "Debuggers Squad Innovations LLP",
+    "LLPIN ADB-9474",
     "healthtech India",
     "neurotechnology India",
     "EMG rehabilitation feedback prototype",
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Debuggers Squad | NeuroPulseAI, Healthtech & Neurotechnology",
     description:
-      "Udyam/MSME registered Indian micro enterprise building affordable healthtech, neurotechnology, embedded electronics, AI-enabled healthcare software, and NeuroPulseAI rehabilitation-feedback innovation.",
+      "Debuggers Squad Innovations LLP is an incorporated Indian innovation venture building affordable healthtech, neurotechnology, embedded electronics, AI-enabled healthcare software, and NeuroPulseAI rehabilitation-feedback innovation.",
     url: "https://www.debuggerssquad.com",
     siteName: "Debuggers Squad",
     images: [
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Debuggers Squad | NeuroPulseAI",
     description:
-      "Indian healthtech and neurotechnology micro enterprise behind NeuroPulseAI.",
+      "Indian incorporated healthtech and neurotechnology venture behind NeuroPulseAI.",
     images: ["/images/neuropulseai/gallery/debuggers-squad-logo.jpeg"],
   },
 };
@@ -60,8 +61,11 @@ export const metadata: Metadata = {
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Debuggers Squad",
-  alternateName: "Debuggers Squad Trust & Legal Status",
+  name: "Debuggers Squad Innovations LLP",
+  alternateName: "Debuggers Squad",
+  legalName: "Debuggers Squad Innovations LLP",
+  identifier: "LLPIN: ADB-9474",
+  foundingDate: "2026-09-05",
   url: "https://www.debuggerssquad.com",
   logo: "https://www.debuggerssquad.com/images/neuropulseai/gallery/debuggers-squad-logo.jpeg",
   email: "debuggerssquad@gmail.com",
@@ -81,7 +85,16 @@ const organizationJsonLd = {
     },
   ],
   description:
-    "Debuggers Squad is a Udyam/MSME registered micro enterprise from India focused on affordable healthtech, neurotechnology, embedded electronics, AI-enabled healthcare software, and rehabilitation-feedback innovation.",
+    "Debuggers Squad Innovations LLP is an incorporated Indian innovation venture focused on affordable healthtech, neurotechnology, embedded electronics, AI-enabled healthcare software, and rehabilitation-feedback innovation.",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress:
+      "DY K BHAGAT UG4 VINAYAK, CENTRAL PLAZA COOPER ROAD, M G Marg, Civil Lines Police Station",
+    addressLocality: "Allahabad",
+    addressRegion: "Uttar Pradesh",
+    postalCode: "211001",
+    addressCountry: "IN",
+  },
   knowsAbout: [
     "NeuroPulseAI",
     "healthtech",

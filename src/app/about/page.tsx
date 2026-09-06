@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "About Debuggers Squad - Trust, Legal Status & Founders",
   description:
-    "Debuggers Squad is a Udyam/MSME registered micro enterprise from India founded by Aditya Kumar Singh, student at IIT Guwahati, with Prakriti Jaiswal as co-founder. Learn about NeuroPulseAI, trademark and copyright application status, Evolothon recognition, and the company's healthtech and neurotechnology roadmap.",
+    "Debuggers Squad Innovations LLP is an incorporated Indian innovation venture founded by Aditya Kumar Singh, student at IIT Guwahati, with Prakriti Jaiswal as co-founder. Learn about NeuroPulseAI, LLPIN ADB-9474, trademark and copyright application status, Evolothon recognition, and the company's healthtech and neurotechnology roadmap.",
   alternates: {
     canonical: "https://www.debuggerssquad.com/about",
   },
@@ -55,7 +55,9 @@ const founders = [
 ];
 
 const legalStatusItems = [
-  "Udyam/MSME registered micro enterprise",
+  "Debuggers Squad Innovations LLP incorporated on September 5, 2026",
+  "LLP Identification Number (LLPIN): ADB-9474",
+  "Registered office: DY K BHAGAT UG4 VINAYAK, CENTRAL PLAZA COOPER ROAD, M G Marg, Civil Lines Police Station, Allahabad, Uttar Pradesh 211001",
   "Debuggers Squad trademark applications filed under Classes 5, 9, 10, and 42",
   "Copyright application filed for the Debuggers Squad logo/artistic work",
   "NeuroPulseAI working MVP/prototype developed",
@@ -123,13 +125,14 @@ export default function AboutPage() {
               Trust & Legal Status
             </p>
             <h2 className="mt-4 text-4xl font-black tracking-[-0.035em] sm:text-5xl">
-              Registered innovation venture from India
+              Incorporated innovation venture from India
             </h2>
             <p className="mt-5 text-lg leading-8 text-[#66598a]">
-              Debuggers Squad&trade; is a Udyam/MSME registered micro enterprise
-              founded by Aditya Kumar Singh, with Prakriti Jaiswal as co-founder,
-              focused on affordable healthtech, neurotechnology, embedded
-              electronics, AI-enabled healthcare software, and
+              Debuggers Squad Innovations LLP is incorporated under the Limited
+              Liability Partnership Act, 2008 with LLPIN ADB-9474. The venture
+              was founded by Aditya Kumar Singh, with Prakriti Jaiswal as
+              co-founder, and focuses on affordable healthtech, neurotechnology,
+              embedded electronics, AI-enabled healthcare software, and
               rehabilitation-feedback innovation from India.
             </p>
             <p className="mt-5 text-lg leading-8 text-[#66598a]">

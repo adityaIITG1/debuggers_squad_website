@@ -118,8 +118,10 @@ export function Footer() {
 
         <div className="mt-10 flex flex-col gap-3 border-t border-[#d8cef3] pt-7 text-xs font-medium text-[#766a98] sm:flex-row sm:items-center sm:justify-between">
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
-            <span>&copy; {new Date().getFullYear()} Debuggers Squad&trade;.</span>
-            <span>MSME Registered</span>
+            <span>&copy; {new Date().getFullYear()} Debuggers Squad Innovations LLP.</span>
+            <span>LLPIN: ADB-9474</span>
+            <span aria-hidden="true">|</span>
+            <span>Incorporated September 5, 2026</span>
             <span aria-hidden="true">|</span>
             <span>Trademark Applied</span>
             <span aria-hidden="true">|</span>

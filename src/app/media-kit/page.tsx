@@ -129,9 +129,10 @@ export default function MediaKitPage() {
               <span className="block text-[#673de6]">built for India.</span>
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-[#66598a] sm:mt-7 sm:text-lg sm:leading-8">
-              Debuggers Squad develops practical EMG, EOG, IoT, and assistive
-              technology products that move advanced learning from expensive
-              laboratories into classrooms, project teams, and real-world innovation.
+              Debuggers Squad Innovations LLP develops practical EMG, EOG, IoT,
+              and assistive technology products that move advanced learning from
+              expensive laboratories into classrooms, project teams, and
+              real-world innovation.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a
