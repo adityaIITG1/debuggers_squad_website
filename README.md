@@ -84,5 +84,33 @@ This is the official e-commerce and product showcase platform for Debuggers Squa
    Once deployed, go to the project settings in Vercel -> Domains.
    Add `www.debuggerssquad.com` and configure your DNS settings as instructed by Vercel.
 
+## Supabase Free plan daily database check
+
+`vercel.json` schedules `/api/cron/supabase-keepalive` once daily at 04:00 UTC
+(09:30 IST; Vercel Hobby may run it later within that hour). It reads at most one
+`app_releases` ID without returning any records, and retries temporary failures.
+It does not need visitors, a signed-in user, or a running local computer.
+
+To activate it:
+
+1. Generate a secret with `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"`.
+2. Add it as `CRON_SECRET` in your Vercel project's **Production** environment
+   variables. Keep it private. Confirm `NEXT_PUBLIC_SUPABASE_URL` and
+   `NEXT_PUBLIC_SUPABASE_ANON_KEY` are also configured.
+3. Deploy these changes to **Production**. Preview deployments do not run cron jobs.
+4. Open Vercel **Settings > Cron Jobs**, confirm the daily job is enabled, run it
+   manually, and check the function logs for HTTP 200. Missing configuration returns
+   503, incorrect authorization returns 401, and database failures return 502.
+5. Check the execution logs after the next scheduled run. If Supabase is already
+   paused, restore it in the Supabase dashboard first; this job cannot unpause it.
+
+This is a best-effort Free plan workaround, not a guarantee against pausing.
+Supabase decides what qualifies as sufficient activity. Keep watching its warning
+emails and cron failures.
+
+References: [Vercel cron setup](https://vercel.com/docs/cron-jobs/quickstart),
+[cron authentication and limits](https://vercel.com/docs/cron-jobs/manage-cron-jobs),
+[Supabase pausing policy](https://supabase.com/docs/guides/platform/free-project-pausing).
+
 ## Important Note on Disclaimers
 This project contains medical and legal disclaimers heavily integrated into the checkout flow and footer. NeuroPulseAI is sold as an educational prototype. Ensure these disclaimers remain intact to avoid legal liabilities.
