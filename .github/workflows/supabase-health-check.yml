@@ -1,0 +1,35 @@
+name: Supabase database health check
+
+on:
+  schedule:
+    # Daily at 09:47 IST (04:17 UTC).
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  database-read:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      SUPABASE_URL: https://cqtyarobpzekittolxbu.supabase.co
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+    steps:
+      - name: Check public products database access
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$SUPABASE_ANON_KEY" ]]; then
+            echo '::error::Add the SUPABASE_ANON_KEY repository Actions secret (public anon or publishable key).'
+            exit 1
+          fi
+          # A real, read-only database query; response data is never logged.
+          curl --fail --silent --show-error \
+            --connect-timeout 10 --max-time 30 \
+            --retry 2 --retry-delay 5 --retry-max-time 100 \
+            --header "apikey: $SUPABASE_ANON_KEY" \
+            --header 'Accept: application/json' \
+            --output /dev/null \
+            "$SUPABASE_URL/rest/v1/products?select=id&limit=1"
+          echo 'Supabase products database read succeeded.'
