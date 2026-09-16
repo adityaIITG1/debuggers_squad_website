@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { StartupRecognition } from "@/components/StartupRecognition";
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
@@ -55,6 +56,7 @@ const founders = [
 ];
 
 const legalStatusItems = [
+  "DPIIT-recognised startup: Certificate DIPP282825, issued September 14, 2026",
   "Debuggers Squad Innovations LLP incorporated on September 5, 2026",
   "LLP Identification Number (LLPIN): ADB-9474",
   "Registered office: DY K BHAGAT UG4 VINAYAK, CENTRAL PLAZA COOPER ROAD, M G Marg, Civil Lines Police Station, Allahabad, Uttar Pradesh 211001",
@@ -84,6 +86,8 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
+
+      <StartupRecognition />
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
         <div className="grid gap-5 md:grid-cols-3">

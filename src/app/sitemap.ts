@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     ["", "weekly", 1],
     ["/about", "monthly", 0.9],
+    ["/startup-recognition", "yearly", 0.8],
     ["/product", "weekly", 0.9],
     ["/paratalk", "monthly", 0.8],
     ["/demo", "monthly", 0.7],

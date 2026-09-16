@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { startupRecognition } from "@/lib/startup-recognition";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -13,9 +14,11 @@ export const metadata: Metadata = {
     template: "%s | Debuggers Squad",
   },
   description:
-    "Debuggers Squad Innovations LLP is an incorporated Indian innovation venture founded by Aditya Kumar Singh, with Prakriti Jaiswal as co-founder, building affordable healthtech, neurotechnology, embedded electronics, AI-enabled healthcare software, and rehabilitation-feedback innovations including NeuroPulseAI.",
+    "Debuggers Squad Innovations LLP is a DPIIT-recognised Indian startup (DIPP282825) building NeuroPulseAI, affordable healthtech and neurotechnology.",
   keywords: [
     "Debuggers Squad",
+    "DPIIT recognised startup",
+    "DIPP282825",
     "NeuroPulseAI",
     "Aditya Kumar Singh",
     "Prakriti Jaiswal",
@@ -61,10 +64,14 @@ export const metadata: Metadata = {
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://www.debuggerssquad.com/#organization",
   name: "Debuggers Squad Innovations LLP",
   alternateName: "Debuggers Squad",
   legalName: "Debuggers Squad Innovations LLP",
-  identifier: "LLPIN: ADB-9474",
+  identifier: [
+    { "@type": "PropertyValue", propertyID: "LLPIN", value: "ADB-9474" },
+    { "@type": "PropertyValue", propertyID: "DPIIT startup recognition certificate", value: startupRecognition.number, url: `https://www.debuggerssquad.com${startupRecognition.page}` },
+  ],
   foundingDate: "2026-09-05",
   url: "https://www.debuggerssquad.com",
   logo: "https://www.debuggerssquad.com/images/neuropulseai/gallery/debuggers-squad-logo.jpeg",

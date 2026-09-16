@@ -17,6 +17,7 @@ const footerGroups = [
     title: "Company",
     links: [
       ["/about", "About us"],
+      ["/startup-recognition", "DPIIT startup recognition"],
       ["/media-kit", "Investor & media kit"],
       ["/contact", "Contact"],
     ],

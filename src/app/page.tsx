@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { StartupRecognition } from "@/components/StartupRecognition";
 import Link from "next/link";
 import {
   Activity,
@@ -232,6 +233,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <StartupRecognition />
 
       <section id="proof-trust" className="border-y border-[#ded5f5] bg-[#211449] py-16 text-white lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
