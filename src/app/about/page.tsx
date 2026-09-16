@@ -18,9 +18,9 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "About Debuggers Squad - Trust, Legal Status & Founders",
+  title: "Our Story: From Student Innovation to Recognised Startup",
   description:
-    "Debuggers Squad Innovations LLP is an incorporated Indian innovation venture founded by Aditya Kumar Singh, student at IIT Guwahati, with Prakriti Jaiswal as co-founder. Learn about NeuroPulseAI, LLPIN ADB-9474, trademark and copyright application status, Evolothon recognition, and the company's healthtech and neurotechnology roadmap.",
+    "Discover how Debuggers Squad grew from a student-led innovation team into Debuggers Squad Innovations LLP, a DPIIT-recognised startup in healthcare, AI and electronics.",
   alternates: {
     canonical: "https://www.debuggerssquad.com/about",
   },
@@ -76,13 +76,23 @@ export default function AboutPage() {
             Our story
           </p>
           <h1 className="mt-5 text-[40px] font-black leading-[1.06] tracking-[-0.045em] sm:text-6xl">
-            We build technology
-            <span className="block text-[#673de6]">with a human purpose.</span>
+            From student innovation
+            <span className="block text-[#673de6]">to a recognised startup.</span>
           </h1>
           <p className="mx-auto mt-7 max-w-3xl text-lg leading-8 text-[#66598a]">
-            Debuggers Squad is an innovation team creating affordable, practical,
-            human-centered solutions across healthcare learning, neuroscience,
-            education, IoT, and assistive technology.
+            <strong>DEBUGGERS SQUAD™</strong> began as a <strong>student-led
+            innovation team</strong>, driven by the vision of transforming
+            innovative ideas into practical, technology-driven solutions. With
+            continuous development, research, prototyping, and recognition, the
+            initiative has now evolved into a formally recognised startup,
+            <strong> DEBUGGERS SQUAD INNOVATIONS LLP</strong>.
+          </p>
+          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-[#66598a]">
+            Today, <strong>DEBUGGERS SQUAD INNOVATIONS LLP</strong> represents the
+            next stage of this student innovation journey, focused on developing
+            impactful, affordable, and scalable technology solutions across
+            healthcare, artificial intelligence, electronics, and emerging
+            technologies.
           </p>
         </div>
       </section>
