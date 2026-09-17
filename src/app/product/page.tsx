@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo/metadata";
 import Image from "next/image";
 import {
   Activity,
@@ -17,11 +18,17 @@ import { cn } from "@/lib/utils";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { ProductFaq } from "@/components/commerce/ProductFaq";
 
-export const metadata: Metadata = {
+export const revalidate = 300;
+
+const fallbackMetadata: Metadata = {
   title: "Buy NeuroPulseAI Single-Channel EMG Kit | Debuggers Squad",
   description:
     "Order the NeuroPulseAI single-channel EMG education and research kit for ₹4,999 with secure Razorpay checkout and delivery across India.",
 };
+
+export function generateMetadata() {
+  return seoMetadata("/product", fallbackMetadata);
+}
 
 const includedItems = [
   "NeuroPulseAI single-channel EMG device",

@@ -113,4 +113,7 @@ References: [Vercel cron setup](https://vercel.com/docs/cron-jobs/quickstart),
 [Supabase pausing policy](https://supabase.com/docs/guides/platform/free-project-pausing).
 
 ## Important Note on Disclaimers
+
+For hourly SEO automation, automatic metadata publishing, setup and rollback, see
+[SEO_AGENT.md](SEO_AGENT.md).
 This project contains medical and legal disclaimers heavily integrated into the checkout flow and footer. NeuroPulseAI is sold as an educational prototype. Ensure these disclaimers remain intact to avoid legal liabilities.

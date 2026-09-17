@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { seoMetadata } from "@/lib/seo/metadata";
+
 import { StartupRecognition } from "@/components/StartupRecognition";
 import Link from "next/link";
 import {
@@ -29,6 +31,15 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { NEUROPULSE_PRODUCT } from "@/lib/product";
+
+export const revalidate = 300;
+
+export function generateMetadata() {
+  return seoMetadata("/", {
+    title: { absolute: "Debuggers Squad | NeuroPulseAI, Healthtech & Neurotechnology" },
+    description: "Debuggers Squad Innovations LLP is a DPIIT-recognised Indian startup (DIPP282825) building NeuroPulseAI, affordable healthtech and neurotechnology.",
+  });
+}
 
 const benefits = [
   {

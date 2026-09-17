@@ -2,6 +2,7 @@ import Image from "next/image";
 import { StartupRecognition } from "@/components/StartupRecognition";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo/metadata";
 import {
   ArrowRight,
   BrainCircuit,
@@ -17,7 +18,9 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const revalidate = 300;
+
+const fallbackMetadata: Metadata = {
   title: "Our Story: From Student Innovation to Recognised Startup",
   description:
     "Discover how Debuggers Squad grew from a student-led innovation team into Debuggers Squad Innovations LLP, a DPIIT-recognised startup in healthcare, AI and electronics.",
@@ -25,6 +28,10 @@ export const metadata: Metadata = {
     canonical: "https://www.debuggerssquad.com/about",
   },
 };
+
+export function generateMetadata() {
+  return seoMetadata("/about", fallbackMetadata);
+}
 
 const founders = [
   {

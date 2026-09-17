@@ -1,0 +1,27 @@
+name: Debuggers Squad SEO agent
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+permissions: {}
+concurrency:
+  group: seo-agent
+  cancel-in-progress: false
+jobs:
+  optimize:
+    # Private repos must first confirm that paid Actions overages are blocked.
+    if: vars.SEO_AGENT_ENABLED == 'true' && (github.event.repository.private == false || vars.SEO_FREE_RUNNER_CONFIRMED == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Run hosted SEO agent
+        env:
+          SEO_AGENT_SECRET: ${{ secrets.SEO_AGENT_SECRET }}
+        run: |
+          if [ -z "$SEO_AGENT_SECRET" ]; then
+            echo 'Configure the SEO_AGENT_SECRET repository secret.'
+            exit 1
+          fi
+          curl --fail-with-body --silent --show-error --max-time 75 \
+            --header "Authorization: Bearer $SEO_AGENT_SECRET" \
+            'https://www.debuggerssquad.com/api/cron/seo-agent'

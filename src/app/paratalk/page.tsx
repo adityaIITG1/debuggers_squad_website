@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { seoMetadata } from "@/lib/seo/metadata";
 import Image from "next/image";
 import {
   AlertTriangle,
@@ -23,11 +24,17 @@ import { cn } from "@/lib/utils";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { ProductFaq } from "@/components/commerce/ProductFaq";
 
-export const metadata: Metadata = {
+export const revalidate = 300;
+
+const fallbackMetadata: Metadata = {
   title: "ParaTalk Eye-Blink Communication & Control Kit | Debuggers Squad",
   description:
     "ParaTalk is an EOG-based eye-blink communication and computer-control kit for accessible communication, games, learning, coding, and digital participation.",
 };
+
+export function generateMetadata() {
+  return seoMetadata("/paratalk", fallbackMetadata);
+}
 
 const capabilities = [
   {
