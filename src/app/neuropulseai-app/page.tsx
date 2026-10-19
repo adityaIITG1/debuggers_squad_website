@@ -25,10 +25,10 @@ const appPageUrl = 'https://www.debuggerssquad.com/neuropulseai-app';
 
 const release = {
   versionName: '2.4.0',
-  fileSizeBytes: 47940821,
+  fileSizeBytes: 47938970,
   androidMinVersion: '8.0 (Oreo)',
-  releaseDate: '2026-10-15',
-  sha256Checksum: '81309D8A1FF3DE54682B89F58ED1A52049B061634CF1A0AE2B1B2D82CA63D187',
+  releaseDate: '2026-10-20',
+  sha256Checksum: 'FF007D5DEAB5FA0168B1D90DBD45CD2151B61318041CD59F3BFEF28B05B1F75A',
   highlights: ['Muscle control games', 'Muscle activity visualization', '1 min report'],
 };
 
