@@ -17,6 +17,7 @@ import { NEUROPULSE_PRODUCT } from "@/lib/product";
 import { cn } from "@/lib/utils";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { ProductFaq } from "@/components/commerce/ProductFaq";
+import { NeuroPulseFilm } from "@/components/product/NeuroPulseFilm";
 
 export const revalidate = 300;
 
@@ -69,7 +70,7 @@ export default function ProductPage() {
                 src="/images/neuropulseai/neuropulseai-product-poster.jpeg"
                 alt="NeuroPulseAI single-channel surface EMG device with app-connected biofeedback"
                 fill
-                priority
+                loading="eager"
                 sizes="(max-width: 1024px) 100vw, 55vw"
                 className="object-contain bg-white"
               />
@@ -168,45 +169,7 @@ export default function ProductPage() {
         </div>
       </section>
 
-      <section className="border-y border-[#D7E7F6] bg-[#F4F9FF] text-[#062B5B]">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#0077B6]">
-              Surface EMG technology
-            </p>
-            <h2 className="mt-3 text-3xl font-black sm:text-4xl">
-              See NeuroPulseAI in action
-            </h2>
-            <p className="mt-3 text-base leading-7 text-[#49647F]">
-              Your muscles generate signals. NeuroPulseAI makes them visible.
-            </p>
-          </div>
-          <div className="relative mx-auto mt-8 aspect-[850/478] w-full max-w-5xl overflow-hidden rounded-md border border-[#B9D8EE] bg-black shadow-xl">
-            <video
-              className="absolute left-1/2 top-1/2 h-[177.824%] w-[56.235%] -translate-x-1/2 -translate-y-1/2 -rotate-90 object-contain"
-              src="/videos/neuropulseai-promo.mp4"
-              aria-label="NeuroPulseAI surface EMG product demonstration"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-            />
-          </div>
-          <div className="mx-auto mt-6 grid max-w-5xl grid-cols-1 border-y border-[#B9D8EE] bg-white sm:grid-cols-3 sm:divide-x sm:divide-[#B9D8EE]">
-            {[
-              ["01", "Real-time muscle signals"],
-              ["02", "App-connected biofeedback"],
-              ["03", "Portable single-channel EMG"],
-            ].map(([number, label]) => (
-              <div key={number} className="flex items-center gap-3 px-5 py-4">
-                <span className="font-mono text-sm font-bold text-[#008ACB]">{number}</span>
-                <span className="text-sm font-bold text-[#173B5E]">{label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <NeuroPulseFilm />
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
