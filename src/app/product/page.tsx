@@ -63,53 +63,16 @@ export default function ProductPage() {
     <div className="min-h-screen bg-[#fbfaff] text-[#2f1c6a]">
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:py-16">
-          <div className="space-y-4">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm">
+          <div>
+            <div className="relative aspect-square overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm">
               <Image
                 src="/images/neuropulseai/neuropulseai-product-poster.jpeg"
-                alt="NeuroPulseAI product poster showing the single-channel surface EMG device, app dashboard, muscle control games, and reports"
+                alt="NeuroPulseAI single-channel surface EMG device with app-connected biofeedback"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 55vw"
                 className="object-contain bg-white"
               />
-            </div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-              {[
-                {
-                  src: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
-                  alt: "NeuroPulseAI wireless app connected device overview",
-                },
-                {
-                  src: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
-                  alt: "NeuroPulseAI kit box contents with quick-start guide and electrodes",
-                },
-                {
-                  src: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
-                  alt: "NeuroPulseAI wireless device and mobile app connectivity",
-                },
-                {
-                  src: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
-                  alt: "NeuroPulseAI wireless device specifications",
-                },
-                {
-                  src: "/images/neuropulseai/neuropulseai-product-poster.jpeg",
-                  alt: "NeuroPulseAI compact device with real muscle feedback",
-                },
-              ].map((image) => (
-                <div
-                  key={image.src}
-                  className="relative aspect-[4/3] overflow-hidden rounded-xl border border-slate-200 bg-slate-50"
-                >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    sizes="(max-width: 1024px) 33vw, 18vw"
-                    className="object-contain bg-white"
-                  />
-                </div>
-              ))}
             </div>
           </div>
 
