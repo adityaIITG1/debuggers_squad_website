@@ -168,6 +168,31 @@ export default function ProductPage() {
         </div>
       </section>
 
+      <section className="border-b border-slate-800 bg-slate-950 text-white">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-400">
+              Product film
+            </p>
+            <h2 className="mt-3 text-3xl font-black sm:text-4xl">
+              See NeuroPulseAI in action
+            </h2>
+          </div>
+          <video
+            className="mx-auto mt-8 aspect-[478/850] w-full max-w-sm bg-black shadow-2xl"
+            src="/videos/neuropulseai-promo.mp4"
+            poster="/images/neuropulseai/neuropulseai-product-poster.jpeg"
+            aria-label="NeuroPulseAI promotional video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            controls
+            preload="metadata"
+          />
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="rounded-3xl bg-slate-950 p-8 text-white">
